@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project/auth_page.dart';
+import 'package:project/pages/auth_page.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({Key? key}) : super(key: key);
