@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:project/home_page.dart';
 
 
 class AuthPageLogin extends StatelessWidget {
@@ -111,12 +112,20 @@ class AuthPageLogin extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   color: const Color(0xff2f4858),
                 ),
-                child: const Center(
-                  child: Text(
-                    "Masuk",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
+                child: Center(
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) {
+                        return const HomePage();
+                      }));
+                    },
+                    child: const Text(
+                      "Masuk",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
