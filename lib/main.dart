@@ -1,8 +1,23 @@
 import 'package:flutter/material.dart';
-import "./auth_page.dart";
+import 'onboarding.dart';
+void main() {
+  runApp(const MyApp());
+}
 
-void main() => runApp(const AuthPage());
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.amber,
+      ),
+      home:const  Onboarding(),
+    );
+  }
+}
 
 // import 'package:flutter/material.dart';
 
