@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project/pages/auth_page.dart';
+import './home_page.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({Key? key}) : super(key: key);
@@ -131,9 +131,9 @@ class _OnboardingState extends State<Onboarding> {
                               child: TextButton(
                                 onPressed: () {
                                   if (currentIndex == 2) {
-                                    Navigator.of(context).push(
+                                    Navigator.of(context).pushReplacement(
                                         MaterialPageRoute(builder: (context) {
-                                      return const AuthPage();
+                                      return const HomePage();
                                     }));
                                   }
                                   _controller.nextPage(

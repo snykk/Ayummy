@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:project/pages/home_page.dart';
+import './onboarding.dart';
 
 
 class AuthPageLogin extends StatelessWidget {
@@ -115,9 +115,9 @@ class AuthPageLogin extends StatelessWidget {
                 child: Center(
                   child: TextButton(
                     onPressed: () {
-                      Navigator.of(context).push(
+                      Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (context) {
-                        return const HomePage();
+                        return const Onboarding();
                       }));
                     },
                     child: const Text(
