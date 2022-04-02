@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
+import './onboarding.dart';
 
 
 class AuthPageRegister extends StatelessWidget {
@@ -198,12 +199,20 @@ class AuthPageRegister extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   color: const Color(0xff2f4858),
                 ),
-                child: const Center(
-                  child: Text(
-                    "Daftar",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
+                child: Center(
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) {
+                        return const Onboarding();
+                      }));
+                    },
+                    child: const Text(
+                      "Daftar",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
