@@ -21,70 +21,22 @@ class AuthPageLogin extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            TextField(
-              keyboardType: TextInputType.phone,
-              enableSuggestions: false,
-              autocorrect: false,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-              ],
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.symmetric(vertical: 0),
-                prefixIcon: const Icon(
-                  Icons.phone_outlined,
-                  color: Color(0xff626663),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(40.0),
-                ),
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color(0xff626663),
-                  ),
-                ),
-                enabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color(0xff626663),
-                  ),
-                ),
-                hintText: "No. Handphone",
-                hintStyle: const TextStyle(
-                  fontSize: 14,
-                ),
-              ),
+            customInput(
+              TextInputType.number,
+               "No Handphone",
+                false,
+                <TextInputFormatter>[
+                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                ],
             ),
             const SizedBox(
               height: 20,
             ),
-            TextField(
-              obscureText: true,
-              enableSuggestions: false,
-              autocorrect: false,
-
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.symmetric(vertical: 0),
-                prefixIcon: const Icon(
-                  Icons.lock_outlined,
-                  color: Color(0xff626663),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(40.0),
-                ),
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color(0xff626663),
-                  ),
-                ),
-                enabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color(0xff626663),
-                  ),
-                ),
-                hintText: "Masukkan Password",
-                hintStyle: const TextStyle(
-                  fontSize: 14,
-                ),
-              ),
+            customInput(
+              TextInputType.name,
+              "Masukkan Password",
+              true,
+              null
             ),
             const SizedBox(
               height: 15,
@@ -103,7 +55,10 @@ class AuthPageLogin extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                print("yuhu 'masuk' diclick");
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) {
+                  return const Onboarding();
+                }));
               },
               child: Ink(
                 width: double.infinity,
@@ -112,20 +67,12 @@ class AuthPageLogin extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   color: const Color(0xff2f4858),
                 ),
-                child: Center(
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) {
-                        return const Onboarding();
-                      }));
-                    },
-                    child: const Text(
-                      "Masuk",
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                      ),
+                child: const Center(
+                  child: Text(
+                    "Masuk",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
                     ),
                   ),
                 ),
@@ -172,7 +119,7 @@ class AuthPageLogin extends StatelessWidget {
             Card(
               child: InkWell(
                 onTap: () {
-                  print("yuhu 'log in with Facebook diclick");
+                  print("yuhu 'log in with google diclick");
                 },
                 child: Ink(
                   width: double.infinity,
@@ -202,9 +149,6 @@ class AuthPageLogin extends StatelessWidget {
             const SizedBox(
               height: 40,
             ),
-            // Text(
-            //   "Test",
-            // )
             RichText(
               text: const TextSpan(
                 text: "Belum punya akun? ",
@@ -224,6 +168,48 @@ class AuthPageLogin extends StatelessWidget {
               )
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  TextField customInput
+  (
+    TextInputType _keyboardType,
+    String _text, 
+    bool _obscureText,
+    List<TextInputFormatter>? _inputFormatters, 
+  ) 
+  {
+    return TextField(
+      keyboardType: _keyboardType,
+      obscureText: _obscureText,
+      enableSuggestions: false,
+      autocorrect: false,
+      inputFormatters: _inputFormatters,
+      
+      decoration: InputDecoration(
+        contentPadding: const EdgeInsets.symmetric(vertical: 0),
+        prefixIcon: const Icon(
+          Icons.phone_outlined,
+          color: Color(0xff626663),
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(40.0),
+        ),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Color(0xff626663),
+          ),
+        ),
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Color(0xff626663),
+          ),
+        ),
+        hintText: _text,
+        hintStyle: const TextStyle(
+          fontSize: 14,
         ),
       ),
     );

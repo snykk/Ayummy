@@ -35,6 +35,7 @@ dependencies:
   cupertino_icons: ^1.0.2
 
   introduction_screen: ^3.0.2
+  from_css_color: ^2.0.0
 
 dev_dependencies:
   flutter_test:

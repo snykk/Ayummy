@@ -21,169 +21,49 @@ class AuthPageRegister extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            TextField(
-              keyboardType: TextInputType.name,
-              enableSuggestions: false,
-              autocorrect: false,
-
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.symmetric(vertical: 0),
-                prefixIcon: const Icon(
-                  Icons.person_outline,
-                  color: Color(0xff626663),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(40.0),
-                ),
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color(0xff626663),
-                  ),
-                ),
-                enabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color(0xff626663),
-                  ),
-                ),
-                hintText: "Nama Lengkap",
-                hintStyle: const TextStyle(
-                  fontSize: 14,
-                ),
-              ),
+            customInput(
+              TextInputType.name,
+              "Nama Lengkap",
+              false,
+              null
             ),
             const SizedBox(
               height: 20,
             ),
-            TextField(
-              keyboardType: TextInputType.emailAddress,
-              enableSuggestions: false,
-              autocorrect: false,
-
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.symmetric(vertical: 0),
-                prefixIcon: const Icon(
-                  Icons.email_outlined,
-                  color: Color(0xff626663),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(40.0),
-                ),
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color(0xff626663),
-                  ),
-                ),
-                enabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color(0xff626663),
-                  ),
-                ),
-                hintText: "Email",
-                hintStyle: const TextStyle(
-                  fontSize: 14,
-                ),
-              ),
+            customInput(
+              TextInputType.emailAddress,
+              "Masukkan Email",
+              false,
+              null
             ),
             const SizedBox(
               height: 20,
             ),
-            TextField(
-              keyboardType: TextInputType.phone,
-              enableSuggestions: false,
-              autocorrect: false,
-              inputFormatters: <TextInputFormatter>[
+            customInput(
+              TextInputType.number,
+              "No Handphone",
+              false,
+              <TextInputFormatter>[
                 FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
               ],
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.symmetric(vertical: 0),
-                prefixIcon: const Icon(
-                  Icons.phone_outlined,
-                  color: Color(0xff626663),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(40.0),
-                ),
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color(0xff626663),
-                  ),
-                ),
-                enabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color(0xff626663),
-                  ),
-                ),
-                hintText: "No. Handphone",
-                hintStyle: const TextStyle(
-                  fontSize: 14,
-                ),
-              ),
             ),
             const SizedBox(
               height: 20,
             ),
-            TextField(
-              obscureText: true,
-              enableSuggestions: false,
-              autocorrect: false,
-
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.symmetric(vertical: 0),
-                prefixIcon: const Icon(
-                  Icons.lock_outlined,
-                  color: Color(0xff626663),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(40.0),
-                ),
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color(0xff626663),
-                  ),
-                ),
-                enabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color(0xff626663),
-                  ),
-                ),
-                hintText: "Masukkan Password",
-                hintStyle: const TextStyle(
-                  fontSize: 14,
-                ),
-              ),
+            customInput(
+              TextInputType.name,
+              "Masukkan Password",
+              true,
+              null
             ),
             const SizedBox(
               height: 20,
             ),
-            TextField(
-              obscureText: true,
-              enableSuggestions: false,
-              autocorrect: false,
-
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.symmetric(vertical: 0),
-                prefixIcon: const Icon(
-                  Icons.lock_outlined,
-                  color: Color(0xff626663),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(40.0),
-                ),
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color(0xff626663),
-                  ),
-                ),
-                enabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color(0xff626663),
-                  ),
-                ),
-                hintText: "Masukkan Ulang Password",
-                hintStyle: const TextStyle(
-                  fontSize: 14,
-                ),
-              ),
+            customInput(
+              TextInputType.name,
+              "Masukkan Ulang Password",
+              true,
+              null
             ),
             const SizedBox(
               height: 20,
@@ -240,6 +120,48 @@ class AuthPageRegister extends StatelessWidget {
               )
             ),
           ],
+        ),
+      ),
+    );
+  }
+  
+  TextField customInput
+  (
+    TextInputType _keyboardType,
+    String _text, 
+    bool _obscureText,
+    List<TextInputFormatter>? _inputFormatters, 
+  ) 
+  {
+    return TextField(
+      keyboardType: _keyboardType,
+      obscureText: _obscureText,
+      enableSuggestions: false,
+      autocorrect: false,
+      inputFormatters: _inputFormatters,
+      
+      decoration: InputDecoration(
+        contentPadding: const EdgeInsets.symmetric(vertical: 0),
+        prefixIcon: const Icon(
+          Icons.phone_outlined,
+          color: Color(0xff626663),
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(40.0),
+        ),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Color(0xff626663),
+          ),
+        ),
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Color(0xff626663),
+          ),
+        ),
+        hintText: _text,
+        hintStyle: const TextStyle(
+          fontSize: 14,
         ),
       ),
     );

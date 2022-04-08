@@ -89,70 +89,67 @@ class _OnboardingState extends State<Onboarding> {
                     child: Padding(
                       padding: const EdgeInsets.only(
                           top: 50, right: 50, bottom: 40, left: 50),
-                      child: SizedBox(
-                        width: double.infinity,
-                        height: double.infinity,
-                        child: Column(
-                          children: [
-                            Text(
-                              data[i]['title'].toString(),
-                              style: const TextStyle(
-                                fontSize: 27,
-                                fontWeight: FontWeight.bold,
+                      child: Column(
+                        children: [
+                          Text(
+                            data[i]['title'].toString(),
+                            style: const TextStyle(
+                              fontSize: 27,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Text(
+                            data[i]['subtitle'].toString(),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(
+                            height: 40,
+                          ),
+                          SizedBox(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: List.generate(3,
+                                  (index) => buildIndicator(index, context)),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          Container(
+                            width: 250,
+                            height: 50,
+                            decoration: BoxDecoration(
+                                color: const Color(0xff2f4858),
+                                borderRadius: BorderRadius.circular(8)),
+                            child: TextButton(
+                              onPressed: () {
+                                if (currentIndex == 2) {
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(builder: (context) {
+                                    return const HomePage();
+                                  }));
+                                }
+                                _controller.nextPage(
+                                    duration:
+                                        const Duration(milliseconds: 500),
+                                    curve: Curves.bounceIn);
+                              },
+                              child: Text(
+                                currentIndex == 2
+                                    ? "Pesan Sekarang"
+                                    : "Selanjutnya",
+                                style: const TextStyle(
+                                    fontSize: 18, color: Colors.white),
                               ),
-                              textAlign: TextAlign.center,
                             ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Text(
-                              data[i]['subtitle'].toString(),
-                              textAlign: TextAlign.center,
-                            ),
-                            const SizedBox(
-                              height: 40,
-                            ),
-                            SizedBox(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: List.generate(3,
-                                    (index) => buildIndicator(index, context)),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            Container(
-                              width: 250,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                  color: const Color(0xff2f4858),
-                                  borderRadius: BorderRadius.circular(8)),
-                              child: TextButton(
-                                onPressed: () {
-                                  if (currentIndex == 2) {
-                                    Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute(builder: (context) {
-                                      return const HomePage();
-                                    }));
-                                  }
-                                  _controller.nextPage(
-                                      duration:
-                                          const Duration(milliseconds: 500),
-                                      curve: Curves.bounceIn);
-                                },
-                                child: Text(
-                                  currentIndex == 2
-                                      ? "Pesan Sekarang"
-                                      : "Selanjutnya",
-                                  style: const TextStyle(
-                                      fontSize: 18, color: Colors.white),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
+                          )
+                        ],
                       ),
+                      
                     ),
                   ),
                 ),
