@@ -25,7 +25,8 @@ class AuthPageRegister extends StatelessWidget {
               TextInputType.name,
               "Nama Lengkap",
               false,
-              null
+              null,
+              Icons.person_outline_rounded
             ),
             const SizedBox(
               height: 20,
@@ -34,7 +35,8 @@ class AuthPageRegister extends StatelessWidget {
               TextInputType.emailAddress,
               "Masukkan Email",
               false,
-              null
+              null,
+              Icons.email_outlined,
             ),
             const SizedBox(
               height: 20,
@@ -46,6 +48,7 @@ class AuthPageRegister extends StatelessWidget {
               <TextInputFormatter>[
                 FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
               ],
+              Icons.phone_outlined,
             ),
             const SizedBox(
               height: 20,
@@ -54,7 +57,8 @@ class AuthPageRegister extends StatelessWidget {
               TextInputType.name,
               "Masukkan Password",
               true,
-              null
+              null,
+              Icons.lock_outlined,
             ),
             const SizedBox(
               height: 20,
@@ -63,7 +67,8 @@ class AuthPageRegister extends StatelessWidget {
               TextInputType.name,
               "Masukkan Ulang Password",
               true,
-              null
+              null,
+              Icons.lock_outlined,
             ),
             const SizedBox(
               height: 20,
@@ -130,7 +135,8 @@ class AuthPageRegister extends StatelessWidget {
     TextInputType _keyboardType,
     String _text, 
     bool _obscureText,
-    List<TextInputFormatter>? _inputFormatters, 
+    List<TextInputFormatter>? _inputFormatters,
+    IconData _customIconData
   ) 
   {
     return TextField(
@@ -142,9 +148,9 @@ class AuthPageRegister extends StatelessWidget {
       
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(vertical: 0),
-        prefixIcon: const Icon(
-          Icons.phone_outlined,
-          color: Color(0xff626663),
+        prefixIcon: Icon(
+          _customIconData,
+          color: const Color(0xff626663),
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(40.0),

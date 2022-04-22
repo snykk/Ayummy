@@ -28,6 +28,8 @@ class AuthPageLogin extends StatelessWidget {
                 <TextInputFormatter>[
                   FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                 ],
+                Icons.phone_outlined,
+
             ),
             const SizedBox(
               height: 20,
@@ -36,7 +38,8 @@ class AuthPageLogin extends StatelessWidget {
               TextInputType.name,
               "Masukkan Password",
               true,
-              null
+              null,
+              Icons.lock_outlined
             ),
             const SizedBox(
               height: 15,
@@ -178,7 +181,8 @@ class AuthPageLogin extends StatelessWidget {
     TextInputType _keyboardType,
     String _text, 
     bool _obscureText,
-    List<TextInputFormatter>? _inputFormatters, 
+    List<TextInputFormatter>? _inputFormatters,
+    IconData _customIconData
   ) 
   {
     return TextField(
@@ -190,9 +194,9 @@ class AuthPageLogin extends StatelessWidget {
       
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(vertical: 0),
-        prefixIcon: const Icon(
-          Icons.phone_outlined,
-          color: Color(0xff626663),
+        prefixIcon: Icon(
+          _customIconData,
+          color: const Color(0xff626663),
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(40.0),
