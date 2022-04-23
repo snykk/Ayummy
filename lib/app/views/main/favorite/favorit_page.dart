@@ -21,6 +21,8 @@ class _FavoritePageState extends State<FavoritePage> {
       ),
       children: const <Widget>[
         ProductCard(),
+        ProductCard(),
+        ProductCard(),
       ],
     );
   }

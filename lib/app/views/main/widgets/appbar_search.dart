@@ -1,101 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:project/app/views/main/widgets/appbar_search.dart';
-import './home/home_page.dart';
-import './favorite/favorit_page.dart';
-import './chat/chat_page.dart';
-import './chart/chart_page.dart';
-import './profile/profile_page.dart';
-import 'chart/widgets/appbar_chart.dart';
 
-class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+class AppBarSearch extends StatelessWidget implements PreferredSizeWidget {
+  const AppBarSearch({Key? key, this.currentIndex})
+      : preferredSize = const Size.fromHeight(240),
+        super(key: key);
+
+  // ignore: prefer_typing_uninitialized_variables
+  final currentIndex;
 
   @override
-  State<MainPage> createState() => _MainPageState();
-}
-
-class _MainPageState extends State<MainPage> {
-  int _currentIndex = 0;
-  static const List<Widget> _pageOptions = <Widget>[
-    HomePage(),
-    FavoritePage(),
-    ChatPage(),
-    ChartPage(),
-    ProfilePage(),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    // ignore: prefer_final_fields
-    List _appbarOptions = [
-       const AppBarSearch(currentIndex: 0,),
-       const AppBarSearch(currentIndex: 1,),
-       null,
-       const AppBarChart(),
-       null,
-    ];
-    return Scaffold(
-      appBar: _appbarOptions[_currentIndex],
-      body: _pageOptions[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        items: [
-          customBottomNavBar(Icons.home_outlined),
-          customBottomNavBar(Icons.favorite_outline),
-          customBottomNavBar(Icons.chat_bubble_outline_rounded),
-          customBottomNavBar(Icons.shopping_cart_outlined),
-          customBottomNavBar(Icons.person_outline_rounded),
-        ],
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-      ),
-    );
-  }
-
-  BottomNavigationBarItem customBottomNavBar(IconData custom) {
-    return BottomNavigationBarItem(
-      icon: Icon(
-        custom,
-        color: Colors.grey,
-      ),
-      label: "",
-      activeIcon: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 0),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 5),
-              child: Icon(
-                custom,
-                color: const Color(0xffff8a00),
-              ),
-            ),
-            Container(
-              width: 25,
-              height: 3,
-              decoration: BoxDecoration(
-                  color: const Color(0xffff8a00),
-                  borderRadius: BorderRadius.circular(5)),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class AppBarSearchd extends StatelessWidget implements PreferredSizeWidget {
-  const AppBarSearchd({
-    Key? key,
-    required int currentIndex,
-  }) : _currentIndex = currentIndex, super(key: key);
-
-  final int _currentIndex;
-
-  
+  final Size preferredSize;
 
   @override
   Widget build(BuildContext context) {
@@ -103,6 +17,11 @@ class AppBarSearchd extends StatelessWidget implements PreferredSizeWidget {
       flexibleSpace: Stack(
         fit: StackFit.loose,
         children: [
+          Container(
+            width: double.infinity,
+            height: double.infinity,
+            color: Colors.white,
+          ),
           Positioned.fill(
             child: Align(
               alignment: Alignment.topCenter,
@@ -127,7 +46,7 @@ class AppBarSearchd extends StatelessWidget implements PreferredSizeWidget {
                             width: 150,
                             child: RichText(
                                 text: TextSpan(
-                              text: (_currentIndex == 1
+                              text: (currentIndex == 1
                                   ? "Favoritmu,"
                                   : "Selamat Datang,"),
                               style: const TextStyle(
@@ -259,10 +178,14 @@ class AppBarSearchd extends StatelessWidget implements PreferredSizeWidget {
           ),
         ],
       ),
+      bottom: const PreferredSize(
+        preferredSize: Size.fromHeight(190),
+        child: SizedBox(
+          height: 100,
+          width: double.infinity,
+        ),
+      ),
       elevation: 0,
     );
   }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(240);
 }
