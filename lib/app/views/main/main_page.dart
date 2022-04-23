@@ -3,9 +3,9 @@ import 'package:project/app/views/main/widgets/appbar_search.dart';
 import './home/home_page.dart';
 import './favorite/favorit_page.dart';
 import './chat/chat_page.dart';
-import './chart/chart_page.dart';
+import 'checkout/chart_page.dart';
 import './profile/profile_page.dart';
-import 'chart/widgets/appbar_chart.dart';
+import 'checkout/widgets/appbar_checkout.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -20,7 +20,7 @@ class _MainPageState extends State<MainPage> {
     HomePage(),
     FavoritePage(),
     ChatPage(),
-    ChartPage(),
+    CheckoutPage(),
     ProfilePage(),
   ];
 
@@ -31,7 +31,7 @@ class _MainPageState extends State<MainPage> {
        const AppBarSearch(currentIndex: 0,),
        const AppBarSearch(currentIndex: 1,),
        null,
-       const AppBarChart(),
+       const AppBarCheckout(),
        null,
     ];
     return Scaffold(
