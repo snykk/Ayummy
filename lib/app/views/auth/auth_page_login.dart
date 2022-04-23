@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import './onboarding.dart';
+import '../onboarding/onboarding.dart';
 
 
 class AuthPageLogin extends StatelessWidget {

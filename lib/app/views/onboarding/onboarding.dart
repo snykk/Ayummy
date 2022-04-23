@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './home_page.dart';
+import '../main/main_page.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({Key? key}) : super(key: key);
@@ -130,7 +130,7 @@ class _OnboardingState extends State<Onboarding> {
                                 if (currentIndex == 2) {
                                   Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(builder: (context) {
-                                    return const HomePage();
+                                    return const MainPage();
                                   }));
                                 }
                                 _controller.nextPage(
