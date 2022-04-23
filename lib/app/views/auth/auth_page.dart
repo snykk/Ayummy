@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'auth_page_login.dart';
-import 'auth_page_regsiter.dart';
+import 'login_section.dart';
+import 'register_section.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({Key? key}) : super(key: key);
@@ -63,8 +63,8 @@ class AuthPage extends StatelessWidget {
           ),
           body: const TabBarView(
             children: [
-              AuthPageLogin(),
-              AuthPageRegister(),
+              LoginSection(),
+              RegisterSection(),
               //
             ],
           ),

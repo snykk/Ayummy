@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import '../onboarding/onboarding.dart';
 
 
-class AuthPageRegister extends StatelessWidget {
-  const AuthPageRegister({
+class RegisterSection extends StatelessWidget {
+  const RegisterSection({
     Key? key,
   }) : super(key: key);
 

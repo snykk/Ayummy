@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import '../onboarding/onboarding.dart';
 
 
-class AuthPageLogin extends StatelessWidget {
-  const AuthPageLogin({
+class LoginSection extends StatelessWidget {
+  const LoginSection({
     Key? key,
   }) : super(key: key);
 
