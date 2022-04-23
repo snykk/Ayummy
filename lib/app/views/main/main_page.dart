@@ -3,7 +3,7 @@ import 'package:project/app/views/main/widgets/appbar_search.dart';
 import './home/home_page.dart';
 import './favorite/favorit_page.dart';
 import './chat/chat_page.dart';
-import 'checkout/chart_page.dart';
+import 'checkout/checkout_page.dart';
 import './profile/profile_page.dart';
 import 'checkout/widgets/appbar_checkout.dart';
 

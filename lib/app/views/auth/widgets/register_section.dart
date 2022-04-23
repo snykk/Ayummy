@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
-import '../onboarding/onboarding.dart';
+import 'package:project/app/views/auth/widgets/custom_input.dart';
+import '../../onboarding/onboarding.dart';
 
 
 class RegisterSection extends StatelessWidget {
@@ -21,54 +22,54 @@ class RegisterSection extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            customInput(
-              TextInputType.name,
-              "Nama Lengkap",
-              false,
-              null,
-              Icons.person_outline_rounded
+            const CustomInput(
+              keyboardType: TextInputType.name,
+              text: "Nama Lengkap",
+              obscureText: false,
+              inputFormatters: null,
+              customIconData: Icons.person_outline_rounded
             ),
             const SizedBox(
               height: 20,
             ),
-            customInput(
-              TextInputType.emailAddress,
-              "Masukkan Email",
-              false,
-              null,
-              Icons.email_outlined,
+            const CustomInput(
+              keyboardType: TextInputType.emailAddress,
+              text: "Masukkan Email",
+              obscureText: false,
+              inputFormatters: null,
+              customIconData: Icons.email_outlined
             ),
             const SizedBox(
               height: 20,
             ),
-            customInput(
-              TextInputType.number,
-              "No Handphone",
-              false,
-              <TextInputFormatter>[
-                FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+            CustomInput(
+              keyboardType: TextInputType.number,
+              text: "No Handphone",
+              obscureText: false,
+              inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
               ],
-              Icons.phone_outlined,
+              customIconData: Icons.phone_outlined
             ),
             const SizedBox(
               height: 20,
             ),
-            customInput(
-              TextInputType.name,
-              "Masukkan Password",
-              true,
-              null,
-              Icons.lock_outlined,
+            const CustomInput(
+              keyboardType: TextInputType.name,
+              text: "Masukkan Password",
+              obscureText: true,
+              inputFormatters: null,
+              customIconData: Icons.lock_outlined
             ),
             const SizedBox(
               height: 20,
             ),
-            customInput(
-              TextInputType.name,
-              "Masukkan Ulang Password",
-              true,
-              null,
-              Icons.lock_outlined,
+            const CustomInput(
+              keyboardType: TextInputType.name,
+              text: "Masukkan Ulang Password",
+              obscureText: true,
+              inputFormatters: null,
+              customIconData: Icons.lock_outlined
             ),
             const SizedBox(
               height: 20,
@@ -125,49 +126,6 @@ class RegisterSection extends StatelessWidget {
               )
             ),
           ],
-        ),
-      ),
-    );
-  }
-  
-  TextField customInput
-  (
-    TextInputType _keyboardType,
-    String _text, 
-    bool _obscureText,
-    List<TextInputFormatter>? _inputFormatters,
-    IconData _customIconData
-  ) 
-  {
-    return TextField(
-      keyboardType: _keyboardType,
-      obscureText: _obscureText,
-      enableSuggestions: false,
-      autocorrect: false,
-      inputFormatters: _inputFormatters,
-      
-      decoration: InputDecoration(
-        contentPadding: const EdgeInsets.symmetric(vertical: 0),
-        prefixIcon: Icon(
-          _customIconData,
-          color: const Color(0xff626663),
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(40.0),
-        ),
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Color(0xff626663),
-          ),
-        ),
-        enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Color(0xff626663),
-          ),
-        ),
-        hintText: _text,
-        hintStyle: const TextStyle(
-          fontSize: 14,
         ),
       ),
     );
