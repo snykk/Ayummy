@@ -1,47 +1,46 @@
 import 'package:flutter/material.dart';
-import './detail_menu_page.dart';
 
 class ProductCard extends StatelessWidget {
+  final String image;
+  final String food;
+  final String price;
   const ProductCard({
-    Key? key,
+    Key? key, required this.image, required this.food, required this.price,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-          return const DetailMenuPage();
-        }));
+        Navigator.pushNamed(context, '/detail');
       },
       child: Card(
         child: Container(
           width: 130,
           height: 160,
           decoration: BoxDecoration(
-            // border: Border.all(color: const Color.fromARGB(255, 248, 151, 24), width: 2),
             borderRadius: BorderRadius.circular(20),
           ),
           child: Column(
-            children: const [
+            children: [
               SizedBox(
                 width: double.infinity,
                 height: 100,
                 child: ClipRRect(
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(20),
                     topRight: Radius.circular(20),
                   ),
                   child: Image(
                     fit: BoxFit.fill,
-                    image: AssetImage("assets/makanan/ayam_bakar_rica.jpg"),
+                    image: AssetImage(image),
                   ),
                 ),
               ),
               Center(
                 child: Text(
-                  "Ayam bakar Rica-Rica",
-                  style: TextStyle(
+                  food,
+                  style: const TextStyle(
                     fontSize: 10,
                   ),
                 ),
@@ -49,8 +48,8 @@ class ProductCard extends StatelessWidget {
               ),
               Center(
                 child: Text(
-                  "Rp. 11,500",
-                  style: TextStyle(
+                  "Rp. $price",
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),

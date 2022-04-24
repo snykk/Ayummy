@@ -14,19 +14,22 @@ class CheckoutPage extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const CheckoutCard(),
+              const CheckoutCard(image: "assets/makanan/ayam_bakar_madu.jpg", food: "Ayam bakar madu", quantity: 2),
               const SizedBox(
                 height: 5,
               ),
-              const CheckoutCard(),
+              const CheckoutCard(image: "assets/makanan/ayam_geprek.jpg", food: "Ayam geprek bawang", quantity: 2),
               const SizedBox(
                 height: 5,
               ),
-              const CheckoutCard(),
+              const CheckoutCard(image: "assets/makanan/ayam_crispy.jpg", food: "Ayam crispy sambal", quantity: 1),
               const SizedBox(
                 height: 5,
               ),
-              const CheckoutCard(),
+              const CheckoutCard(image: "assets/makanan/ayam_bakar_rica.jpg", food: "Ayam bakar rica", quantity: 4),
+              const SizedBox(
+                height: 5,
+              ),
               const SizedBox(
                 height: 30,
               ),

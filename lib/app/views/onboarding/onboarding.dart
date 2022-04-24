@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../main/main_page.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({Key? key}) : super(key: key);
@@ -44,119 +43,118 @@ class _OnboardingState extends State<Onboarding> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: PageView.builder(
-        controller: _controller,
-        itemCount: 3,
-        onPageChanged: (int index) {
-          setState(() {
-            currentIndex = index;
-          });
-        },
-        itemBuilder: (_, i) {
-          return Stack(
-            fit: StackFit.loose,
-            children: [
-              Container(
-                width: double.infinity,
-                height: double.infinity,
-                color: const Color(0xffff8a00),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 190,
-                  right: 40,
-                  left: 40,
+    return MaterialApp(
+      home: Scaffold(
+        body: PageView.builder(
+          controller: _controller,
+          itemCount: 3,
+          onPageChanged: (int index) {
+            setState(() {
+              currentIndex = index;
+            });
+          },
+          itemBuilder: (_, i) {
+            return Stack(
+              fit: StackFit.loose,
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  color: const Color(0xffff8a00),
                 ),
-                child: Image.asset(
-                  "./assets/onboarding/onboarding${i+1}.png",
-                  width: 325,
-                ),
-              ),
-              Positioned.fill(
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    width: double.infinity,
-                    height: 400,
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.elliptical(207.5, 90),
-                        topLeft: Radius.elliptical(207.5, 90),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          top: 50, right: 50, bottom: 40, left: 50),
-                      child: Column(
-                        children: [
-                          Text(
-                            data[i]['title'].toString(),
-                            style: const TextStyle(
-                              fontSize: 27,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            data[i]['subtitle'].toString(),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(
-                            height: 40,
-                          ),
-                          SizedBox(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: List.generate(3,
-                                  (index) => buildIndicator(index, context)),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          Container(
-                            width: 250,
-                            height: 50,
-                            decoration: BoxDecoration(
-                                color: const Color(0xff2f4858),
-                                borderRadius: BorderRadius.circular(8)),
-                            child: TextButton(
-                              onPressed: () {
-                                if (currentIndex == 2) {
-                                  Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(builder: (context) {
-                                    return const MainPage();
-                                  }));
-                                }
-                                _controller.nextPage(
-                                    duration:
-                                        const Duration(milliseconds: 500),
-                                    curve: Curves.bounceIn);
-                              },
-                              child: Text(
-                                currentIndex == 2
-                                    ? "Pesan Sekarang"
-                                    : "Selanjutnya",
-                                style: const TextStyle(
-                                    fontSize: 18, color: Colors.white),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      
-                    ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 190,
+                    right: 40,
+                    left: 40,
+                  ),
+                  child: Image.asset(
+                    "./assets/onboarding/onboarding${i+1}.png",
+                    width: 325,
                   ),
                 ),
-              )
-            ],
-          );
-        },
+                Positioned.fill(
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      width: double.infinity,
+                      height: 400,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.elliptical(207.5, 90),
+                          topLeft: Radius.elliptical(207.5, 90),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            top: 50, right: 50, bottom: 40, left: 50),
+                        child: Column(
+                          children: [
+                            Text(
+                              data[i]['title'].toString(),
+                              style: const TextStyle(
+                                fontSize: 27,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              data[i]['subtitle'].toString(),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(
+                              height: 40,
+                            ),
+                            SizedBox(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: List.generate(3,
+                                    (index) => buildIndicator(index, context)),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            Container(
+                              width: 250,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                  color: const Color(0xff2f4858),
+                                  borderRadius: BorderRadius.circular(8)),
+                              child: TextButton(
+                                onPressed: () {
+                                  if (currentIndex == 2) {
+                                    Navigator.pushReplacementNamed(context, '/main');
+                                  }
+                                  _controller.nextPage(
+                                      duration:
+                                          const Duration(milliseconds: 500),
+                                      curve: Curves.bounceIn);
+                                },
+                                child: Text(
+                                  currentIndex == 2
+                                      ? "Pesan Sekarang"
+                                      : "Selanjutnya",
+                                  style: const TextStyle(
+                                      fontSize: 18, color: Colors.white),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                        
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            );
+          },
+        ),
       ),
     );
   }

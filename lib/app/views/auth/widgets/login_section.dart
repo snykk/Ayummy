@@ -58,10 +58,7 @@ class LoginSection extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) {
-                  return const Onboarding();
-                }));
+                Navigator.pushReplacementNamed(context, '/onboarding');
               },
               child: Ink(
                 width: double.infinity,

@@ -7,14 +7,7 @@ class AuthPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ThemeData().colorScheme.copyWith(
-          secondary: Colors.black,
-        ),
-      ),
-      home: DefaultTabController(
+    return DefaultTabController(
         length: 2,
         child: Scaffold(
           appBar: AppBar(
@@ -65,11 +58,9 @@ class AuthPage extends StatelessWidget {
             children: [
               LoginSection(),
               RegisterSection(),
-              //
             ],
           ),
         ),
-      ),
     );
   }
 }
