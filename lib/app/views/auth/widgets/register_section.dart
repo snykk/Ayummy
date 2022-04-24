@@ -88,10 +88,7 @@ class RegisterSection extends StatelessWidget {
                 child: Center(
                   child: TextButton(
                     onPressed: () {
-                      Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) {
-                        return const Onboarding();
-                      }));
+                      Navigator.pushReplacementNamed(context, '/onboarding');
                     },
                     child: const Text(
                       "Daftar",

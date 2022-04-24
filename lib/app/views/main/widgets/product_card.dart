@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import './detail_menu_page.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
@@ -10,16 +9,13 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-          return const DetailMenuPage();
-        }));
+        Navigator.pushNamed(context, '/detail');
       },
       child: Card(
         child: Container(
           width: 130,
           height: 160,
           decoration: BoxDecoration(
-            // border: Border.all(color: const Color.fromARGB(255, 248, 151, 24), width: 2),
             borderRadius: BorderRadius.circular(20),
           ),
           child: Column(

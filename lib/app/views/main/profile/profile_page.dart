@@ -132,7 +132,11 @@ class ProfilePage extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                const OptionCard(text: Text("Pengaturan")),
+                GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, "/pengaturan");
+                    },
+                    child: const OptionCard(text: Text("Pengaturan"))),
               ],
             ),
           ),
@@ -141,4 +145,3 @@ class ProfilePage extends StatelessWidget {
     );
   }
 }
-
