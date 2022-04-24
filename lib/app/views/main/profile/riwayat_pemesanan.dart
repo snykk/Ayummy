@@ -25,13 +25,13 @@ class RiwayatPemesanan extends StatelessWidget {
             height: MediaQuery.of(context).size.height,
             child: Column(
               children: const [
-                CardRiwayatPemesanan(),
+                CardRiwayatPemesanan(image: "assets/makanan/ayam_bakar_rica.jpg", quantity: 2, food: "Ayam bakar rica", price: "23.000", date: "12/02/2022"),
                 SizedBox(height: 10,),
-                CardRiwayatPemesanan(),
+                CardRiwayatPemesanan(image: "assets/makanan/ayam_geprek.jpg", quantity: 1, food: "Ayam geprek bawah", price: "12.000", date: "14/02/2022"),
                 SizedBox(height: 10,),
-                CardRiwayatPemesanan(),
+                CardRiwayatPemesanan(image: "assets/makanan/ayam_crispy.jpg", quantity: 1, food: "Ayam crispy sambal", price: "12.500", date: "15/02/2022"),
                 SizedBox(height: 10,),
-                CardRiwayatPemesanan(),
+                CardRiwayatPemesanan(image: "assets/makanan/ayam_bakar_madu.jpg", quantity: 1, food: "Ayam crispy sambal", price: "14.000", date: "18/02/2022"),
                 SizedBox(height: 10,),
               ],
             ),

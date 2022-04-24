@@ -20,12 +20,13 @@ class _HomePageState extends State<HomePage> {
         childAspectRatio: 8 / 9,
       ),
       children: const <Widget>[
-        ProductCard(),
-        ProductCard(),
-        ProductCard(),
-        ProductCard(),
-        ProductCard(),
-        ProductCard(),
+        ProductCard(image: "assets/makanan/ayam_bakar_madu.jpg", food: "Ayam bakar madu", price: "11,500"),
+        ProductCard(image: "assets/makanan/ayam_bakar_rica.jpg", food: "Ayam bakar rica", price: "11,500"),
+        ProductCard(image: "assets/makanan/ayam_crispy.jpg", food: "Ayam crispy sambal", price: "11,500"),
+        ProductCard(image: "assets/makanan/ayam_geprek.jpg", food: "Ayam geprek bawang", price: "11,500"),
+        ProductCard(image: "assets/makanan/ayam_goreng_mentega.jpg", food: "Ayam goreng mentega", price: "11,500"),
+        ProductCard(image: "assets/makanan/ayam_teriyaki.jpeg", food: "Ayam teriyaki", price: "11,500"),
+        ProductCard(image: "assets/makanan/ayam_pok_pok.jpg", food: "Ayam pokpok", price: "11,500"),
       ],
     );
   }

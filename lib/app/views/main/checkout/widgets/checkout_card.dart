@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 class CheckoutCard extends StatelessWidget {
+  final String image;
+  final String food;
+  final int quantity;
   const CheckoutCard({
-    Key? key,
+    Key? key, required this.image, required this.food, required this.quantity,
   }) : super(key: key);
 
   @override
@@ -24,19 +27,19 @@ class CheckoutCard extends StatelessWidget {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: const Image(
+                  child: Image(
                     fit: BoxFit.fill,
-                    image: AssetImage("assets/makanan/ayam_bakar_rica.jpg"),
+                    image: AssetImage(image),
                   ),
                 ),
               ),
-              const SizedBox(
+              SizedBox(
                 width: 120,
                 height: double.infinity,
                 child: Center(
                   child: Text(
-                    "Ayam bakar madu",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    food,
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
@@ -64,7 +67,7 @@ class CheckoutCard extends StatelessWidget {
                       height: 25,
                       child: Center(
                         child: Text(
-                          2.toString(),
+                          quantity.toString(),
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
