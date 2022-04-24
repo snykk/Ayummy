@@ -36,6 +36,7 @@ dependencies:
 
   introduction_screen: ^3.0.2
   from_css_color: ^2.0.0
+  flutter_rating_bar: ^4.0.0
 
 dev_dependencies:
   flutter_test:
@@ -65,7 +66,8 @@ flutter:
     - assets/logo/
     - assets/makanan/
     - assets/profil/
-    # - images/a_dot_burr.jpeg
+    - assets/map/
+  #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
