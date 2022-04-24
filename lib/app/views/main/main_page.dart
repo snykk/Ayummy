@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:project/app/views/main/profile/widgets/custom_appbar.dart';
+import 'package:project/app/views/main/widgets/custom_appbar.dart';
 import 'package:project/app/views/main/widgets/appbar_search.dart';
 import './home/home_page.dart';
 import './favorite/favorit_page.dart';
 import './chat/chat_page.dart';
 import 'checkout/checkout_page.dart';
 import './profile/profile_page.dart';
-import 'checkout/widgets/appbar_checkout.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -30,7 +29,7 @@ class _MainPageState extends State<MainPage> {
        const AppBarSearch(currentIndex: 0,),
        const AppBarSearch(currentIndex: 1,),
        null,
-       const AppBarCheckout(),
+       const CustomAppbar(text: "Menu dipesan", child: false,),
        const CustomAppbar(text: "Profilku", child: false,),
     ];
 

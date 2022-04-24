@@ -6,6 +6,8 @@ import 'package:project/app/views/main/profile/pengaturan.dart';
 import 'package:project/app/views/main/widgets/detail_menu_page.dart';
 import 'package:project/app/views/onboarding/onboarding.dart';
 
+import 'app/views/main/profile/riwayat_pemesanan.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -30,6 +32,7 @@ class MyApp extends StatelessWidget {
         '/detail': (context) => const DetailMenuPage(),
         '/pengaturan': (context) => const Pengaturan(),
         '/bantuan': (context) => const Bantuan(),
+        '/riwayat_pemesanan': (context) => const RiwayatPemesanan(),
       }
     );
   }

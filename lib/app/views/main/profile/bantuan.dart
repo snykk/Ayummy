@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/app/views/auth/widgets/custom_input.dart';
-import 'package:project/app/views/main/profile/widgets/custom_appbar.dart';
+import 'package:project/app/views/main/widgets/custom_appbar.dart';
 import 'package:project/app/views/main/profile/widgets/option_card.dart';
 
 class Bantuan extends StatelessWidget {

@@ -116,11 +116,17 @@ class ProfilePage extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                const OptionCard(text: Text("Riwayat Pemesanan")),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, "/riwayat_pemesanan");
+                  },
+                  child: const OptionCard(text: Text("Riwayat Pemesanan"))),
                 const SizedBox(
                   height: 10,
                 ),
-                const OptionCard(text: Text("Belum diulas")),
+                GestureDetector(
+                  onTap: () {},
+                  child: const OptionCard(text: Text("Belum diulas"))),
                 const SizedBox(
                   height: 10,
                 ),

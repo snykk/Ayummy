@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project/app/views/main/profile/widgets/custom_appbar.dart';
+import 'package:project/app/views/main/widgets/custom_appbar.dart';
 import 'package:project/app/views/main/profile/widgets/option_card.dart';
 
 class Pengaturan extends StatelessWidget {
