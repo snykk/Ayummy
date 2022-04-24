@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/app/views/auth/auth_page.dart';
 import 'package:project/app/views/main/main_page.dart';
+import 'package:project/app/views/main/profile/bantuan.dart';
 import 'package:project/app/views/main/profile/pengaturan.dart';
 import 'package:project/app/views/main/widgets/detail_menu_page.dart';
 import 'package:project/app/views/onboarding/onboarding.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         '/main': (context) => const MainPage(),
         '/detail': (context) => const DetailMenuPage(),
         '/pengaturan': (context) => const Pengaturan(),
+        '/bantuan': (context) => const Bantuan(),
       }
     );
   }
