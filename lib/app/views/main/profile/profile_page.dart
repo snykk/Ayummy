@@ -113,7 +113,10 @@ class ProfilePage extends StatelessWidget {
                       ),
                       const Text(
                         "Kampung Bambu No 963. Administrasi Jakarta Pusat 80412",
-                        style: TextStyle(fontSize: 12, color: Colors.white),
+                        style: TextStyle(
+                          fontSize: 12, 
+                          color: Colors.white,
+                        ),
                       )
                     ],
                   ),
@@ -137,7 +140,11 @@ class ProfilePage extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                const OptionCard(text: Text("Promo")),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, "/promo");
+                  },
+                  child: const OptionCard(text: Text("Promo"))),
                 const SizedBox(
                   height: 10,
                 ),

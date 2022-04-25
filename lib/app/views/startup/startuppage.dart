@@ -1,26 +1,24 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 
-import './addition.dart';
+class StartUp extends StatefulWidget {
+  const StartUp({Key? key}) : super(key: key);
 
-class SplashScreen extends StatefulWidget {
-  _SplashScreen createState() => _SplashScreen();
+  @override
+  _StartUp createState() => _StartUp();
 }
 
-class _SplashScreen extends State<SplashScreen> {
+class _StartUp extends State<StartUp> {
+  @override
   void initState() {
     super.initState();
     splashscreenStart();
   }
 
   splashscreenStart() async {
-    var duration = const Duration(seconds: 100);
+    var duration = const Duration(seconds: 5);
     return Timer(duration, () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Home()),
-      );
+      Navigator.pushNamed(context, "/auth");
     });
   }
 
@@ -29,7 +27,7 @@ class _SplashScreen extends State<SplashScreen> {
     return Scaffold(
       // backgroundColor: Colors.orange,
       body: Container(
-        child: Image.asset("assets/logo/logoapk.png"),
+        child: Image.asset("assets/logo/logo_ayam.png"),
         width: double.infinity,
         height: double.infinity,
         color: const Color(0xFFFF8A00),
