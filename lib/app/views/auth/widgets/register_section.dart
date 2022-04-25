@@ -27,8 +27,7 @@ class RegisterSection extends StatelessWidget {
               keyboardType: TextInputType.name,
               text: "Nama Lengkap",
               obscureText: false,
-              inputFormatters: null,
-              customIconData: Icons.person_outline_rounded
+              customIconData: Icons.person_outline_rounded,
             ),
             const SizedBox(
               height: 20,
@@ -37,7 +36,6 @@ class RegisterSection extends StatelessWidget {
               keyboardType: TextInputType.emailAddress,
               text: "Masukkan Email",
               obscureText: false,
-              inputFormatters: null,
               customIconData: Icons.email_outlined
             ),
             const SizedBox(
@@ -59,7 +57,6 @@ class RegisterSection extends StatelessWidget {
               keyboardType: TextInputType.name,
               text: "Masukkan Password",
               obscureText: true,
-              inputFormatters: null,
               customIconData: Icons.lock_outlined
             ),
             const SizedBox(
@@ -69,7 +66,6 @@ class RegisterSection extends StatelessWidget {
               keyboardType: TextInputType.name,
               text: "Masukkan Ulang Password",
               obscureText: true,
-              inputFormatters: null,
               customIconData: Icons.lock_outlined
             ),
             const SizedBox(
