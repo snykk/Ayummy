@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../onboarding/onboarding.dart';
 import './custom_input.dart';
 
 
@@ -38,7 +37,6 @@ class LoginSection extends StatelessWidget {
               keyboardType: TextInputType.name, 
               text: "Masukkan Password", 
               obscureText: true, 
-              inputFormatters: null, 
               customIconData: Icons.lock_outlined,
             ),
             const SizedBox(
