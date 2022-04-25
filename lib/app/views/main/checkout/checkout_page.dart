@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import "package:flutter/material.dart";
 import 'package:project/app/views/main/checkout/widgets/checkout_card.dart';
 

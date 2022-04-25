@@ -1,5 +1,6 @@
+// ignore_for_file: avoid_print
+
 import "package:flutter/material.dart";
-import 'package:project/app/views/main/checkout/checkout_page.dart';
 
 class DetailMenuPage extends StatelessWidget {
   const DetailMenuPage({Key? key}) : super(key: key);
