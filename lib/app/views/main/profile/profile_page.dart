@@ -21,16 +21,21 @@ class ProfilePage extends StatelessWidget {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text(
+                  children: [
+                    const Text(
                       "Detail Personal",
                       style: TextStyle(fontSize: 18),
                     ),
-                    Text(
-                      "ubah",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Color(0xffff8a00),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, "/ubah_profile");
+                      },
+                      child: const Text(
+                        "ubah",
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Color(0xffff8a00),
+                        ),
                       ),
                     )
                   ],
@@ -125,7 +130,9 @@ class ProfilePage extends StatelessWidget {
                   height: 10,
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, "/belum_diulas");
+                  },
                   child: const OptionCard(text: Text("Belum diulas"))),
                 const SizedBox(
                   height: 10,
