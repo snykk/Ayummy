@@ -6,10 +6,12 @@ import 'package:project/app/views/main/not_reviewed/not_reviewed_page.dart';
 import 'package:project/app/views/main/profile/bantuan.dart';
 import 'package:project/app/views/main/profile/pengaturan.dart';
 import 'package:project/app/views/main/detail_menu/detail_menu_page.dart';
+import 'package:project/app/views/main/promo/promo.dart';
 import 'package:project/app/views/onboarding/onboarding.dart';
 import 'app/views/main/location/choose_location.dart';
 import 'app/views/main/profile/riwayat_pemesanan.dart';
 import 'app/views/main/rating/rating.dart';
+import 'app/views/startup/startuppage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,8 +29,9 @@ class MyApp extends StatelessWidget {
           secondary: Colors.black,
         ),
       ),
-      initialRoute: '/auth',
+      initialRoute: '/startup',
       routes: {
+        '/startup': (context) => const StartUp(),
         '/auth': (context) => const AuthPage(),
         '/onboarding': (context) => const Onboarding(),
         '/main': (context) => const MainPage(),
@@ -40,6 +43,7 @@ class MyApp extends StatelessWidget {
         '/ubah_profile': (context) => const UbahProfile(),
         '/pilih_lokasi': (context) => const ChooseLocation(),
         '/rating': (context) => const Rating(),
+        '/promo': (context) => const Promo(),
       }
     );
   }
