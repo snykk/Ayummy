@@ -78,7 +78,7 @@ class ChatPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                       color: (messages[index].messageType == "receiver"
                           ? Colors.grey.shade200
-                          : Colors.blue[200]),
+                          : const Color(0xFFFF8A00)),
                     ),
                     padding: const EdgeInsets.all(16),
                     child: Text(
@@ -150,12 +150,12 @@ class ChatPage extends StatelessWidget {
 }
 
 List<ChatMessage> messages = [
-  ChatMessage(messageContent: "Hello, Will", messageType: "receiver"),
-  ChatMessage(messageContent: "How have you been?", messageType: "receiver"),
+  ChatMessage(messageContent: "Halo, mas", messageType: "receiver"),
+  ChatMessage(messageContent: "Ayam gepreknya ada?", messageType: "receiver"),
   ChatMessage(
-      messageContent: "Hey Kriss, I am doing fine dude. wbu?",
+      messageContent: "Ada mas, mau pesan berapa?",
       messageType: "sender"),
-  ChatMessage(messageContent: "ehhhh, doing OK.", messageType: "receiver"),
+  ChatMessage(messageContent: "Saya mau pesan 3", messageType: "receiver"),
   ChatMessage(
-      messageContent: "Is there any thing wrong?", messageType: "sender"),
+      messageContent: "Baik silahkan lanjukan pesanan lewat aplikasi", messageType: "sender"),
 ];
