@@ -1,7 +1,8 @@
+// ignore_for_file: avoid_print
+
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 import 'package:project/app/views/auth/widgets/custom_input.dart';
-import '../../onboarding/onboarding.dart';
 
 
 class RegisterSection extends StatelessWidget {

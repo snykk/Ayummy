@@ -1,6 +1,7 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../onboarding/onboarding.dart';
 import './custom_input.dart';
 
 
