@@ -33,23 +33,25 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
       width: 25,
     );
     return AppBar(
-        leading: Container(),
-        flexibleSpace: Container(
-            width: double.infinity,
-            height: double.infinity,
-            padding: const EdgeInsets.only(top: 30, right: 30, left: 30),
-            color: const Color(0xffff8a00),
-            child: Center(
-              child: 
-                (child) ? Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  leading,
-                  title,
-                  dummy
-                ],
-              ): Center(child: title)
-            )));
+      leading: Container(),
+      flexibleSpace: Container(
+        width: double.infinity,
+        height: double.infinity,
+        padding: const EdgeInsets.only(top: 30, right: 30, left: 30),
+        color: const Color(0xffff8a00),
+        child: Center(
+          child: 
+            (child) ? Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              leading,
+              title,
+              dummy
+            ],
+          ): Center(child: title)
+        ),
+      ),
+    );
   }
 }
