@@ -69,12 +69,12 @@ class CardRiwayatPemesanan extends StatelessWidget {
                               Text(
                                 price,
                                 style: const TextStyle(
-                                    fontSize: 22, fontWeight: FontWeight.w500),
+                                  fontSize: 22, fontWeight: FontWeight.w500),
                               ),
                               Text(
                                 date,
                                 style: const TextStyle(
-                                    fontSize: 12, fontWeight: FontWeight.bold),
+                                  fontSize: 12, fontWeight: FontWeight.bold),
                               )
                             ],
                           ),

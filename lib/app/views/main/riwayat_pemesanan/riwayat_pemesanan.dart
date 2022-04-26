@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project/app/views/main/profile/widgets/card_riwayat_pemesanan.dart';
+import 'package:project/app/views/main/riwayat_pemesanan/widgets/card_riwayat_pemesanan.dart';
 import 'package:project/app/views/main/widgets/custom_appbar.dart';
 
 class RiwayatPemesanan extends StatelessWidget {
