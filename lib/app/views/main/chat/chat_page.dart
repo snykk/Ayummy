@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:project/app/views/main/chat/widgets/chat_message_model.dart';
-import 'package:project/app/views/main/widgets/detail_menu_page.dart';
 
 
 class ChatPage extends StatelessWidget {
@@ -112,9 +111,7 @@ class ChatPage extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        return const DetailMenuPage();
-                      }));
+                    
                     },
                     child: const SizedBox(
                       height: 30,
