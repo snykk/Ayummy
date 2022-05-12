@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import "package:flutter/material.dart";
+import 'package:project/app/views/main/pembayaran/pembayaran_berhasil.dart';
 
 class DetailMenuPage extends StatelessWidget {
   const DetailMenuPage({Key? key}) : super(key: key);
@@ -125,7 +126,9 @@ class DetailMenuPage extends StatelessWidget {
                       children: [
                         InkWell(
                           onTap: () {
-                            print("not yet");
+                            Navigator.push(context, MaterialPageRoute(builder: (context) {
+                              return const PembayaranBerHasil();
+                            }));
                           },
                           child: Container(
                             width: 265,
