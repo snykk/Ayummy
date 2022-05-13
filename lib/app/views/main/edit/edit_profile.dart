@@ -1,142 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:project/app/views/main/edit/widgets/custom_input.dart';
+import 'package:project/app/views/main/widgets/custom_appbar.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class UbahProfile extends StatelessWidget {
+  const UbahProfile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-          body: SingleChildScrollView(
+    return Scaffold(
+      appBar: const CustomAppbar(text: "Ubah Data", child: true),
+      body: SingleChildScrollView(
         child: Column(children: <Widget>[
-          Container(
-            margin: const EdgeInsets.only(bottom: 30),
-            width: double.infinity,
-            height: 140,
-            color: const Color.fromRGBO(255, 147, 18, 1),
-            padding: const EdgeInsets.fromLTRB(24, 40, 0, 0),
-            child: Row(children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                icon: const Icon(
-                  Icons.arrow_back_outlined,
-                  color: Colors.white,
-                  size: 33,
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(left: 68),
-                child: const Text(
-                  "Ubah Data",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 24,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ]),
+          const SizedBox(
+            height: 30,
           ),
-          Container(
-            margin: const EdgeInsets.fromLTRB(32, 0, 0, 12),
-            alignment: Alignment.topLeft,
-            child: const Text(
-              "Nama",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+          const CustomInput(
+            title: "Nama",
+            keyboardType: TextInputType.name,
+            placeholder: "Patrick Star 7",
           ),
-          SizedBox(
-            width: 350,
-            height: 54,
-            child: TextFormField(
-              decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: const BorderSide(),
-                  ),
-                  hintText: 'Kukuh Satrio Bimantoro',
-                  suffixIcon: const Icon(Icons.edit)),
-            ),
+          const SizedBox(
+            height: 16,
           ),
-          Container(
-            margin: const EdgeInsets.fromLTRB(32, 16, 0, 12),
-            alignment: Alignment.topLeft,
-            child: const Text(
-              "Email",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+          const CustomInput(
+            title: "Email",
+            keyboardType: TextInputType.name,
+            placeholder: "patrickstar7@gmail.com",
           ),
-          SizedBox(
-            width: 350,
-            height: 54,
-            child: TextFormField(
-              decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: const BorderSide(),
-                  ),
-                  hintText: 'kukuhsatrio@gmail.com',
-                  suffixIcon: const Icon(Icons.edit)),
-            ),
+          const SizedBox(
+            height: 16,
           ),
-          Container(
-            margin: const EdgeInsets.fromLTRB(32, 16, 0, 12),
-            alignment: Alignment.topLeft,
-            child: const Text(
-              "No. HP",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+          CustomInput(
+            title: "No. HP",
+            keyboardType: TextInputType.number,
+            placeholder: "+628 1982 7741",
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+            ],
           ),
-          SizedBox(
-            width: 350,
-            height: 54,
-            child: TextFormField(
-              decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: const BorderSide(),
-                  ),
-                  hintText: '+628 3544 1789',
-                  suffixIcon: const Icon(Icons.edit)),
-            ),
+          const SizedBox(
+            height: 16,
           ),
-          Container(
-            margin: const EdgeInsets.fromLTRB(32, 16, 0, 12),
-            alignment: Alignment.topLeft,
-            child: const Text(
-              "Alamat",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          SizedBox(
-            width: 350,
-            height: 110,
-            child: TextFormField(
-              maxLines: 3,
-              keyboardType: TextInputType.multiline,
-              decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: const BorderSide(),
-                  ),
-                  hintText:
-                      'Kpg. Bambu No. 963, Administrasi Jakarta Pusat 80412, SumSe',
-                  suffixIcon: const Icon(Icons.edit)),
-            ),
+          CustomInput(
+            title: "No. HP",
+            keyboardType: TextInputType.multiline,
+            placeholder:
+                "Kpg. Bambu No. 963, Administrasi Jakarta Pusat 80412, SumSe",
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+            ],
+            maxLines: 4,
           ),
           Container(
             margin: const EdgeInsets.only(top: 10),
@@ -157,7 +71,9 @@ class MyApp extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   )),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, "/pilih_lokasi");
+              },
               child: const Text(
                 " ",
                 style: TextStyle(color: Colors.white),
@@ -166,7 +82,7 @@ class MyApp extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8.0),
                 image: const DecorationImage(
-                    image: AssetImage('assets/map/Peta_2.jpg'),
+                    image: AssetImage('assets/map/Peta_2.png'),
                     fit: BoxFit.fill),
                 boxShadow: const [
                   BoxShadow(
@@ -192,7 +108,9 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ]),
-      )),
+      ),
     );
   }
 }
+
+

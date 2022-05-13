@@ -39,7 +39,6 @@ class LoginSection extends StatelessWidget {
               keyboardType: TextInputType.name, 
               text: "Masukkan Password", 
               obscureText: true, 
-              inputFormatters: null, 
               customIconData: Icons.lock_outlined,
             ),
             const SizedBox(

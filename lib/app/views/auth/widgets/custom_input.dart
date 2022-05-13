@@ -1,52 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-
 class CustomInput extends StatelessWidget {
+  final TextInputType keyboardType;
+  final String text;
+  final bool obscureText;
+  final List<TextInputFormatter>? inputFormatters;
+  final bool? filled;
+  final IconData customIconData;
+
   const CustomInput({
     Key? key,
-    required TextInputType keyboardType,
-    required String text,
-    required bool obscureText,
-    required List<TextInputFormatter>? inputFormatters,
-    required IconData customIconData,
-  }) : _keyboardType = keyboardType, _text = text, _obscureText = obscureText, _inputFormatters = inputFormatters, _customIconData = customIconData, super(key: key);
-
-  final TextInputType _keyboardType;
-  final String _text;
-  final bool _obscureText;
-  final List<TextInputFormatter>? _inputFormatters;
-  final IconData _customIconData;
+    required this.keyboardType,
+    required this.text,
+    required this.obscureText,
+    this.inputFormatters,
+    required this.customIconData,
+    this.filled
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      keyboardType: _keyboardType,
-      obscureText: _obscureText,
+      keyboardType: keyboardType,
+      obscureText: obscureText,
       enableSuggestions: false,
       autocorrect: false,
-      inputFormatters: _inputFormatters,
-      
+      inputFormatters: inputFormatters,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(vertical: 0),
         prefixIcon: Icon(
-          _customIconData,
+          customIconData,
           color: const Color(0xff626663),
         ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(40.0),
-        ),
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.0),
+          borderSide: const BorderSide(
             color: Color(0xff626663),
           ),
         ),
-        enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.0),
+          borderSide: const BorderSide(
             color: Color(0xff626663),
           ),
         ),
-        hintText: _text,
+        filled: (filled == true) ? true : false,
+        hintText: text,
         hintStyle: const TextStyle(
           fontSize: 14,
         ),

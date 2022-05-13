@@ -41,7 +41,7 @@ class ProductCard extends StatelessWidget {
                 child: Text(
                   food,
                   style: const TextStyle(
-                    fontSize: 10,
+                    fontSize: 12,
                   ),
                 ),
                 heightFactor: 2.5,
