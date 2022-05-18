@@ -18,7 +18,7 @@ class _StartUp extends State<StartUp> {
   splashscreenStart() async {
     var duration = const Duration(seconds: 5);
     return Timer(duration, () {
-      Navigator.pushNamed(context, "/auth");
+      Navigator.pushReplacementNamed(context, "/auth");
     });
   }
 

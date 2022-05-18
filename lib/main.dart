@@ -4,6 +4,8 @@ import 'package:project/app/views/main/edit/edit_profile.dart';
 import 'package:project/app/views/main/main_page.dart';
 import 'package:project/app/views/main/not_reviewed/not_reviewed_page.dart';
 import 'package:project/app/views/main/bantuan/bantuan.dart';
+import 'package:project/app/views/main/pembayaran/pembayaran.dart';
+import 'package:project/app/views/main/pembayaran/pembayaran_berhasil.dart';
 import 'package:project/app/views/main/pengaturan/pengaturan.dart';
 import 'package:project/app/views/main/detail_menu/detail_menu_page.dart';
 import 'package:project/app/views/main/promo/promo.dart';
@@ -44,6 +46,8 @@ class MyApp extends StatelessWidget {
         '/pilih_lokasi': (context) => const ChooseLocation(),
         '/rating': (context) => const Rating(),
         '/promo': (context) => const Promo(),
+        '/pembayaran': (context) => const Pembayaran(),
+        '/pembayaran_berhasil': (context) => const PembayaranBerhasil(),
       }
     );
   }

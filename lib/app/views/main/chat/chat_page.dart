@@ -1,9 +1,30 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:project/app/views/main/chat/widgets/chat_message_model.dart';
+import 'package:image_picker/image_picker.dart';
 
+import './widgets/chat_message_model.dart';
 
-class ChatPage extends StatelessWidget {
-  const ChatPage({Key? key}) : super(key: key);
+class ChatPage extends StatefulWidget {
+  ChatPage({Key? key}) : super(key: key);
+
+  @override
+  State<ChatPage> createState() => _ChatPageState();
+}
+
+class _ChatPageState extends State<ChatPage> {
+  File? image;
+
+  Future getImage() async {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? imagePicked =
+        await _picker.pickImage(source: ImageSource.camera);
+    image = File(imagePicked!.path);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,46 +35,34 @@ class ChatPage extends StatelessWidget {
         automaticallyImplyLeading: false,
         backgroundColor: const Color(0xFFFF8A00),
         flexibleSpace: SafeArea(
-          child: Container(
-            padding: const EdgeInsets.only(right: 16),
-            child: Row(
-              children: <Widget>[
-                const SizedBox(width: 20),
-                const SizedBox(
-                  width: 2,
-                ),
-                const CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      "<https://randomuser.me/api/portraits/men/5.jpg>"),
-                  maxRadius: 20,
-                ),
-                const SizedBox(
-                  width: 12,
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Center(
+                child: Container(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const <Widget>[
-                      Text(
-                        "Kukuh Satrio",
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white),
+                      CircleAvatar(
+                        backgroundImage: AssetImage("assets/logo/logo_ayam.png"),
+                        maxRadius: 20,
                       ),
                       SizedBox(
-                        height: 6,
+                        width: 12,
                       ),
                       Text(
-                        "Online",
-                        style: TextStyle(color: Colors.white, fontSize: 13),
+                        "A’yummy",
+                        style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white),
                       ),
                     ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -72,19 +81,44 @@ class ChatPage extends StatelessWidget {
                   alignment: (messages[index].messageType == "receiver"
                       ? Alignment.topLeft
                       : Alignment.topRight),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: (messages[index].messageType == "receiver"
-                          ? Colors.grey.shade200
-                          : const Color(0xFFFF8A00)),
-                    ),
-                    padding: const EdgeInsets.all(16),
-                    child: Text(
-                      messages[index].messageContent,
-                      style: const TextStyle(fontSize: 15),
-                    ),
-                  ),
+                  child: (messages[index].messageType == "receiver"
+                      ? Row(
+                        children: [
+                          const CircleAvatar(
+                            backgroundImage: AssetImage("assets/logo/logo_ayam.png"),
+                            maxRadius: 20,
+                          ),
+                          Container(width: 10,),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(15),
+                                    topRight: Radius.circular(15),
+                                    bottomRight: Radius.circular(15)),
+                              color: Colors.grey.shade200,
+                            ),
+                            padding: const EdgeInsets.all(16),
+                            child: Text(
+                              messages[index].messageContent,
+                              style: const TextStyle(fontSize: 15, color: Colors.black,),
+                            ),
+                          ),
+                        ],
+                      )
+                      : Container(
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(15),
+                                topRight: Radius.circular(15),
+                                bottomLeft: Radius.circular(15)),
+                          color:  Color(0xFFFF8A00),
+                        ),
+                        padding: const EdgeInsets.all(16),
+                        child: Text(
+                          messages[index].messageContent,
+                          style: const TextStyle(fontSize: 15, color: Colors.white),
+                        ),
+                      ))
                 ),
               );
             },
@@ -110,8 +144,8 @@ class ChatPage extends StatelessWidget {
                     width: 15,
                   ),
                   GestureDetector(
-                    onTap: () {
-                    
+                    onTap: () async {
+                      await getImage();
                     },
                     child: const SizedBox(
                       height: 30,

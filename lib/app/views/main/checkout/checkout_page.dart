@@ -37,7 +37,7 @@ class CheckoutPage extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  print("punten");
+                  Navigator.pushNamed(context, '/pembayaran');
                 },
                 child: Ink(
                   width: double.infinity,
