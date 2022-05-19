@@ -19,12 +19,7 @@ class _FavoritePageState extends State<FavoritePage> {
         mainAxisSpacing: 20,
         childAspectRatio: 8 / 9,
       ),
-      children: const <Widget>[
-        ProductCard(image: "assets/makanan/ayam_bakar_madu.jpg", food: "Ayam bakar madu", price: "11,500"),
-        ProductCard(image: "assets/makanan/ayam_geprek.jpg", food: "Ayam geprek", price: "12,000"),
-        ProductCard(image: "assets/makanan/ayam_bakar_rica.jpg", food: "Ayam bakar rica", price: "23,000"),
-        ProductCard(image: "assets/makanan/ayam_crispy.jpg", food: "Ayam crispy sambal", price: "12,500"),
-      ],
+      children: const <Widget>[],
     );
   }
 }

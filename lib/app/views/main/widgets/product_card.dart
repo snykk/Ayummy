@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../../models/product_model.dart';
 
 class ProductCard extends StatelessWidget {
-  final String image;
-  final String food;
-  final String price;
-  const ProductCard({
-    Key? key, required this.image, required this.food, required this.price,
-  }) : super(key: key);
+  const ProductCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final productData = Provider.of<ProductModel>(context, listen: false);
+
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/detail');
+        Navigator.pushNamed(context, '/detail', arguments: productData.id);
       },
       child: Card(
         child: Container(
@@ -33,13 +33,13 @@ class ProductCard extends StatelessWidget {
                   ),
                   child: Image(
                     fit: BoxFit.fill,
-                    image: AssetImage(image),
+                    image: AssetImage(productData.imageUrl),
                   ),
                 ),
               ),
               Center(
                 child: Text(
-                  food,
+                  productData.name,
                   style: const TextStyle(
                     fontSize: 12,
                   ),
@@ -48,7 +48,7 @@ class ProductCard extends StatelessWidget {
               ),
               Center(
                 child: Text(
-                  "Rp. $price",
+                  "Rp. ${productData.price}",
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                   ),

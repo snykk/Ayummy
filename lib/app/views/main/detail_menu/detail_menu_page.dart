@@ -1,12 +1,17 @@
 // ignore_for_file: avoid_print
 
 import "package:flutter/material.dart";
+import 'package:project/app/providers/product_provider.dart';
+import 'package:provider/provider.dart';
 
 class DetailMenuPage extends StatelessWidget {
   const DetailMenuPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final productId = ModalRoute.of(context)!.settings.arguments as String;
+    final product = Provider.of<ProductProvider>(context).findById(productId);
+
     return Scaffold(
       body: Stack(
         fit: StackFit.loose,
@@ -48,8 +53,20 @@ class DetailMenuPage extends StatelessWidget {
                           "Detail Menu",
                           style: TextStyle(fontSize: 23, color: Colors.white),
                         ),
-                        const Icon(Icons.favorite_outline,
-                            color: Colors.white, size: 33),
+                        IconButton(
+                          onPressed: () {
+                            print(product.isFav);
+                            product.toggleFav();
+                            print(product.isFav);
+                          },
+                          icon: Icon(
+                            (product.isFav)
+                                ? Icons.favorite
+                                : Icons.favorite_outline_outlined,
+                            color: Colors.white,
+                            size: 33,
+                          ),
+                        ),
                       ],
                     ),
                     const SizedBox(
@@ -58,7 +75,12 @@ class DetailMenuPage extends StatelessWidget {
                     Card(
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(40),
-                        child: Image.asset("./assets/makanan/ayam_geprek.jpg"),
+                        child: Image.asset(
+                          product.imageUrl,
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          height: MediaQuery.of(context).size.height * 0.26,
+                          fit: BoxFit.fill,
+                        ),
                       ),
                       elevation: 5,
                       shadowColor: Colors.black,
@@ -74,18 +96,18 @@ class DetailMenuPage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
                         SizedBox(
                           width: 150,
                           child: Text(
-                            "Ayam Bakar Maduk",
-                            style: TextStyle(
+                            product.name,
+                            style: const TextStyle(
                                 fontSize: 25, fontWeight: FontWeight.w500),
                           ),
                         ),
                         Text(
-                          "11,500",
-                          style: TextStyle(
+                          product.price,
+                          style: const TextStyle(
                               fontSize: 30, fontWeight: FontWeight.bold),
                         ),
                       ],
@@ -93,9 +115,9 @@ class DetailMenuPage extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    const Text(
-                      "202 terjual",
-                      style: TextStyle(
+                    Text(
+                      "${product.sold} terjual",
+                      style: const TextStyle(
                         fontSize: 12,
                       ),
                     ),
@@ -110,13 +132,15 @@ class DetailMenuPage extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    const Text(
-                        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sed iusto recusandae odio? Cupiditate nemo temporibus alias id, eius eaque amet officia eligendi, vel ipsa iure, laudantium hic sit doloribus excepturi corrupti odit maxime!"),
+                    Text(
+                      product.description.split("pemisah_ehe")[0],
+                    ),
                     const SizedBox(
                       height: 10,
                     ),
-                    const Text(
-                        "corporis error architecto ipsam possimus! Explicabo eveniet tenetur alias laborum nobis quasi ratione, quaerat, culpa maxime molestias rerum, delectus a reprehenderit provident facere perferendis libero. Ullam cupiditate voluptatem optio"),
+                    Text(
+                      product.description.split("pemisah_ehe")[1],
+                    ),
                     const SizedBox(
                       height: 55,
                     ),

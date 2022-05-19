@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import '../widgets/product_card.dart';
 
+import 'package:provider/provider.dart';
+import 'package:project/app/providers/product_provider.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -11,23 +14,23 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return GridView(
+    final productData = Provider.of<ProductProvider>(context);
+
+    final allproduct = productData.allproducts;
+
+    return GridView.builder(
       padding: const EdgeInsets.symmetric(horizontal: 40),
+      itemCount: allproduct.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 20,
         mainAxisSpacing: 20,
         childAspectRatio: 8 / 9,
       ),
-      children: const <Widget>[
-        ProductCard(image: "assets/makanan/ayam_bakar_madu.jpg", food: "Ayam bakar madu", price: "11,500"),
-        ProductCard(image: "assets/makanan/ayam_bakar_rica.jpg", food: "Ayam bakar rica", price: "11,500"),
-        ProductCard(image: "assets/makanan/ayam_crispy.jpg", food: "Ayam crispy sambal", price: "11,500"),
-        ProductCard(image: "assets/makanan/ayam_geprek.jpg", food: "Ayam geprek bawang", price: "11,500"),
-        ProductCard(image: "assets/makanan/ayam_goreng_mentega.jpg", food: "Ayam goreng mentega", price: "11,500"),
-        ProductCard(image: "assets/makanan/ayam_teriyaki.jpeg", food: "Ayam teriyaki", price: "11,500"),
-        ProductCard(image: "assets/makanan/ayam_pok_pok.jpg", food: "Ayam pokpok", price: "11,500"),
-      ],
+      itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
+        value: allproduct[i],
+        child: const ProductCard()
+      ),
     );
   }
 }
