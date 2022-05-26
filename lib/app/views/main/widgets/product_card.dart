@@ -3,16 +3,26 @@ import 'package:provider/provider.dart';
 
 import '../../../models/product_model.dart';
 
+import '../../../views/main/detail_menu/detail_menu_page.dart';
+
 class ProductCard extends StatelessWidget {
   const ProductCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final productData = Provider.of<ProductModel>(context, listen: false);
+    final product = Provider.of<ProductModel>(context, listen: false);
 
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/detail', arguments: productData.id);
+        Navigator.of(context).push(
+          // lempar value dari ProductModel ke detail menu page
+          MaterialPageRoute(builder: (context) {
+            return ChangeNotifierProvider.value(
+                value: product, child: const DetailMenuPage(),
+            );
+          }),
+        );
+        // Navigator.pushNamed(context, '/detail', arguments: product.id);
       },
       child: Card(
         child: Container(
@@ -33,13 +43,13 @@ class ProductCard extends StatelessWidget {
                   ),
                   child: Image(
                     fit: BoxFit.fill,
-                    image: AssetImage(productData.imageUrl),
+                    image: AssetImage(product.imageUrl),
                   ),
                 ),
               ),
               Center(
                 child: Text(
-                  productData.name,
+                  product.name,
                   style: const TextStyle(
                     fontSize: 12,
                   ),
@@ -48,7 +58,7 @@ class ProductCard extends StatelessWidget {
               ),
               Center(
                 child: Text(
-                  "Rp. ${productData.price}",
+                  "Rp. ${product.price}",
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                   ),

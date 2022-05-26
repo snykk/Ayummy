@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/product_card.dart';
 
 import 'package:provider/provider.dart';
-import 'package:project/app/providers/product_provider.dart';
+import '../../../providers/product_provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -14,13 +14,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    final productData = Provider.of<ProductProvider>(context);
-
-    final allproduct = productData.allproducts;
+    final allProduct = Provider.of<ProductProvider>(context, listen: false).allproducts;
 
     return GridView.builder(
       padding: const EdgeInsets.symmetric(horizontal: 40),
-      itemCount: allproduct.length,
+      itemCount: allProduct.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 20,
@@ -28,8 +26,8 @@ class _HomePageState extends State<HomePage> {
         childAspectRatio: 8 / 9,
       ),
       itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
-        value: allproduct[i],
-        child: const ProductCard()
+        value: allProduct[i],
+        child: const ProductCard(),
       ),
     );
   }

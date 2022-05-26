@@ -10,7 +10,6 @@ import 'package:project/app/views/main/bantuan/bantuan.dart';
 import 'package:project/app/views/main/pembayaran/pembayaran.dart';
 import 'package:project/app/views/main/pembayaran/pembayaran_berhasil.dart';
 import 'package:project/app/views/main/pengaturan/pengaturan.dart';
-import 'package:project/app/views/main/detail_menu/detail_menu_page.dart';
 import 'package:project/app/views/main/promo/promo.dart';
 import 'package:project/app/views/onboarding/onboarding.dart';
 import 'app/views/main/location/choose_location.dart';
@@ -48,7 +47,6 @@ class MyApp extends StatelessWidget {
           '/auth': (context) => const AuthPage(),
           '/onboarding': (context) => const Onboarding(),
           '/main': (context) => const MainPage(),
-          '/detail': (context) => const DetailMenuPage(),
           '/pengaturan': (context) => const Pengaturan(),
           '/bantuan': (context) => const Bantuan(),
           '/riwayat_pemesanan': (context) => const RiwayatPemesanan(),
@@ -59,7 +57,7 @@ class MyApp extends StatelessWidget {
           '/promo': (context) => const Promo(),
           '/pembayaran': (context) => const Pembayaran(),
           '/pembayaran_berhasil': (context) => const PembayaranBerhasil(),
-        }
+        },
       ),
     );
   }

@@ -1,16 +1,14 @@
-// ignore_for_file: avoid_print
-
 import "package:flutter/material.dart";
-import 'package:project/app/providers/product_provider.dart';
 import 'package:provider/provider.dart';
+
+import '../../../models/product_model.dart';
 
 class DetailMenuPage extends StatelessWidget {
   const DetailMenuPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final productId = ModalRoute.of(context)!.settings.arguments as String;
-    final product = Provider.of<ProductProvider>(context).findById(productId);
+    final product = Provider.of<ProductModel>(context, listen: false);
 
     return Scaffold(
       body: Stack(
@@ -30,8 +28,8 @@ class DetailMenuPage extends StatelessWidget {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: SizedBox(
-                width: 340,
-                height: 720,
+                width: MediaQuery.of(context).size.width * 0.825,
+                height: MediaQuery.of(context).size.height * 0.95,
                 // color: const Color.fromRGBO(0, 0, 0, 0.4),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,24 +51,24 @@ class DetailMenuPage extends StatelessWidget {
                           "Detail Menu",
                           style: TextStyle(fontSize: 23, color: Colors.white),
                         ),
-                        IconButton(
-                          onPressed: () {
-                            print(product.isFav);
-                            product.toggleFav();
-                            print(product.isFav);
-                          },
-                          icon: Icon(
-                            (product.isFav)
-                                ? Icons.favorite
-                                : Icons.favorite_outline_outlined,
-                            color: Colors.white,
-                            size: 33,
+                        Consumer<ProductModel>(
+                          builder: (context, product, child) => IconButton(
+                            onPressed: () {
+                              product.toggleFav();
+                            },
+                            icon: Icon(
+                              (product.isFav)
+                                  ? Icons.favorite
+                                  : Icons.favorite_outline_outlined,
+                              color: Colors.white,
+                              size: 33,
+                            ),
                           ),
                         ),
                       ],
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     Card(
                       child: ClipRRect(
