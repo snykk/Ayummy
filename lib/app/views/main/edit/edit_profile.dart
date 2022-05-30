@@ -72,7 +72,8 @@ class UbahProfile extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8.0),
                   )),
               onPressed: () {
-                Navigator.pushNamed(context, "/pilih_lokasi");
+                // Navigator.pushNamed(context, "/pilih_lokasi");
+                Navigator.pushNamed(context, "/get_location");
               },
               child: const Text(
                 " ",
