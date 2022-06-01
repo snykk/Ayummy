@@ -3,8 +3,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-class Rating extends StatelessWidget {
+class Rating extends StatefulWidget {
   const Rating({Key? key}) : super(key: key);
+
+  @override
+  State<Rating> createState() => _RatingState();
+}
+
+class _RatingState extends State<Rating> {
+  double _rating = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +39,7 @@ class Rating extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
+                const SizedBox(height: 10,),
                 RatingBar.builder(
                   direction: Axis.horizontal,
                   allowHalfRating: true,
@@ -42,9 +50,23 @@ class Rating extends StatelessWidget {
                     color: Colors.white,
                   ),
                   onRatingUpdate: (rating) {
-                    print(rating);
+                    setState(() {
+                      _rating = rating;
+                    });
                   },
+                ),
+                const SizedBox(height: 10,),
+                (_rating != 0) ?
+                Text(
+                  "Rating $_rating",
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                  ),
                 )
+                :
+                Container(),
               ],
             ),
           ),

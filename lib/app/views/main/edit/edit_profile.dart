@@ -25,7 +25,7 @@ class UbahProfile extends StatelessWidget {
           ),
           const CustomInput(
             title: "Email",
-            keyboardType: TextInputType.name,
+            keyboardType: TextInputType.emailAddress,
             placeholder: "patrickstar7@gmail.com",
           ),
           const SizedBox(
@@ -42,14 +42,11 @@ class UbahProfile extends StatelessWidget {
           const SizedBox(
             height: 16,
           ),
-          CustomInput(
-            title: "No. HP",
+          const CustomInput(
+            title: "Alamat",
             keyboardType: TextInputType.multiline,
             placeholder:
                 "Kpg. Bambu No. 963, Administrasi Jakarta Pusat 80412, SumSe",
-            inputFormatters: <TextInputFormatter>[
-              FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-            ],
             maxLines: 4,
           ),
           Container(
