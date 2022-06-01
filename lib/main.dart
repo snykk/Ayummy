@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/app/views/main/pembayaran/bukti_pembayaran.dart';
 import 'package:provider/provider.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -64,6 +65,7 @@ class MyApp extends StatelessWidget {
           '/promo': (context) => const Promo(),
           '/pembayaran': (context) => const Pembayaran(),
           '/pembayaran_berhasil': (context) => const PembayaranBerhasil(),
+          '/bukti_pembayaran': (context) => const BuktiPembayaran(),
         },
       ),
     );
