@@ -6,8 +6,8 @@ class CustomInput extends StatelessWidget {
   final String text;
   final bool obscureText;
   final List<TextInputFormatter>? inputFormatters;
-  final bool? filled;
   final IconData customIconData;
+  final TextEditingController controller;
 
   const CustomInput({
     Key? key,
@@ -16,12 +16,13 @@ class CustomInput extends StatelessWidget {
     required this.obscureText,
     this.inputFormatters,
     required this.customIconData,
-    this.filled
+    required this.controller
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
       keyboardType: keyboardType,
       obscureText: obscureText,
       enableSuggestions: false,
@@ -45,7 +46,6 @@ class CustomInput extends StatelessWidget {
             color: Color(0xff626663),
           ),
         ),
-        filled: (filled == true) ? true : false,
         hintText: text,
         hintStyle: const TextStyle(
           fontSize: 14,

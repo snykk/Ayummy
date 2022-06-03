@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../../providers/user_provider.dart';
 
 class AppBarSearch extends StatelessWidget implements PreferredSizeWidget {
   const AppBarSearch({Key? key, this.currentIndex})
@@ -13,6 +15,9 @@ class AppBarSearch extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserProvider>(context);
+    final userData = user.getUser;
+
     return AppBar(
       flexibleSpace: Stack(
         fit: StackFit.loose,
@@ -42,25 +47,24 @@ class AppBarSearch extends StatelessWidget implements PreferredSizeWidget {
                         // selamat datang dan lonceng notif
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          SizedBox(
-                            width: 150,
-                            child: RichText(
-                                text: TextSpan(
-                              text: (currentIndex == 1
-                                  ? "Favoritmu,"
-                                  : "Selamat Datang,"),
-                              style: const TextStyle(
-                                fontSize: 20,
-                              ),
-                              children: const <TextSpan>[
-                                TextSpan(
-                                  text: " Patrick Star",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 22),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                (currentIndex == 1 ? "Favoritmu," : "Selamat Datang, "),
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white
                                 )
-                              ],
-                            )),
+                              ),
+                              Text(
+                                userData.name,
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white
+                                )
+                              ),
+                            ],
                           ),
                           const Icon(
                             Icons.notifications_outlined,

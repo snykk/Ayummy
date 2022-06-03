@@ -8,31 +8,34 @@ class Bantuan extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    late final TextEditingController bantuanC = TextEditingController();
+
     return Scaffold(
       appBar: const CustomAppbar(text:"Bantuan", child: true,),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(top: 40,right: 45,left: 45),
           child: Column(
-            children: const [
+            children: [
               CustomInput(
+                controller: bantuanC,
                 keyboardType: TextInputType.name, 
                 text: "Cari Bantuan ...", 
                 obscureText: false, 
                 inputFormatters: null, 
                 customIconData: Icons.search_outlined,
               ),
-              SizedBox(height: 30,),
-              OptionCard(text: Text("Pengunduhan & Pemasangan")),
-              SizedBox(height: 10,),
-              OptionCard(text: Text("Akun & profil")),
-              SizedBox(height: 10,),
-              OptionCard(text: Text("Chat")),
-              SizedBox(height: 10,),
-              OptionCard(text: Text("Pembayaran")),
-              SizedBox(height: 10,),
-              OptionCard(text: Text("Keamanan & Privasi")),
-              SizedBox(height: 10,),
+              const SizedBox(height: 30,),
+              const OptionCard(text: Text("Pengunduhan & Pemasangan")),
+              const SizedBox(height: 10,),
+              const OptionCard(text: Text("Akun & profil")),
+              const SizedBox(height: 10,),
+              const OptionCard(text: Text("Chat")),
+              const SizedBox(height: 10,),
+              const OptionCard(text: Text("Pembayaran")),
+              const SizedBox(height: 10,),
+              const OptionCard(text: Text("Keamanan & Privasi")),
+              const SizedBox(height: 10,),
             ],
           )
         ),

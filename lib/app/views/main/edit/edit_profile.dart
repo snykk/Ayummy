@@ -1,114 +1,304 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:project/app/views/main/edit/widgets/custom_input.dart';
-import 'package:project/app/views/main/widgets/custom_appbar.dart';
+import 'dart:developer';
 
-class UbahProfile extends StatelessWidget {
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:project/app/views/main/widgets/custom_appbar.dart';
+import 'package:provider/provider.dart';
+
+import '../../../providers/user_provider.dart';
+
+class UbahProfile extends StatefulWidget {
   const UbahProfile({Key? key}) : super(key: key);
 
   @override
+  State<UbahProfile> createState() => _UbahProfileState();
+}
+
+class _UbahProfileState extends State<UbahProfile> {
+  late TextEditingController _nameC;
+  late TextEditingController _emailC;
+  late TextEditingController _phoneC;
+  late TextEditingController _addressC;
+
+  @override
+  void initState() {
+    _nameC = TextEditingController();
+    _emailC = TextEditingController();
+    _phoneC = TextEditingController();
+    _addressC = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _nameC.dispose();
+    _emailC.dispose();
+    _phoneC.dispose();
+    _addressC.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserProvider>(context, listen: false);
+    final userData = user.getUser;
+    
+    if (_nameC.text.isEmpty) {
+    _nameC.text = userData.name;
+    }
+    if (_addressC.text.isEmpty) {
+    _addressC.text = userData.address;
+    }
+
+    _emailC.text = userData.email;
+    _phoneC.text = userData.phone;
+    
     return Scaffold(
       appBar: const CustomAppbar(text: "Ubah Data", child: true),
       body: SingleChildScrollView(
-        child: Column(children: <Widget>[
-          const SizedBox(
-            height: 30,
+        child: Container(
+          padding: EdgeInsets.fromLTRB(
+            MediaQuery.of(context).size.width *0.075,
+            MediaQuery.of(context).size.width *0.08,
+            MediaQuery.of(context).size.width *0.075,
+            MediaQuery.of(context).size.width *0.075,
           ),
-          const CustomInput(
-            title: "Nama",
-            keyboardType: TextInputType.name,
-            placeholder: "Patrick Star 7",
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          const CustomInput(
-            title: "Email",
-            keyboardType: TextInputType.emailAddress,
-            placeholder: "patrickstar7@gmail.com",
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          CustomInput(
-            title: "No. HP",
-            keyboardType: TextInputType.number,
-            placeholder: "+628 1982 7741",
-            inputFormatters: <TextInputFormatter>[
-              FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-            ],
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          const CustomInput(
-            title: "Alamat",
-            keyboardType: TextInputType.multiline,
-            placeholder:
-                "Kpg. Bambu No. 963, Administrasi Jakarta Pusat 80412, SumSe",
-            maxLines: 4,
-          ),
-          Container(
-            margin: const EdgeInsets.only(top: 10),
-            alignment: Alignment.topLeft,
-            child: const Text(
-              " ",
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+            const Text(
+              "Nama",
               style: TextStyle(
-                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
               ),
             ),
-          ),
-          Container(
-            width: 350,
-            height: 150,
-            child: TextButton(
-              style: TextButton.styleFrom(
-                  backgroundColor: Colors.transparent,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  )),
-              onPressed: () {
-                // Navigator.pushNamed(context, "/pilih_lokasi");
-                Navigator.pushNamed(context, "/get_location");
-              },
-              child: const Text(
-                " ",
-                style: TextStyle(color: Colors.white),
-              ),
+            const SizedBox(
+              height: 12,
             ),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.0),
-                image: const DecorationImage(
-                    image: AssetImage('assets/map/Peta_2.png'),
-                    fit: BoxFit.fill),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.black87,
-                    spreadRadius: 0.5,
+            TextField(
+              controller: _nameC,
+              keyboardType: TextInputType.name,
+              obscureText: false,
+              enableSuggestions: false,
+              autocorrect: false,
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.only(left: 15),
+                suffixIcon: const Icon(
+                  Icons.edit,
+                  color: Color(0xff626663),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(
+                    color: Color(0xff626663),
                   ),
-                ]),
-          ),
-          SizedBox(
-            width: 300,
-            height: 64,
-            child: TextButton(
-              style: TextButton.styleFrom(
-                  backgroundColor: const Color.fromRGBO(47, 72, 88, 1),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  )),
-              onPressed: () {},
-              child: const Text(
-                "Simpan",
-                style: TextStyle(color: Colors.white),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(
+                    color: Color(0xff626663),
+                  ),
+                ),
+                hintText: "Nama Lengkap",
+                hintStyle: const TextStyle(
+                  fontSize: 14,
+                ),
               ),
             ),
-          ),
-        ]),
+            const SizedBox(
+              height: 16,
+            ),
+            const Text(
+              "Email",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            TextField(
+              controller: _emailC,
+              readOnly: true,
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.only(left: 15),
+                suffixIcon: const Icon(
+                  Icons.edit,
+                  color: Color(0xff626663),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(
+                    color: Color(0xff626663),
+                  ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(
+                    color: Color(0xff626663),
+                  ),
+                ),
+                hintText: "Email",
+                hintStyle: const TextStyle(
+                  fontSize: 14,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            const Text(
+              "No. HP",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            TextField(
+              controller: _phoneC,
+              readOnly: true,
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.only(left: 15),
+                suffixIcon: const Icon(
+                  Icons.edit,
+                  color: Color(0xff626663),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(
+                    color: Color(0xff626663),
+                  ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(
+                    color: Color(0xff626663),
+                  ),
+                ),
+                hintText: "Email",
+                hintStyle: const TextStyle(
+                  fontSize: 14,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            const Text(
+              "Alamat",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            TextField(
+              controller: _addressC,
+              keyboardType: TextInputType.multiline,
+              enableSuggestions: false,
+              autocorrect: false,
+              maxLines: 4,
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.only(left: 15),
+                suffixIcon: const Icon(
+                  Icons.edit,
+                  color: Color(0xff626663),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(
+                    color: Color(0xff626663),
+                  ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(
+                    color: Color(0xff626663),
+                  ),
+                ),
+                hintText: "Masukkan alamat anda",
+                hintStyle: const TextStyle(
+                  fontSize: 14,
+                ),
+              ),
+            ),
+            const SizedBox(height: 30,),
+            Container(
+              width: 350,
+              height: 150,
+              child: TextButton(
+                style: TextButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    )),
+                onPressed: () {
+                  // Navigator.pushNamed(context, "/pilih_lokasi");
+                  Navigator.pushNamed(context, "/get_location").then((val) {
+                    print(val);
+                  });
+                },
+                child: const Text(
+                  " ",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8.0),
+                  image: const DecorationImage(
+                      image: AssetImage('assets/map/Peta_2.png'),
+                      fit: BoxFit.fill),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black87,
+                      spreadRadius: 0.5,
+                    ),
+                  ]),
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: ElevatedButton(
+                onPressed: () {
+                  if (_nameC.text == userData.name && _addressC.text == userData.address) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Aksi dibatalkan, tidak ada perubahan')));
+                  } else {
+                    Map<String, dynamic> data = {
+                      "name":_nameC.text,
+                      "address":_addressC.text,
+                      "update_at":DateTime.now()
+                    };
+                    // ubahProfile(userData.id, data);
+                    user.updateUser(context: context, uid: userData.id, data: data)
+                    .then((_) => Navigator.of(context).pop());
+                  }
+                },
+                child: const Text(
+                  "Simpan"
+                ),
+                style: ElevatedButton.styleFrom(
+                  primary: const Color.fromRGBO(47, 72, 88, 1),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.275,
+                    vertical: MediaQuery.of(context).size.height * 0.02,
+                  ),
+                  textStyle: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w400
+                  ),
+                ),
+              ),
+            ),
+          ]),
+        ),
       ),
     );
   }
 }
-
-

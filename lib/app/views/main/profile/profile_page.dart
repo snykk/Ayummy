@@ -1,11 +1,17 @@
 import "package:flutter/material.dart";
 import 'package:project/app/views/main/profile/widgets/option_card.dart';
+import 'package:provider/provider.dart';
+
+import '../../../providers/user_provider.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserProvider>(context);
+    final userData = user.getUser;
+    
     return SingleChildScrollView(
       child: Center(
         child: SizedBox(
@@ -62,10 +68,10 @@ class ProfilePage extends StatelessWidget {
                             height: 60,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
-                              child: const Image(
+                              child: Image(
                                 fit: BoxFit.fill,
-                                image: AssetImage(
-                                    "assets/profil/default_avatar.jpg"),
+                                image: NetworkImage(
+                                    userData.imageUrl),
                               ),
                             ),
                           ),
@@ -76,23 +82,23 @@ class ProfilePage extends StatelessWidget {
                             width: 160,
                             height: 70,
                             child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
+                              children: [
                                 Text(
-                                  "Tretan Muslim Pardede",
-                                  style: TextStyle(
-                                      fontSize: 18, color: Colors.white),
+                                  userData.name,
+                                  style: const TextStyle(
+                                      fontSize: 20, color: Colors.white),
                                 ),
                                 Text(
-                                  "tpardede11@gmail.com",
-                                  style: TextStyle(
-                                      fontSize: 10, color: Colors.white),
+                                 userData.email,
+                                  style: const TextStyle(
+                                      fontSize: 12, color: Colors.white),
                                 ),
                                 Text(
-                                  "+628354413913",
-                                  style: TextStyle(
-                                      fontSize: 10, color: Colors.white),
+                                  userData.phone,
+                                  style: const TextStyle(
+                                      fontSize: 12, color: Colors.white),
                                 )
                               ],
                             ),
@@ -105,9 +111,9 @@ class ProfilePage extends StatelessWidget {
                       height: 1,
                       color: Colors.white,
                     ),
-                    const Text(
-                      "Kampung Bambu No 963. Administrasi Jakarta Pusat 80412",
-                      style: TextStyle(
+                    Text(
+                      (userData.address == "") ? "Alamat belum diisi" : userData.address,
+                      style: const TextStyle(
                         fontSize: 12, 
                         color: Colors.white,
                       ),

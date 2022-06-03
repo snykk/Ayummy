@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:project/app/providers/auth_provider.dart';
+import 'package:project/app/providers/user_provider.dart';
 import 'package:project/app/views/main/pembayaran/bukti_pembayaran.dart';
 import 'package:provider/provider.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'app/views/main/edit/get_location.dart';
+import 'app/views/main/location/get_location.dart';
 import 'firebase_options.dart';
 
 import 'package:project/app/views/auth/auth_page.dart';
@@ -40,6 +42,12 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => ProductProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => AuthProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => UserProvider(),
         ),
       ],
       child: MaterialApp(

@@ -45,6 +45,7 @@ dependencies:
   firebase_storage: ^10.2.16
   google_maps_flutter: ^2.1.6
   geolocator: ^8.2.1
+  shared_preferences: ^2.0.13
 
 dev_dependencies:
   flutter_test:

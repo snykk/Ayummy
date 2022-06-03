@@ -1,17 +1,65 @@
-// ignore_for_file: avoid_print
-
+import 'package:flutter/gestures.dart';
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
-import 'package:project/app/views/auth/widgets/custom_input.dart';
+import 'package:provider/provider.dart';
+
+import '../../../providers/auth_provider.dart';
 
 
-class RegisterSection extends StatelessWidget {
+class RegisterSection extends StatefulWidget {
   const RegisterSection({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<RegisterSection> createState() => _RegisterSectionState();
+}
+
+class _RegisterSectionState extends State<RegisterSection> {
+  late TextEditingController _nameC;
+  late TextEditingController _emailC;
+  late TextEditingController _phoneC;
+  late TextEditingController _passC;
+  late TextEditingController _verifPassC;
+
+  @override
+  void initState() {
+    _nameC = TextEditingController();
+    _emailC = TextEditingController();
+    _phoneC = TextEditingController();
+    _passC = TextEditingController();
+    _verifPassC = TextEditingController();
+    super.initState();
+  }
+
+  bool _isShow = false;
+  void _eyeToggle() {
+    setState(() {
+      _isShow = !_isShow;
+    });
+  }
+
+  bool _isShowVerif = false;
+  void _eyeToggleVerif() {
+    setState(() {
+      _isShowVerif = !_isShowVerif;
+    });
+  } 
+
+  @override
+  void dispose() {
+    _nameC.dispose();
+    _emailC.dispose();
+    _phoneC.dispose();
+    _passC.dispose();
+    _verifPassC.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthProvider>(context);
+    
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -23,57 +71,201 @@ class RegisterSection extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            const CustomInput(
+            TextField(
+              controller: _nameC,
               keyboardType: TextInputType.name,
-              text: "Nama Lengkap",
-              obscureText: false,
-              customIconData: Icons.person_outline_rounded,
+              enableSuggestions: false,
+              autocorrect: false,
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(vertical: 0),
+                prefixIcon: const Icon(
+                  Icons.person_outline_rounded,
+                  color: Color(0xff626663),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(
+                    color: Color(0xff626663),
+                  ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(
+                    color: Color(0xff626663),
+                  ),
+                ),
+                hintText: "Nama Lengkap",
+                hintStyle: const TextStyle(
+                  fontSize: 14,
+                ),
+              ),
             ),
             const SizedBox(
               height: 20,
             ),
-            const CustomInput(
+            TextField(
+              controller: _emailC,
               keyboardType: TextInputType.emailAddress,
-              text: "Masukkan Email",
-              obscureText: false,
-              customIconData: Icons.email_outlined
+              enableSuggestions: false,
+              autocorrect: false,
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(vertical: 0),
+                prefixIcon: const Icon(
+                  Icons.email_outlined,
+                  color: Color(0xff626663),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(
+                    color: Color(0xff626663),
+                  ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(
+                    color: Color(0xff626663),
+                  ),
+                ),
+                hintText: "Masukkan Email",
+                hintStyle: const TextStyle(
+                  fontSize: 14,
+                ),
+              ),
             ),
             const SizedBox(
               height: 20,
             ),
-            CustomInput(
+            TextField(
+              controller: _phoneC,
               keyboardType: TextInputType.number,
-              text: "No Handphone",
-              obscureText: false,
+              enableSuggestions: false,
+              autocorrect: false,
               inputFormatters: <TextInputFormatter>[
                   FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
               ],
-              customIconData: Icons.phone_outlined
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(vertical: 0),
+                prefixIcon: const Icon(
+                  Icons.phone_outlined,
+                  color:Color(0xff626663),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(
+                    color: Color(0xff626663),
+                  ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(
+                    color: Color(0xff626663),
+                  ),
+                ),
+                hintText: "No Handphone",
+                hintStyle: const TextStyle(
+                  fontSize: 14,
+                ),
+              ),
             ),
             const SizedBox(
               height: 20,
             ),
-            const CustomInput(
+            TextField(
+              controller: _passC,
               keyboardType: TextInputType.name,
-              text: "Masukkan Password",
-              obscureText: true,
-              customIconData: Icons.lock_outlined
+              obscureText: !_isShow,
+              enableSuggestions: false,
+              autocorrect: false,
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(vertical: 0),
+                prefixIcon: const Icon(
+                  Icons.lock_outlined,
+                  color: Color(0xff626663),
+                ),
+                suffixIcon: InkWell(
+                  onTap: _eyeToggle,
+                  child: Icon(
+                    (!_isShow) ? Icons.visibility_off : Icons.visibility,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(
+                    color: Color(0xff626663),
+                  ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(
+                    color: Color(0xff626663),
+                  ),
+                ),
+                hintText: "Masukkan Password",
+                hintStyle: const TextStyle(
+                  fontSize: 14,
+                ),
+              ),
             ),
             const SizedBox(
               height: 20,
             ),
-            const CustomInput(
+            TextField(
+              controller: _verifPassC,
               keyboardType: TextInputType.name,
-              text: "Masukkan Ulang Password",
-              obscureText: true,
-              customIconData: Icons.lock_outlined
+              obscureText: !_isShowVerif,
+              enableSuggestions: false,
+              autocorrect: false,
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(vertical: 0),
+                prefixIcon: const Icon(
+                  Icons.lock_outlined,
+                  color: Color(0xff626663),
+                ),
+                suffixIcon: InkWell(
+                  onTap: _eyeToggleVerif,
+                  child: Icon(
+                    (!_isShowVerif) ? Icons.visibility_off : Icons.visibility,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(
+                    color: Color(0xff626663),
+                  ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(
+                    color: Color(0xff626663),
+                  ),
+                ),
+                hintText: "Masukkan Ulang Password",
+                hintStyle: const TextStyle(
+                  fontSize: 14,
+                ),
+              ),
             ),
             const SizedBox(
               height: 20,
             ),
             InkWell(
               onTap: () {
-                print("yuhu 'masuk' diclick");
+                if (_nameC.text ==  "" || _emailC.text ==  "" || _phoneC.text ==  ""
+                 || _passC.text ==  "" || _verifPassC.text ==  "") {
+                   ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Inputan tidak boleh kosong')));
+                } else if (_passC.text != _verifPassC.text) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Password tidak sama')));
+                } else {
+                   auth.register(
+                    context: context,
+                    name: _nameC.text,
+                    email: _emailC.text,
+                    phone: _phoneC.text,
+                    password: _passC.text,
+                  );
+                }
               },
               child: Ink(
                 width: double.infinity,
@@ -82,17 +274,12 @@ class RegisterSection extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   color: const Color(0xff2f4858),
                 ),
-                child: Center(
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/onboarding');
-                    },
-                    child: const Text(
-                      "Daftar",
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                      ),
+                child: const Center(
+                  child: Text(
+                    "Daftar",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
                     ),
                   ),
                 ),
@@ -102,22 +289,23 @@ class RegisterSection extends StatelessWidget {
               height: 40,
             ),
             RichText(
-              text: const TextSpan(
+              text:  TextSpan(
                 text: "Sudah punya akun? ",
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 12,
                   color: Colors.black,
                 ),
                 children: <TextSpan> [
                   TextSpan(
                     text: "Masuk",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.bold
-                    )
-                  )
+                    ),
+                    recognizer: TapGestureRecognizer()..onTap = () => print("oke"),
+                  ),
                 ],
-              )
+              ),
             ),
           ],
         ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/product_provider.dart';
+import '../detail_menu/detail_menu_page.dart';
 import '../widgets/product_card.dart';
 
 class FavoritePage extends StatefulWidget {
@@ -27,7 +28,72 @@ class _FavoritePageState extends State<FavoritePage> {
       ),
       itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
         value: favProduct[i],
-        child: const ProductCard()
+        child: GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+          // lempar value dari ProductModel ke detail menu page
+          MaterialPageRoute(builder: (context) {
+            return ChangeNotifierProvider.value(
+                value: favProduct[i], child: const DetailMenuPage(),
+            );
+          }),
+        ).then((_) {
+          setState(() {
+            
+          });
+        });
+        // Navigator.pushNamed(context, '/detail', arguments: product.id);
+      },
+      child: Card(
+        child: Container(
+          width: 130,
+          height: 160,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Column(
+            children: [
+              SizedBox(
+                width: double.infinity,
+                height: 100,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
+                  child: Image(
+                    fit: BoxFit.fill,
+                    image: AssetImage(favProduct[i].imageUrl),
+                  ),
+                ),
+              ),
+              Center(
+                child: Text(
+                  favProduct[i].name,
+                  style: const TextStyle(
+                    fontSize: 12,
+                  ),
+                ),
+                heightFactor: 2.5,
+              ),
+              Center(
+                child: Text(
+                  "Rp. ${favProduct[i].price}",
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        elevation: 8,
+        shadowColor: Colors.black,
+        shape: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: const BorderSide(color: Colors.white, width: 1)),
+      ),
+    )
       ),
     );
   }

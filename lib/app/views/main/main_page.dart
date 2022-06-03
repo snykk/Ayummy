@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:project/app/views/main/widgets/custom_appbar.dart';
 import 'package:project/app/views/main/widgets/appbar_search.dart';
@@ -17,12 +19,12 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
 
-  static  List<Widget> _pageOptions = <Widget>[
-    HomePage(),
-    FavoritePage(),
+  static final List<Widget> _pageOptions = <Widget>[
+    const HomePage(),
+    const FavoritePage(),
     ChatPage(),
-    CheckoutPage(),
-    ProfilePage(),
+    const CheckoutPage(),
+    const ProfilePage(),
   ];
 
   final List _appbarOptions = [

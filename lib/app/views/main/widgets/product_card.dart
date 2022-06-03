@@ -5,9 +5,14 @@ import '../../../models/product_model.dart';
 
 import '../../../views/main/detail_menu/detail_menu_page.dart';
 
-class ProductCard extends StatelessWidget {
+class ProductCard extends StatefulWidget {
   const ProductCard({Key? key}) : super(key: key);
 
+  @override
+  State<ProductCard> createState() => _ProductCardState();
+}
+
+class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<ProductModel>(context, listen: false);

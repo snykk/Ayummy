@@ -67,7 +67,9 @@ class _GetLocationState extends State<GetLocation> {
             child: Padding(
               padding: const EdgeInsets.only(bottom: 50),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context, [currentPosition]);
+                },
                 child: const Text(
                   "Pilih Lokasi",
                   style: TextStyle(fontSize: 18),

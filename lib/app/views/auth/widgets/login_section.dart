@@ -1,17 +1,51 @@
-// ignore_for_file: avoid_print
+import 'dart:developer';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import './custom_input.dart';
+import 'package:provider/provider.dart';
+
+import '../../../providers/auth_provider.dart';
 
 
-class LoginSection extends StatelessWidget {
+// ignore: must_be_immutable
+class LoginSection extends StatefulWidget {
   const LoginSection({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<LoginSection> createState() => _LoginSectionState();
+}
+
+class _LoginSectionState extends State<LoginSection> {
+  late TextEditingController _emailC;
+  late TextEditingController _passC;
+
+  @override
+  void initState() {
+    _emailC = TextEditingController();
+    _passC = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _emailC.dispose();
+    _passC.dispose();
+    super.dispose();
+  }
+
+  bool _isShow = false;
+  void _eyeToggle() {
+    setState(() {
+      _isShow = !_isShow;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthProvider>(context, listen: false);
+    
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -23,23 +57,73 @@ class LoginSection extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            CustomInput(
-              keyboardType: TextInputType.number, 
-              text: "No Handphone", 
-              obscureText: false, 
-              inputFormatters: <TextInputFormatter>[
-                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-              ], 
-              customIconData: Icons.phone_outlined,
+            TextField(
+              controller: _emailC,
+              keyboardType: TextInputType.emailAddress,
+              enableSuggestions: false,
+              autocorrect: false,
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(vertical: 0),
+                prefixIcon: const Icon(
+                  Icons.email_outlined,
+                  color: Color(0xff626663),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(
+                    color: Color(0xff626663),
+                  ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(
+                    color: Color(0xff626663),
+                  ),
+                ),
+                hintText: "Email Address",
+                hintStyle: const TextStyle(
+                  fontSize: 14,
+                ),
+              ),
             ),
             const SizedBox(
               height: 20,
             ),
-            const CustomInput(
-              keyboardType: TextInputType.name, 
-              text: "Masukkan Password", 
-              obscureText: true, 
-              customIconData: Icons.lock_outlined,
+            TextField(
+              controller: _passC,
+              keyboardType: TextInputType.name,
+              obscureText: !_isShow,
+              enableSuggestions: false,
+              autocorrect: false,
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(vertical: 0),
+                prefixIcon: const Icon(
+                  Icons.lock_outlined,
+                  color: Color(0xff626663),
+                ),
+                suffixIcon: InkWell(
+                  onTap: _eyeToggle,
+                  child: Icon(
+                    (!_isShow) ? Icons.visibility_off : Icons.visibility,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(
+                    color: Color(0xff626663),
+                  ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(
+                    color: Color(0xff626663),
+                  ),
+                ),
+                hintText: "Masukkan Password",
+                hintStyle: const TextStyle(
+                  fontSize: 14,
+                ),
+              ),
             ),
             const SizedBox(
               height: 15,
@@ -58,7 +142,16 @@ class LoginSection extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Navigator.pushReplacementNamed(context, '/onboarding');
+                if (_emailC.text != "" && _passC.text != "") {
+                  auth.login(
+                    context: context,
+                    email: _emailC.text,
+                    password: _passC.text,
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Inputan tidak boleh kosong')));
+                } 
               },
               child: Ink(
                 width: double.infinity,
@@ -150,22 +243,23 @@ class LoginSection extends StatelessWidget {
               height: 40,
             ),
             RichText(
-              text: const TextSpan(
+              text:  TextSpan(
                 text: "Belum punya akun? ",
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 12,
                   color: Colors.black,
                 ),
                 children: <TextSpan> [
                   TextSpan(
                     text: "Daftar",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.bold
-                    )
-                  )
+                    ),
+                    recognizer: TapGestureRecognizer()..onTap = ()=> print("oke")
+                  ),
                 ],
-              )
+              ),
             ),
           ],
         ),
