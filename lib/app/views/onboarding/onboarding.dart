@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({Key? key}) : super(key: key);
@@ -126,8 +129,10 @@ class _OnboardingState extends State<Onboarding> {
                                   color: const Color(0xff2f4858),
                                   borderRadius: BorderRadius.circular(8)),
                               child: TextButton(
-                                onPressed: () {
-                                  if (currentIndex == 2) {
+                                onPressed: () async {
+                                  final pref = await SharedPreferences.getInstance();
+                                  if (currentIndex == 2)  {
+                                    pref.setBool("oldUser", true);
                                     Navigator.pushReplacementNamed(context, '/main');
                                   }
                                   _controller.nextPage(

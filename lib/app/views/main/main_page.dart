@@ -1,8 +1,12 @@
+import 'dart:developer';
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:project/app/providers/user_provider.dart';
 import 'package:project/app/views/main/widgets/custom_appbar.dart';
 import 'package:project/app/views/main/widgets/appbar_search.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import './home/home_page.dart';
 import './favorite/favorit_page.dart';
 import './chat/chat_page.dart';

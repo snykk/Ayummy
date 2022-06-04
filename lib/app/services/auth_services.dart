@@ -67,7 +67,7 @@ class AuthService {
   Future<void> signOut(BuildContext? context) async {
     await FirebaseAuth.instance.signOut();
     ScaffoldMessenger.of(context!).showSnackBar(
-        const SnackBar(content: Text('Berhasil logout')));
+      const SnackBar(content: Text('Berhasil logout')));
     log("Success log out from email account");
   }
 }

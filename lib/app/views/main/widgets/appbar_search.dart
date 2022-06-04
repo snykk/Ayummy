@@ -7,8 +7,7 @@ class AppBarSearch extends StatelessWidget implements PreferredSizeWidget {
       : preferredSize = const Size.fromHeight(240),
         super(key: key);
 
-  // ignore: prefer_typing_uninitialized_variables
-  final currentIndex;
+  final int? currentIndex;
 
   @override
   final Size preferredSize;

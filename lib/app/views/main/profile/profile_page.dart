@@ -1,17 +1,57 @@
+import 'dart:developer';
+
 import "package:flutter/material.dart";
 import 'package:project/app/providers/auth_provider.dart';
 import 'package:project/app/services/auth_services.dart';
 import 'package:project/app/views/main/profile/widgets/option_card.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../providers/user_provider.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
+  Future<void> _dialogConfirmation(context) async {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Konfirmasi Sistem'),
+          content: SingleChildScrollView(
+            child: Column(
+              children: const <Widget>[
+                Text('Apakah anda yakin ingin mengakhiri sesi?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            OutlinedButton(
+              child: const Text('Batalkan'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            ElevatedButton(
+              child: const Text('Akhiri'),
+              onPressed: () async {
+                final pref = await SharedPreferences.getInstance();
+                log(pref.getString("id")!);
+                authProvider.logout(context, AuthService());
+                pref.remove("id");
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
     final user = Provider.of<UserProvider>(context);
     final userData = user.getUser;
     
@@ -175,8 +215,8 @@ class ProfilePage extends StatelessWidget {
               Align(
                 alignment: Alignment.bottomRight,
                 child: FloatingActionButton(
-                  onPressed: () {
-                    authProvider.logout(context, AuthService());
+                  onPressed: () async {
+                   _dialogConfirmation(context);
                   },
                   mini: true,
                   child: const Icon(Icons.logout),
@@ -190,5 +230,7 @@ class ProfilePage extends StatelessWidget {
     );
   }
 }
+
+
 
       

@@ -23,6 +23,12 @@ class UserProvider with ChangeNotifier {
     setUser = UserModel.fromJson(user.docs.first.data());
   }
 
+  Future<void> getUserByDocId() async {
+    final pref = await SharedPreferences.getInstance();
+    final data = await FirebaseFirestore.instance.collection("user").doc(pref.getString("id")).get();
+    setUser = UserModel.fromJson(data.data() as Map<String, dynamic>);
+  }
+
   void init(String uid) async {
     FirebaseFirestore.instance.collection("user").doc(uid).snapshots().listen((event) {
       _user = UserModel.fromJson(event.data()!);

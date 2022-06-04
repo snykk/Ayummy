@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 
 import '../../../providers/product_provider.dart';
 import '../detail_menu/detail_menu_page.dart';
-import '../widgets/product_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

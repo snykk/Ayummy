@@ -5,7 +5,6 @@ import 'package:project/app/views/main/pembayaran/bukti_pembayaran.dart';
 import 'package:provider/provider.dart';
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'app/views/main/location/get_location.dart';
 import 'firebase_options.dart';
 

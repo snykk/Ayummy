@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 
 import '../../../providers/product_provider.dart';
 import '../detail_menu/detail_menu_page.dart';
-import '../widgets/product_card.dart';
 
 class FavoritePage extends StatefulWidget {
   const FavoritePage({Key? key}) : super(key: key);

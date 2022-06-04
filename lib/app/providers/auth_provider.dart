@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../providers/user_provider.dart';
 import '../services/auth_services.dart';
@@ -48,9 +49,16 @@ class AuthProvider with ChangeNotifier {
         }
         await _user.getUserByEmail(email: email);
         log("okee");
-        Navigator.pushReplacementNamed(context, '/onboarding').then(
-          (_) => Navigator.pop(context),
-        );
+        final pref = await SharedPreferences.getInstance();
+        if (pref.getBool("oldUser") == true) {
+          Navigator.pushReplacementNamed(context, '/main').then(
+            (_) => Navigator.pop(context),
+          );
+        } else {
+          Navigator.pushReplacementNamed(context, '/onboarding').then(
+            (_) => Navigator.pop(context),
+          );
+        }
       },
     );
   }
