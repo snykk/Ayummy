@@ -1,7 +1,10 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:project/app/providers/auth_provider.dart';
+import 'package:project/app/services/auth_services.dart';
 import 'package:project/app/views/main/widgets/custom_appbar.dart';
 import 'package:provider/provider.dart';
 

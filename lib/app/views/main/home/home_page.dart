@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   
   @override
   Widget build(BuildContext context) {
-    Provider.of<ProductProvider>(context, listen: false).setAllProduct();
+    Provider.of<ProductProvider>(context, listen: false).setAllProduct().then((_) => setState(() {}));
     final allProduct = Provider.of<ProductProvider>(context, listen: false).getAllProduct;
 
     return GridView.builder(

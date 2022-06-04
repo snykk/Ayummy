@@ -56,7 +56,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   void logout(BuildContext context, AuthService authService) {
-    authService.signOut().then(
+    authService.signOut(context).then(
       (value) {
         Navigator.pushNamedAndRemoveUntil(
           context,

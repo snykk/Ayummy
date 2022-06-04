@@ -1,4 +1,6 @@
 import "package:flutter/material.dart";
+import 'package:project/app/providers/auth_provider.dart';
+import 'package:project/app/services/auth_services.dart';
 import 'package:project/app/views/main/profile/widgets/option_card.dart';
 import 'package:provider/provider.dart';
 
@@ -9,6 +11,7 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
     final user = Provider.of<UserProvider>(context);
     final userData = user.getUser;
     
@@ -166,6 +169,20 @@ class ProfilePage extends StatelessWidget {
                 },
                 child: const OptionCard(text: Text("Pengaturan")),
               ),
+              const SizedBox(
+                height: 10,
+              ),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: FloatingActionButton(
+                  onPressed: () {
+                    authProvider.logout(context, AuthService());
+                  },
+                  mini: true,
+                  child: const Icon(Icons.logout),
+                  backgroundColor: const Color(0xffff8a00),
+                ),
+              )
             ],
           ),
         ),
