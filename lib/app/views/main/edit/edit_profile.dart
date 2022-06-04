@@ -1,7 +1,7 @@
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:project/app/views/main/widgets/custom_appbar.dart';
 import 'package:provider/provider.dart';
 
@@ -19,6 +19,10 @@ class _UbahProfileState extends State<UbahProfile> {
   late TextEditingController _emailC;
   late TextEditingController _phoneC;
   late TextEditingController _addressC;
+
+  late double userLatitude = -8.165142;
+  late double userLongitude = 113.716386;
+  bool isGetUserLoc = false;
 
   @override
   void initState() {
@@ -241,38 +245,53 @@ class _UbahProfileState extends State<UbahProfile> {
                     )),
                 onPressed: () {
                   // Navigator.pushNamed(context, "/pilih_lokasi");
-                  Navigator.pushNamed(context, "/get_location").then((val) {
-                    print(val);
+                  Navigator.pushNamed(context, "/get_location").then((value) {
+                    Position userPosition = value as Position;
+                    if (userPosition.latitude != 0.0 && userPosition.longitude != 0.0) {
+                      setState(() {
+                        isGetUserLoc = true;
+                        userLatitude = userPosition.latitude;
+                        userLongitude = userPosition.longitude;
+                      });
+                    }
                   });
                 },
-                child: const Text(
-                  " ",
-                  style: TextStyle(color: Colors.white),
-                ),
+                child: Container(),
               ),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8.0),
-                  image: const DecorationImage(
-                      image: AssetImage('assets/map/Peta_2.png'),
-                      fit: BoxFit.fill),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.black87,
-                      spreadRadius: 0.5,
-                    ),
-                  ]),
+                borderRadius: BorderRadius.circular(8.0),
+                image: const DecorationImage(
+                    image: AssetImage('assets/map/Peta_2.png'),
+                    fit: BoxFit.fill),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black87,
+                    spreadRadius: 0.5,
+                  ),
+                ]),
             ),
+            (isGetUserLoc) ?
+            const Center(
+              child: Text(
+                "lokasi user berhasil didapat",
+                style: TextStyle(fontSize: 16, color: Colors.green),
+              ),
+            )
+            : Container(),
+            const SizedBox(height: 15,),
             Align(
               alignment: Alignment.center,
               child: ElevatedButton(
                 onPressed: () {
-                  if (_nameC.text == userData.name && _addressC.text == userData.address) {
+                  if (_nameC.text == userData.name && _addressC.text == userData.address && !isGetUserLoc) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Aksi dibatalkan, tidak ada perubahan')));
                   } else {
                     Map<String, dynamic> data = {
                       "name":_nameC.text,
                       "address":_addressC.text,
+                      "latitude":userLatitude,
+                      "longitude":userLongitude,
                       "update_at":DateTime.now()
                     };
                     // ubahProfile(userData.id, data);

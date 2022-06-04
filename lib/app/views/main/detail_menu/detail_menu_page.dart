@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:project/app/providers/product_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/product_model.dart';
@@ -8,6 +9,7 @@ class DetailMenuPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final productProvider = Provider.of<ProductProvider>(context, listen: false);
     final product = Provider.of<ProductModel>(context, listen: false);
 
     return Scaffold(
@@ -54,7 +56,9 @@ class DetailMenuPage extends StatelessWidget {
                         Consumer<ProductModel>(
                           builder: (context, product, child) => IconButton(
                             onPressed: () {
-                              product.toggleFav();
+                              // log(product.id);
+                              productProvider.toggleFav(product.id, product.isFav);
+                              product.setFav = !product.isFav;
                             },
                             icon: Icon(
                               (product.isFav)
@@ -73,7 +77,7 @@ class DetailMenuPage extends StatelessWidget {
                     Card(
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(40),
-                        child: Image.asset(
+                        child: Image.network(
                           product.imageUrl,
                           width: MediaQuery.of(context).size.width * 0.8,
                           height: MediaQuery.of(context).size.height * 0.26,
@@ -104,7 +108,7 @@ class DetailMenuPage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          product.price,
+                          product.price.toString(),
                           style: const TextStyle(
                               fontSize: 30, fontWeight: FontWeight.bold),
                         ),

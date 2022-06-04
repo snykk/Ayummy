@@ -9,6 +9,8 @@ class UserModel {
     final String password;
     final String imageUrl;
     final String address;
+    final double latitude;
+    final double longitude;
     final DateTime createAt;
     final DateTime updateAt;
 
@@ -21,6 +23,8 @@ class UserModel {
         required this.password,
         required this.imageUrl,
         required this.address,
+        required this.latitude,
+        required this.longitude,
         required this.createAt,
         required this.updateAt,
     });
@@ -34,6 +38,8 @@ class UserModel {
         password: json["password"],
         imageUrl: json["image_url"],
         address: json["address"],
+        latitude: json["latitude"],
+        longitude: json["longitude"],
         createAt: (json["create_at"] as Timestamp).toDate(),
         updateAt: (json["update_at"] as Timestamp).toDate(),
     );
@@ -47,6 +53,8 @@ class UserModel {
         "password": password,
         "image_url": imageUrl,
         "address": address,
+        "latitude": latitude,
+        "longitude": longitude,
         "create_at": createAt,
         "update_at": updateAt,
     };

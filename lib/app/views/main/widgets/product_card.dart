@@ -48,7 +48,7 @@ class _ProductCardState extends State<ProductCard> {
                   ),
                   child: Image(
                     fit: BoxFit.fill,
-                    image: AssetImage(product.imageUrl),
+                    image: NetworkImage(product.imageUrl),
                   ),
                 ),
               ),

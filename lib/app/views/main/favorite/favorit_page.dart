@@ -15,7 +15,8 @@ class FavoritePage extends StatefulWidget {
 class _FavoritePageState extends State<FavoritePage> {
   @override
   Widget build(BuildContext context) {
-    final favProduct = Provider.of<ProductProvider>(context, listen: false).favProducts;
+    Provider.of<ProductProvider>(context, listen: false).setAllProduct();
+    final favProduct = Provider.of<ProductProvider>(context).favProducts;
 
     return GridView.builder(
       padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -38,9 +39,7 @@ class _FavoritePageState extends State<FavoritePage> {
             );
           }),
         ).then((_) {
-          setState(() {
-            
-          });
+          setState(() {});
         });
         // Navigator.pushNamed(context, '/detail', arguments: product.id);
       },
@@ -63,7 +62,7 @@ class _FavoritePageState extends State<FavoritePage> {
                   ),
                   child: Image(
                     fit: BoxFit.fill,
-                    image: AssetImage(favProduct[i].imageUrl),
+                    image: NetworkImage(favProduct[i].imageUrl),
                   ),
                 ),
               ),
