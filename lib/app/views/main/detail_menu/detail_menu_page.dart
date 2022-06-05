@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:intl/intl.dart';
 import 'package:project/app/providers/product_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -11,6 +12,8 @@ class DetailMenuPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final productProvider = Provider.of<ProductProvider>(context, listen: false);
     final product = Provider.of<ProductModel>(context, listen: false);
+    final myCurr = NumberFormat("#,##0.00", "en_US");
+
 
     return Scaffold(
       body: Stack(
@@ -59,6 +62,13 @@ class DetailMenuPage extends StatelessWidget {
                               // log(product.id);
                               productProvider.toggleFav(product.id, product.isFav);
                               product.setFav = !product.isFav;
+                              if (product.isFav == false) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Product berhasil dihilangkan dari menu favorit')));
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Menu favorit berhasil ditambahkan')));
+                              }
                             },
                             icon: Icon(
                               (product.isFav)
@@ -108,7 +118,7 @@ class DetailMenuPage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          product.price.toString(),
+                          myCurr.format(product.price),
                           style: const TextStyle(
                               fontSize: 30, fontWeight: FontWeight.bold),
                         ),

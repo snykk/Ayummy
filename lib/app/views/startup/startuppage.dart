@@ -23,7 +23,7 @@ Future<String> initRoute() async {
   } else if (pref.getString("id") != null && pref.getBool("oldUser") == null) {
     return "/onboarding";
   }
-  return "/auth";
+  return "";
 }
 
 class _StartUp extends State<StartUp> {
@@ -43,10 +43,14 @@ class _StartUp extends State<StartUp> {
         // Navigator.pushReplacementNamed(context, "/auth");
       if (_initRoute != "") {
         Provider.of<UserProvider>(context, listen: false).getUserByDocId().then((_) => setState(() {}));
-        Timer(const Duration(seconds: 1), () {
+        Timer(const Duration(seconds: 3), () {
           Navigator.pushReplacementNamed(context, _initRoute);
         });
-      } 
+      } else {
+        Timer(const Duration(seconds: 3), () {
+          Navigator.pushReplacementNamed(context, "/auth");
+        });
+      }
     });
   }
 

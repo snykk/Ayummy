@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project/app/providers/auth_provider.dart';
 import 'package:project/app/providers/user_provider.dart';
 import 'package:project/app/views/main/pembayaran/bukti_pembayaran.dart';
+import 'package:project/app/views/main/tambah_produk/tambah_produk.dart';
 import 'package:provider/provider.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -73,6 +74,7 @@ class MyApp extends StatelessWidget {
           '/pembayaran': (context) => const Pembayaran(),
           '/pembayaran_berhasil': (context) => const PembayaranBerhasil(),
           '/bukti_pembayaran': (context) => const BuktiPembayaran(),
+          '/tambah_produk': (context) => const TambahProduk(),
         },
       ),
     );

@@ -16,7 +16,7 @@ class ProfilePage extends StatelessWidget {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     return showDialog<void>(
       context: context,
-      barrierDismissible: false, // user must tap button!
+      barrierDismissible: false, 
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Konfirmasi Sistem'),
@@ -29,16 +29,23 @@ class ProfilePage extends StatelessWidget {
           ),
           actions: <Widget>[
             OutlinedButton(
+              style: ButtonStyle(
+                overlayColor: MaterialStateProperty.all(const Color(0x15ff8a00),),
+                foregroundColor: MaterialStateProperty.all(const Color(0xffff8a00),), 
+              ),
               child: const Text('Batalkan'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             ElevatedButton(
+              style: ButtonStyle(
+                overlayColor: MaterialStateProperty.all(const Color(0x15ff8a00),),
+                backgroundColor: MaterialStateProperty.all(const Color(0xffff8a00),), 
+              ),
               child: const Text('Akhiri'),
               onPressed: () async {
                 final pref = await SharedPreferences.getInstance();
-                log(pref.getString("id")!);
                 authProvider.logout(context, AuthService());
                 pref.remove("id");
                 Navigator.of(context).pop();

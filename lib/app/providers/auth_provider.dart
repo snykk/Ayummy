@@ -10,7 +10,7 @@ import '../services/auth_services.dart';
 
 class AuthProvider with ChangeNotifier {
   final String _defaultImage =
-      "https://firebasestorage.googleapis.com/v0/b/a-yummy.appspot.com/o/default.jpg?alt=media&token=d54615fd-cdf1-4a14-b7f1-e38af1064531";
+      "https://firebasestorage.googleapis.com/v0/b/a-yummy.appspot.com/o/profile%2Fdefault.jpg?alt=media&token=7c8afaab-36e5-43e4-935e-3973475d4c7c";
 
   void register(
       {BuildContext? context, String? name, String? email, String? phone, String? password}) async {

@@ -18,7 +18,7 @@ class ProductModel with ChangeNotifier {
     required this.imageUrl,
     required this.qty,
     required this.sold,
-    this.isFav = false,
+    required this.isFav,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
