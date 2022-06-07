@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/app/providers/auth_provider.dart';
+import 'package:project/app/providers/promo_provider.dart';
 import 'package:project/app/providers/user_provider.dart';
 import 'package:project/app/views/main/pembayaran/bukti_pembayaran.dart';
 import 'package:project/app/views/main/tambah_produk/tambah_produk.dart';
@@ -49,6 +50,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => UserProvider(),
         ),
+        ChangeNotifierProvider(
+            create: (context) => PromoProvider()
+        )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
