@@ -48,6 +48,7 @@ dependencies:
   shared_preferences: ^2.0.13
   camera: ^0.9.7+1
   intl: ^0.17.0
+  font_awesome_flutter: ^10.1.0
 
 dev_dependencies:
   flutter_test:

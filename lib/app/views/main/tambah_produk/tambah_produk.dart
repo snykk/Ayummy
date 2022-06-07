@@ -218,6 +218,7 @@ class _TambahProdukState extends State<TambahProduk> {
                         return null;
                       },
                     ),
+                    const SizedBox(height: 30,),
                     ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(Colors.white),

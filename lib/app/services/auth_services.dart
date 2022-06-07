@@ -29,9 +29,6 @@ class AuthService {
         ScaffoldMessenger.of(context!).showSnackBar(
           const SnackBar(content: Text('Email already in use')));
       }
-      // assert(
-      //     e.code != "weak-password", "Password yang anda masukkan tidak aman");
-      // assert(e.code != "email-already-in-use", "Email sudah terdaftar");
       rethrow;
     }
   }

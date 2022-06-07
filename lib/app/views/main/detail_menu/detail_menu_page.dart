@@ -2,17 +2,20 @@ import "package:flutter/material.dart";
 import 'package:intl/intl.dart';
 import 'package:project/app/providers/product_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../models/product_model.dart';
+import '../../../providers/user_provider.dart';
 
 class DetailMenuPage extends StatelessWidget {
   const DetailMenuPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context, listen: false).getUser;
     final productProvider = Provider.of<ProductProvider>(context, listen: false);
     final product = Provider.of<ProductModel>(context, listen: false);
-    final myCurr = NumberFormat("#,##0.00", "en_US");
+    final myCurr = NumberFormat("#,##0", "en_US");
 
 
     return Scaffold(
@@ -56,6 +59,15 @@ class DetailMenuPage extends StatelessWidget {
                           "Detail Menu",
                           style: TextStyle(fontSize: 23, color: Colors.white),
                         ),
+                        (userProvider.roleId == '1') ?
+                        IconButton(
+                          onPressed: (){}, 
+                          icon: const FaIcon(
+                            FontAwesomeIcons.trash,
+                            color: Colors.white,
+                          ),
+                        )
+                        :
                         Consumer<ProductModel>(
                           builder: (context, product, child) => IconButton(
                             onPressed: () {
