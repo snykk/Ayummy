@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:project/app/providers/user_provider.dart';
 import 'package:provider/provider.dart';
@@ -22,6 +21,7 @@ class _HomePageState extends State<HomePage> {
   
   @override
   Widget build(BuildContext context) {
+    final myCurr = NumberFormat("#,##0", "en_US");
     Provider.of<ProductProvider>(context, listen: false).setAllProduct().then((_) => setState(() {}));
     final allProduct = Provider.of<ProductProvider>(context, listen: false).getAllProduct;
     final userProvider = Provider.of<UserProvider>(context, listen: false).getUser;
@@ -86,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       Center(
                         child: Text(
-                          "Rp. ${allProduct[i].price}",
+                          "Rp. ${myCurr.format(allProduct[i].price)}",
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                           ),

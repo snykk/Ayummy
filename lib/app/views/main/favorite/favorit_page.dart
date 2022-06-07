@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/product_provider.dart';
@@ -14,6 +15,7 @@ class FavoritePage extends StatefulWidget {
 class _FavoritePageState extends State<FavoritePage> {
   @override
   Widget build(BuildContext context) {
+    final myCurr = NumberFormat("#,##0", "en_US");
     Provider.of<ProductProvider>(context, listen: false).setAllProduct();
     final favProduct = Provider.of<ProductProvider>(context).favProducts;
 
@@ -76,7 +78,7 @@ class _FavoritePageState extends State<FavoritePage> {
               ),
               Center(
                 child: Text(
-                  "Rp. ${favProduct[i].price}",
+                   "Rp. ${myCurr.format(favProduct[i].price)}",
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                   ),

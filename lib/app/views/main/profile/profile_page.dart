@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import "package:flutter/material.dart";
 import 'package:project/app/providers/auth_provider.dart';
 import 'package:project/app/services/auth_services.dart';
@@ -59,8 +57,7 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserProvider>(context);
-    final userData = user.getUser;
+    final userProvider = Provider.of<UserProvider>(context).getUser;
     
     return SingleChildScrollView(
       child: Center(
@@ -121,7 +118,7 @@ class ProfilePage extends StatelessWidget {
                               child: Image(
                                 fit: BoxFit.fill,
                                 image: NetworkImage(
-                                    userData.imageUrl),
+                                    userProvider.imageUrl),
                               ),
                             ),
                           ),
@@ -136,17 +133,17 @@ class ProfilePage extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  userData.name,
+                                  userProvider.name,
                                   style: const TextStyle(
                                       fontSize: 20, color: Colors.white),
                                 ),
                                 Text(
-                                 userData.email,
+                                 userProvider.email,
                                   style: const TextStyle(
                                       fontSize: 12, color: Colors.white),
                                 ),
                                 Text(
-                                  userData.phone,
+                                  userProvider.phone,
                                   style: const TextStyle(
                                       fontSize: 12, color: Colors.white),
                                 )
@@ -162,7 +159,7 @@ class ProfilePage extends StatelessWidget {
                       color: Colors.white,
                     ),
                     Text(
-                      (userData.address == "") ? "Alamat belum diisi" : userData.address,
+                      (userProvider.address == "") ? "Alamat belum diisi" : userProvider.address,
                       style: const TextStyle(
                         fontSize: 12, 
                         color: Colors.white,
@@ -174,7 +171,7 @@ class ProfilePage extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              GestureDetector(
+              (userProvider.roleId == '1') ? Container() : GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(context, "/riwayat_pemesanan");
                 },
@@ -183,7 +180,7 @@ class ProfilePage extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              GestureDetector(
+              (userProvider.roleId == '1') ? Container() : GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(context, "/belum_diulas");
                 },

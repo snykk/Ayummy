@@ -43,7 +43,7 @@ class UserProvider with ChangeNotifier {
       String? img,
       String? name,
     }) async {
-    QuerySnapshot<Object?> account = await FirebaseFirestore.instance.collection("user").where("email", isEqualTo: email).where("phone", isEqualTo: phone).get();
+    QuerySnapshot<Object?> account = await FirebaseFirestore.instance.collection("user").where("email", isEqualTo: email).get();
     final user = FirebaseFirestore.instance.collection("user").doc();
     if (account.docs.isEmpty) {
       await user.set(

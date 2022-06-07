@@ -23,7 +23,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
 
-  static final List<Widget> _pageOptions = <Widget>[
+  static final List<Widget> _pageOptionsUser = <Widget>[
     const HomePage(),
     const FavoritePage(),
     ChatPage(),
@@ -31,22 +31,44 @@ class _MainPageState extends State<MainPage> {
     const ProfilePage(),
   ];
 
-  final List _appbarOptions = [
-       const AppBarSearch(currentIndex: 0,),
-       const AppBarSearch(currentIndex: 1,),
-       null,
-       const CustomAppbar(text: "Menu dipesan", child: false,),
-       const CustomAppbar(text: "Profilku", child: false,),
-    ];
+  final List _appbarOptionsUser = [
+      const AppBarSearch(currentIndex: 0,),
+      const AppBarSearch(currentIndex: 1,),
+      null,
+      const CustomAppbar(text: "Menu dipesan", child: false,),
+      const CustomAppbar(text: "Profilku", child: false,),
+  ];
+
+  static final List<Widget> _pageOptionsAdmin = <Widget>[
+    const HomePage(),
+    Container(),
+    const ProfilePage(),
+  ];
+
+  final List _appbarOptionsAdmin = [
+    const AppBarSearch(currentIndex: 0,),
+    null,
+    const CustomAppbar(text: "Profilku", child: false,),
+  ];
+  
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context, listen: false).getUser;
+    log(userProvider.roleId);
     return Scaffold(
-      appBar: _appbarOptions[_currentIndex],
-      body: _pageOptions[_currentIndex],
+      appBar: (userProvider.roleId == '1') ? _appbarOptionsAdmin[_currentIndex] : _appbarOptionsUser[_currentIndex],
+      body:(userProvider.roleId == '1') ? _pageOptionsAdmin[_currentIndex] : _pageOptionsUser[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
-        items: [
+        items: (userProvider.roleId == '1') ? 
+        [
+          customBottomNavBar(Icons.home_outlined),
+          customBottomNavBar(Icons.badge),
+          customBottomNavBar(Icons.person_outline_rounded),
+        ]
+        :
+        [
           customBottomNavBar(Icons.home_outlined),
           customBottomNavBar(Icons.favorite_outline),
           customBottomNavBar(Icons.chat_bubble_outline_rounded),

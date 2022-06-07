@@ -58,7 +58,7 @@ class _RegisterSectionState extends State<RegisterSection> {
 
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthProvider>(context);
+    final auth = Provider.of<AuthProvider>(context, listen: false);
     
     return Container(
       width: double.infinity,
