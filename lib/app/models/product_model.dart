@@ -8,7 +8,8 @@ class ProductModel with ChangeNotifier {
   final String imageUrl;
   final int qty;
   final int sold;
-  bool isFav;
+  final List<dynamic> userProductFav;
+  // bool isFav;
 
   ProductModel({
     required this.id,
@@ -18,7 +19,7 @@ class ProductModel with ChangeNotifier {
     required this.imageUrl,
     required this.qty,
     required this.sold,
-    required this.isFav,
+    required this.userProductFav,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
@@ -29,7 +30,7 @@ class ProductModel with ChangeNotifier {
     imageUrl: json["imageUrl"],
     qty: json["qty"],
     sold: json["sold"],
-    isFav: json["isFav"],
+    userProductFav: json["userProductFav"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -40,11 +41,16 @@ class ProductModel with ChangeNotifier {
     "imageUrl": imageUrl,
     "qty": qty,
     "sold": sold,
-    "isFav": isFav,
+    "userProductFav": userProductFav,
   };
 
-  set setFav(bool value) {
-    isFav = !isFav;
+  void addToFav(userId) {
+    userProductFav.add(userId);
     notifyListeners();
-  }
+  } 
+
+  void removeToFav(userId) {
+    userProductFav.remove(userId);
+    notifyListeners();
+  } 
 }

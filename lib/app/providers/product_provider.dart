@@ -1,5 +1,6 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../models/product_model.dart';
@@ -15,13 +16,15 @@ class ProductProvider with ChangeNotifier {
     ];
   }
 
-  List<ProductModel> get getAllProduct {
-    return [..._allProducts];
+  Future<void> setAllProductFav(userId) async {
+    final data = await FirebaseFirestore.instance.collection("product").where("userProductFav", arrayContains: userId).get();
+
+    _allProducts = <ProductModel>[
+      for (QueryDocumentSnapshot<Object?> item in data.docs) ProductModel.fromJson(item.data() as Map<String,dynamic>)
+    ];
   }
 
-  List<ProductModel> get favProducts {
-    return [..._allProducts.where((element) => element.isFav)];
-  }
+  List<ProductModel> get getAllProduct => _allProducts;
 
   Future<void> toggleFav(String uidProduct, bool isFav) async {
     await FirebaseFirestore.instance.collection("product").doc(uidProduct).update({"isFav": !isFav});
@@ -49,7 +52,7 @@ class ProductProvider with ChangeNotifier {
           sold: 0,
           description: desc,
           imageUrl: imageUrl,
-          isFav: false,
+          userProductFav: [],
         ).toJson(),
       );
 
@@ -60,5 +63,21 @@ class ProductProvider with ChangeNotifier {
         (_) => Navigator.pop(context),
       );
     }
+  }
+
+  void addToFav(productId, userId) {
+    final productRef = FirebaseFirestore.instance.collection("product").doc(productId);
+    final userRef = FirebaseFirestore.instance.collection("user").doc(userId);
+
+    productRef.update({"userProductFav": FieldValue.arrayUnion([userId])});
+    userRef.update({"productUserFav": FieldValue.arrayUnion([productId])});
+  }
+
+  void remoteToFav(productId, userId) {
+    final productRef = FirebaseFirestore.instance.collection("product").doc(productId);
+    final userRef = FirebaseFirestore.instance.collection("user").doc(userId);
+
+    productRef.update({"userProductFav": FieldValue.arrayRemove([userId])});
+    userRef.update({"productUserFav": FieldValue.arrayRemove([productId])});
   }
 }

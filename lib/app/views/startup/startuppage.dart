@@ -27,37 +27,33 @@ Future<String> initRoute() async {
 }
 
 class _StartUp extends State<StartUp> {
-  String _initRoute = "";
 
   @override
   void initState() {
     super.initState();
-    initRoute().then((value) => _initRoute = value);
-    splashscreenStart();
+    initRoute().then((value) {
+      splashscreenStart(value);
+    });
   }
 
-  splashscreenStart() async {
-    var duration = const Duration(seconds: 1);
+  splashscreenStart(iniRoute) async {
+    var duration = const Duration(seconds: 3);
 
-    return Timer(duration, () {
-        // Navigator.pushReplacementNamed(context, "/auth");
-      if (_initRoute != "") {
-        Provider.of<UserProvider>(context, listen: false).getUserByDocId().then((_) => setState(() {}));
-        Timer(const Duration(seconds: 3), () {
-          Navigator.pushReplacementNamed(context, _initRoute);
-        });
-      } else {
-        Timer(const Duration(seconds: 3), () {
-          Navigator.pushReplacementNamed(context, "/auth");
-        });
-      }
-    });
+    if (iniRoute != "") {
+      Provider.of<UserProvider>(context, listen: false).getUserByDocId().then((_) => setState(() {}));
+      return Timer(duration, () {
+        Navigator.pushReplacementNamed(context, iniRoute);
+      });
+    } else {
+      return Timer(duration, () {
+        Navigator.pushReplacementNamed(context, "/auth");
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.orange,
       body: Container(
         child: Image.asset("assets/logo/logo_ayam.png"),
         width: double.infinity,

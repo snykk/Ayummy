@@ -1,10 +1,6 @@
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:project/app/providers/auth_provider.dart';
-import 'package:project/app/services/auth_services.dart';
 import 'package:project/app/views/main/widgets/custom_appbar.dart';
 import 'package:provider/provider.dart';
 
@@ -56,9 +52,11 @@ class _UbahProfileState extends State<UbahProfile> {
     if (_addressC.text.isEmpty) {
     _addressC.text = userData.address;
     }
+    if (_phoneC.text.isEmpty) {
+    _phoneC.text = userData.address;
+    }
 
     _emailC.text = userData.email;
-    _phoneC.text = userData.phone;
     
     return Scaffold(
       appBar: const CustomAppbar(text: "Ubah Data", child: true),
@@ -168,7 +166,6 @@ class _UbahProfileState extends State<UbahProfile> {
             ),
             TextField(
               controller: _phoneC,
-              readOnly: true,
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.only(left: 15),
                 suffixIcon: const Icon(
@@ -292,6 +289,7 @@ class _UbahProfileState extends State<UbahProfile> {
                   } else {
                     Map<String, dynamic> data = {
                       "name":_nameC.text,
+                      "phone":_phoneC.text,
                       "address":_addressC.text,
                       "latitude":userLatitude,
                       "longitude":userLongitude,

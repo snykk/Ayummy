@@ -68,9 +68,6 @@ class _GetLocationState extends State<GetLocation> {
               padding: const EdgeInsets.only(bottom: 50),
               child: ElevatedButton(
                 onPressed: () {
-                  // Map<String, dynamic> myData = {};
-                  //   myData["latitude"] = currentPosition?.latitude;
-                  //   myData["longitude"] = currentPosition?.longitude;
 
                   Navigator.pop(context, currentPosition);
                 },

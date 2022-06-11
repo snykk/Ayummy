@@ -11,6 +11,7 @@ class UserModel {
     final String address;
     final double latitude;
     final double longitude;
+    final List<dynamic> productUserFav;
     final DateTime createAt;
     final DateTime updateAt;
 
@@ -25,6 +26,7 @@ class UserModel {
         required this.address,
         required this.latitude,
         required this.longitude,
+        required this.productUserFav,
         required this.createAt,
         required this.updateAt,
     });
@@ -40,6 +42,7 @@ class UserModel {
         address: json["address"],
         latitude: json["latitude"],
         longitude: json["longitude"],
+        productUserFav: json["productUserFav"],
         createAt: (json["create_at"] as Timestamp).toDate(),
         updateAt: (json["update_at"] as Timestamp).toDate(),
     );
@@ -55,6 +58,7 @@ class UserModel {
         "address": address,
         "latitude": latitude,
         "longitude": longitude,
+        "productUserFav": productUserFav,
         "create_at": createAt,
         "update_at": updateAt,
     };

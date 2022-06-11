@@ -70,25 +70,25 @@ class DetailMenuPage extends StatelessWidget {
                         :
                         Consumer<ProductModel>(
                           builder: (context, product, child) => IconButton(
-                            onPressed: () {
-                              // log(product.id);
-                              productProvider.toggleFav(product.id, product.isFav);
-                              product.setFav = !product.isFav;
-                              if (product.isFav == false) {
+                            onPressed: () async {
+                              var isContain = product.userProductFav.contains(userProvider.id);
+                              if (!isContain) {
+                                productProvider.addToFav(product.id, userProvider.id);
+                                product.addToFav(userProvider.id);
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Product berhasil dihilangkan dari menu favorit')));
+                                const SnackBar(content: Text('Product berhasil berhasil ditambahkan')));
                               } else {
+                                productProvider.remoteToFav(product.id, userProvider.id);
+                                product.removeToFav(userProvider.id);
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Menu favorit berhasil ditambahkan')));
+                                const SnackBar(content: Text('Menu favorit dihilangkan dari menu favorit')));
                               }
                             },
-                            icon: Icon(
-                              (product.isFav)
-                                  ? Icons.favorite
-                                  : Icons.favorite_outline_outlined,
-                              color: Colors.white,
-                              size: 33,
-                            ),
+                            icon: Icon(product.userProductFav.contains(userProvider.id) ?
+                              Icons.favorite : Icons.favorite_outline_outlined,
+                                  color: Colors.white,
+                                  size: 33,
+                                ),
                           ),
                         ),
                       ],

@@ -22,88 +22,96 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final myCurr = NumberFormat("#,##0", "en_US");
-    Provider.of<ProductProvider>(context, listen: false).setAllProduct().then((_) => setState(() {}));
-    final allProduct = Provider.of<ProductProvider>(context, listen: false).getAllProduct;
+    final productProvider = Provider.of<ProductProvider>(context, listen: false);
     final userProvider = Provider.of<UserProvider>(context, listen: false).getUser;
     return Stack(
       children: [
-          GridView.builder(
-          padding: const EdgeInsets.symmetric(horizontal: 40),
-          itemCount: allProduct.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 20,
-            mainAxisSpacing: 20,
-            childAspectRatio: 8 / 9,
-          ),
-          itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
-            value: allProduct[i],
-            child: GestureDetector(
-              onTap: () {
-                Navigator.of(context).push(
-                  // lempar value dari ProductModel ke detail menu page
-                  MaterialPageRoute(builder: (context) {
-                    return ChangeNotifierProvider.value(
-                        value: allProduct[i], child: const DetailMenuPage(),
-                    );
-                  }),
-                ).then((_) {
-                  setState(() {});
-                });
-                // Navigator.pushNamed(context, '/detail', arguments: product.id);
-              },
-              child: Card(
-                child: Container(
-                  width: 130,
-                  height: 160,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        width: double.infinity,
-                        height: 100,
-                        child: ClipRRect(
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
-                          ),
-                          child: Image(
-                            fit: BoxFit.fill,
-                            image: NetworkImage(allProduct[i].imageUrl),
-                          ),
-                        ),
+          FutureBuilder(
+            future: productProvider.setAllProduct(),
+            builder: (context, snap) {
+            if (snap.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator(),) ;
+            }
+            
+            return GridView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 40),
+              itemCount: productProvider.getAllProduct.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 20,
+                childAspectRatio: 8 / 9,
+              ),
+              itemBuilder: (context, index) => ChangeNotifierProvider.value(
+                value: productProvider.getAllProduct[index],
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      // lempar value dari ProductModel ke detail menu page
+                      MaterialPageRoute(builder: (context) {
+                        return ChangeNotifierProvider.value(
+                            value: productProvider.getAllProduct[index], child: const DetailMenuPage(),
+                        );
+                      }),
+                    ).then((_) {
+                      setState(() {});
+                    });
+                    // Navigator.pushNamed(context, '/detail', arguments: product.id);
+                  },
+                  child: Card(
+                    child: Container(
+                      width: 130,
+                      height: 160,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                      Center(
-                        child: Text(
-                          allProduct[i].name,
-                          style: const TextStyle(
-                            fontSize: 12,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            width: double.infinity,
+                            height: 100,
+                            child: ClipRRect(
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20),
+                              ),
+                              child: Image(
+                                fit: BoxFit.fill,
+                                image: NetworkImage(productProvider.getAllProduct[index].imageUrl),
+                              ),
+                            ),
                           ),
-                        ),
-                        heightFactor: 2.5,
-                      ),
-                      Center(
-                        child: Text(
-                          "Rp. ${myCurr.format(allProduct[i].price)}",
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
+                          Center(
+                            child: Text(
+                              productProvider.getAllProduct[index].name,
+                              style: const TextStyle(
+                                fontSize: 12,
+                              ),
+                            ),
+                            heightFactor: 2.5,
                           ),
-                        ),
+                          Center(
+                            child: Text(
+                              "Rp. ${myCurr.format(productProvider.getAllProduct[index].price)}",
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
+                    elevation: 8,
+                    shadowColor: Colors.black,
+                    shape: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: const BorderSide(color: Colors.white, width: 1)),
                   ),
                 ),
-                elevation: 8,
-                shadowColor: Colors.black,
-                shape: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: const BorderSide(color: Colors.white, width: 1)),
               ),
-            ),
+            );
+            }
           ),
-        ),
         (userProvider.roleId == "1") ?
         Positioned.fill(
           left: MediaQuery.of(context).size.width * 0.75,
