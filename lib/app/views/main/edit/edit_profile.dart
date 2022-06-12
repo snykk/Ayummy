@@ -53,7 +53,7 @@ class _UbahProfileState extends State<UbahProfile> {
     _addressC.text = userData.address;
     }
     if (_phoneC.text.isEmpty) {
-    _phoneC.text = userData.address;
+    _phoneC.text = userData.phone;
     }
 
     _emailC.text = userData.email;
@@ -184,7 +184,7 @@ class _UbahProfileState extends State<UbahProfile> {
                     color: Color(0xff626663),
                   ),
                 ),
-                hintText: "Email",
+                hintText: "No. Hp",
                 hintStyle: const TextStyle(
                   fontSize: 14,
                 ),
@@ -283,7 +283,7 @@ class _UbahProfileState extends State<UbahProfile> {
               alignment: Alignment.center,
               child: ElevatedButton(
                 onPressed: () {
-                  if (_nameC.text == userData.name && _addressC.text == userData.address && !isGetUserLoc) {
+                  if (_nameC.text == userData.name && _phoneC.text == userData.phone && _addressC.text == userData.address && !isGetUserLoc) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Aksi dibatalkan, tidak ada perubahan')));
                   } else {

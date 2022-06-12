@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
@@ -16,7 +17,7 @@ class Storage {
       await storage.ref("food/$fileName").putFile(file);
       
     } on firebase_core.FirebaseException catch (exc) {
-      print(exc);
+      log(exc.message!);
     }
   }
 

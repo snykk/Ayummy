@@ -59,6 +59,7 @@ class UserProvider with ChangeNotifier {
           latitude: -8.165142,
           longitude: 113.716386,
           productUserFav: [],
+          promoTaken: [],
           createAt: DateTime.now(),
           updateAt: DateTime.now(),
         ).toJson(),
