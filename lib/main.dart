@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/app/providers/auth_provider.dart';
+import 'package:project/app/providers/cart_provider.dart';
+import 'package:project/app/providers/order_provider.dart';
 import 'package:project/app/providers/promo_provider.dart';
 import 'package:project/app/providers/user_provider.dart';
 import 'package:project/app/views/main/pembayaran/bukti_pembayaran.dart';
@@ -49,6 +51,12 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => UserProvider(),
+        ),
+        ChangeNotifierProvider(
+            create: (context) => CartProvider()
+        ),
+        ChangeNotifierProvider(
+            create: (context) => OrderProvider()
         ),
         ChangeNotifierProvider(
             create: (context) => PromoProvider()

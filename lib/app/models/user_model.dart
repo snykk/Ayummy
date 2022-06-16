@@ -12,6 +12,8 @@ class UserModel {
     final double latitude;
     final double longitude;
     final List<dynamic> productUserFav;
+    final List<dynamic> cart;
+    final List<dynamic> order;
     final DateTime createAt;
     final DateTime updateAt;
 
@@ -27,6 +29,8 @@ class UserModel {
         required this.latitude,
         required this.longitude,
         required this.productUserFav,
+        required this.cart,
+        required this.order,
         required this.createAt,
         required this.updateAt,
     });
@@ -43,6 +47,8 @@ class UserModel {
         latitude: json["latitude"],
         longitude: json["longitude"],
         productUserFav: json["productUserFav"],
+        cart: json["cart"],
+        order: json["order"],
         createAt: (json["create_at"] as Timestamp).toDate(),
         updateAt: (json["update_at"] as Timestamp).toDate(),
     );
@@ -59,6 +65,8 @@ class UserModel {
         "latitude": latitude,
         "longitude": longitude,
         "productUserFav": productUserFav,
+        "cart": cart,
+        "order":order,
         "create_at": createAt,
         "update_at": updateAt,
     };
