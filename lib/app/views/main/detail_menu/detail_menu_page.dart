@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import "package:flutter/material.dart";
 import 'package:intl/intl.dart';
 import 'package:project/app/providers/product_provider.dart';
@@ -17,6 +18,14 @@ class DetailMenuPage extends StatelessWidget {
     final product = Provider.of<ProductModel>(context, listen: false);
     final myCurr = NumberFormat("#,##0", "en_US");
 
+    List<dynamic> carts = userProvider.cart;
+    // carts = [];
+    carts.add({
+      "productId": product.id,
+      "productName": product.name,
+      "productPrice": product.price,
+      "qty": 1,
+    });
 
     return Scaffold(
       body: Stack(
@@ -173,7 +182,15 @@ class DetailMenuPage extends StatelessWidget {
                       children: [
                         InkWell(
                           onTap: () {
-                            print("not yet");
+                            final docUser = FirebaseFirestore.instance.collection('user').doc(userProvider.id);
+                            docUser.update({
+                              'cart': carts
+                            });
+
+                            final docProduct = FirebaseFirestore.instance.collection('product').doc(product.id);
+                            docProduct.update({
+                              'qty': product.qty - 1
+                            });
                           },
                           child: Container(
                             width: 265,

@@ -1,12 +1,66 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:project/app/providers/user_provider.dart';
 import 'package:project/app/views/main/widgets/custom_appbar.dart';
-import 'package:project/app/views/main//pembayaran/widgets/metode_pembayaran.dart';
+import 'package:provider/provider.dart';
 
-class Pembayaran extends StatelessWidget {
+import '../../../providers/cart_provider.dart';
+
+enum SingingCharacter { langsung, gopay, dana }
+
+class Pembayaran extends StatefulWidget {
   const Pembayaran({ Key? key }) : super(key: key);
 
   @override
+  State<Pembayaran> createState() => _PembayaranState();
+}
+
+class _PembayaranState extends State<Pembayaran> {
+  SingingCharacter? _character = SingingCharacter.langsung;
+  
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context, listen: false).getUser;
+    // final orderProvider = Provider.of<OrderProvider>(context, listen: false);
+    Provider.of<CartProvider>(context, listen: false).setAllCart().then((_) => setState(() {}));
+    final allCart = Provider.of<CartProvider>(context, listen: false).getAllCart;
+
+    List<dynamic> payment = (_character.toString()).split('.');
+
+    int sum = 0;
+
+    for(var i =0; i < userProvider.cart.length; i ++){
+      sum += allCart[i].productPrice! * allCart[i].qty;
+    }
+
+    List carts = [];
+
+    for(var i =0; i < allCart.length; i ++){
+      carts.add(
+        {
+          "id": allCart[i].id,
+          "productName": allCart[i].productName,
+          "qty": allCart[i].qty,
+          "producPrice": allCart[i].productPrice,
+        }
+      );
+    }
+
+    List<dynamic> orders = [];
+    // orders.add("abc");
+    orders.add({
+      "create_at": DateTime.now(),
+      "isPayed": false,
+      "paymentMethod": payment,
+      "details": carts,
+      "totalPrice": sum,
+    });
+
     return Scaffold(
       appBar: const CustomAppbar(
         text:"Pembayaran",
@@ -14,108 +68,128 @@ class Pembayaran extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(40),
-        child: SizedBox(
-          width: double.infinity,
-          child: Column(
-            children: [
-              Column(
-                children: [
-                  const SizedBox(
-                    width: double.infinity,
-                    child: Text("Detail Pesanan", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
-                  ),
-                  const SizedBox(
-                    height: 25,
-                  ),
-                  Column(
+        child: Column(
+          children: [
+            const SizedBox(
+              width: double.infinity,
+              child: Text("Detail Pesanan", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+            Flexible(
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: allCart.length,
+                itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
+                  value: allCart[i],
+                  child: Column(
                     children: [
-                        Column( children: [
-                          Row(
-                            children: const [
-                              Text("1. Ayam Bakar Madu x2", style: TextStyle(fontSize: 16)),
-                              Spacer(),
-                              Text("26.000", style: TextStyle(fontSize: 16, color: Color(0xFFFF8A00)))
-                            ],
-                          ),
-                          const SizedBox(height: 8),
-                          Row(
-                            children: const [
-                              Text("2. Ayam Bakar Madu x2", style: TextStyle(fontSize: 16)),
-                              Spacer(),
-                              Text("26.000", style: TextStyle(fontSize: 16, color: Color(0xFFFF8A00)))
-                            ],
-                          ),
-                          const SizedBox(height: 8),
-                          Row(
-                            children: const [
-                              Text("3. Ayam Bakar Madu x2", style: TextStyle(fontSize: 16)),
-                              Spacer(),
-                              Text("26.000", style: TextStyle(fontSize: 16, color: Color(0xFFFF8A00)))
-                            ],
-                          ),
-                          const SizedBox(height: 8),
-                          Row(
-                            children: const [
-                              Text("3. Ayam Bakar Madu x2", style: TextStyle(fontSize: 16)),
-                              Spacer(),
-                              Text("26.000", style: TextStyle(fontSize: 16, color: Color(0xFFFF8A00)))
-                            ],
-                          ),
-                          const SizedBox(height: 8),
-                          Row(
-                            children: const [
-                              Text("3. Ayam Bakar Madu x2", style: TextStyle(fontSize: 16)),
-                              Spacer(),
-                              Text("26.000", style: TextStyle(fontSize: 16, color: Color(0xFFFF8A00)))
-                            ],
-                          )
-                        ],),
+                      Row(
+                        children: [
+                          Text((i+1).toString() + '. ' + allCart[i].productName + ' x' + allCart[i].qty.toString(), style: const TextStyle(fontSize: 16)),
+                          const Spacer(),
+                          Text((allCart[i].productPrice! * allCart[i].qty).toString(), style: const TextStyle(fontSize: 16, color: Color(0xFFFF8A00)))
+                        ],
+                      ),
+                      const SizedBox(height: 8),
                     ],
                   ),
-                  const SizedBox(
-                    height: 40,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+            const SizedBox(
+              width: double.infinity,
+              child: Text("Pembayaran", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: const Offset(0, 3), // changes position of shadow
                   ),
-                  Container(
-                    width: double.infinity,
-                    color: Colors.white,
-                    child: const Text("Pembayaran", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                ],
+              ),
+              child: Column(
+                children: <Widget>[
+                  ListTile(
+                    title: const Text('Bayar Ditempat'),
+                    leading: Radio<SingingCharacter>(
+                      activeColor: const Color(0xFFFF8A00),
+                      value: SingingCharacter.langsung,
+                      groupValue: _character,
+                      onChanged: (SingingCharacter? value) {
+                        setState(() {
+                          _character = value;
+                        });
+                      },
+                    ),
                   ),
-                  const SizedBox(
-                    height: 15,
+                  ListTile(
+                    title: const Text('Gopay'),
+                    leading: Radio<SingingCharacter>(
+                      activeColor: const Color(0xFFFF8A00),
+                      value: SingingCharacter.gopay,
+                      groupValue: _character,
+                      onChanged: (SingingCharacter? value) {
+                        setState(() {
+                          _character = value;
+                        });
+                      },
+                    ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset: const Offset(0, 3), // changes position of shadow
-                          ),
-                        ],),
-                        child: const MetodePembayaran(),
+                  ListTile(
+                    title: const Text('Dana'),
+                    leading: Radio<SingingCharacter>(
+                      activeColor: const Color(0xFFFF8A00),
+                      value: SingingCharacter.dana,
+                      groupValue: _character,
+                      onChanged: (SingingCharacter? value) {
+                        setState(() {
+                          _character = value;
+                        });
+                      },
                     ),
                   ),
                 ],
               ),
-              const Spacer(),
-              InkWell(
-                onTap: () {
-                  Navigator.pushNamed(context, '/pembayaran_berhasil');
-                },
-                child: Ink(
-                  width: double.infinity,
-                  height: 60,
-                  decoration: BoxDecoration(
+            ),
+            const Spacer(),
+            InkWell(
+              onTap: () {
+                final docUser = FirebaseFirestore.instance.collection('user').doc(userProvider.id);
+                docUser.update({
+                  "order": orders
+                });
+                // orderProvider.addOrder(
+                //   context: context,
+                //   id: "123",
+                //   paymentMethod: payment[1],
+                //   details: carts,  
+                //   totalPrice: sum, 
+                // );
+                
+                Navigator.pushNamed(context, '/pembayaran_berhasil');
+              },
+              child: Ink(
+                width: double.infinity,
+                height: 60,
+                decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: const Color(0xff2f4858),
-                  ),
-                  child: const Center(
+                    color: const Color.fromARGB(255, 47, 109, 147),
+                ),
+                child: const Center(
                     child: Text(
                       "Bayar Sekarang",
                       style: TextStyle(
@@ -124,11 +198,11 @@ class Pembayaran extends StatelessWidget {
                       ),
                     ),
                   ),
-                ),
               ),
-            ],
-          ),
-        ),)
+            )
+          ],
+        ),
+      ),
     );
   }
 }
