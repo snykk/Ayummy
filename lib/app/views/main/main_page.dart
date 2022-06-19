@@ -1,12 +1,10 @@
 import 'dart:developer';
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:project/app/providers/user_provider.dart';
 import 'package:project/app/views/main/widgets/custom_appbar.dart';
 import 'package:project/app/views/main/widgets/appbar_search.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import './home/home_page.dart';
 import './favorite/favorit_page.dart';
 import './chat/chat_page.dart';
@@ -26,7 +24,7 @@ class _MainPageState extends State<MainPage> {
   static final List<Widget> _pageOptionsUser = <Widget>[
     const HomePage(),
     const FavoritePage(),
-    ChatPage(),
+    const ChatPage(),
     const CheckoutPage(),
     const ProfilePage(),
   ];
@@ -55,7 +53,6 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context, listen: false).getUser;
-    log(userProvider.roleId);
     return Scaffold(
       appBar: (userProvider.roleId == '1') ? _appbarOptionsAdmin[_currentIndex] : _appbarOptionsUser[_currentIndex],
       body:(userProvider.roleId == '1') ? _pageOptionsAdmin[_currentIndex] : _pageOptionsUser[_currentIndex],

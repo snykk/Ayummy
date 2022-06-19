@@ -61,6 +61,7 @@ class UserProvider with ChangeNotifier {
           productUserFav: [],
           cart: [],
           order: [],
+          promoTaken: [],
           createAt: DateTime.now(),
           updateAt: DateTime.now(),
         ).toJson(),
