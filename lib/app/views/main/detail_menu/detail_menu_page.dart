@@ -7,25 +7,29 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../models/product_model.dart';
 import '../../../providers/user_provider.dart';
+import '../../../providers/cartt_provider.dart';
 
 class DetailMenuPage extends StatelessWidget {
   const DetailMenuPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = Provider.of<UserProvider>(context, listen: false).getUser;
-    final productProvider = Provider.of<ProductProvider>(context, listen: false);
+    final userProvider =
+        Provider.of<UserProvider>(context, listen: false).getUser;
+    final productProvider =
+        Provider.of<ProductProvider>(context, listen: false);
     final product = Provider.of<ProductModel>(context, listen: false);
     final myCurr = NumberFormat("#,##0", "en_US");
+    final cartProvider = Provider.of<CartProvider>(context, listen: false);
 
-    List<dynamic> carts = userProvider.cart;
-    // carts = [];
-    carts.add({
-      "productId": product.id,
-      "productName": product.name,
-      "productPrice": product.price,
-      "qty": 1,
-    });
+    // List<dynamic> carts = userProvider.cart;
+    // // carts = [];
+    // carts.add({
+    //   "productId": product.id,
+    //   "productName": product.name,
+    //   "productPrice": product.price,
+    //   "qty": 1,
+    // });
 
     return Scaffold(
       body: Stack(
@@ -68,38 +72,48 @@ class DetailMenuPage extends StatelessWidget {
                           "Detail Menu",
                           style: TextStyle(fontSize: 23, color: Colors.white),
                         ),
-                        (userProvider.roleId == '1') ?
-                        IconButton(
-                          onPressed: (){}, 
-                          icon: const FaIcon(
-                            FontAwesomeIcons.trash,
-                            color: Colors.white,
-                          ),
-                        )
-                        :
-                        Consumer<ProductModel>(
-                          builder: (context, product, child) => IconButton(
-                            onPressed: () async {
-                              var isContain = product.userProductFav.contains(userProvider.id);
-                              if (!isContain) {
-                                productProvider.addToFav(product.id, userProvider.id);
-                                product.addToFav(userProvider.id);
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Product berhasil berhasil ditambahkan')));
-                              } else {
-                                productProvider.remoteToFav(product.id, userProvider.id);
-                                product.removeToFav(userProvider.id);
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Menu favorit dihilangkan dari menu favorit')));
-                              }
-                            },
-                            icon: Icon(product.userProductFav.contains(userProvider.id) ?
-                              Icons.favorite : Icons.favorite_outline_outlined,
+                        (userProvider.roleId == '1')
+                            ? IconButton(
+                                onPressed: () {},
+                                icon: const FaIcon(
+                                  FontAwesomeIcons.trash,
                                   color: Colors.white,
-                                  size: 33,
                                 ),
-                          ),
-                        ),
+                              )
+                            : Consumer<ProductModel>(
+                                builder: (context, product, child) =>
+                                    IconButton(
+                                  onPressed: () async {
+                                    var isContain = product.userProductFav
+                                        .contains(userProvider.id);
+                                    if (!isContain) {
+                                      productProvider.addToFav(
+                                          product.id, userProvider.id);
+                                      product.addToFav(userProvider.id);
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              content: Text(
+                                                  'Product berhasil berhasil ditambahkan')));
+                                    } else {
+                                      productProvider.remoteToFav(
+                                          product.id, userProvider.id);
+                                      product.removeToFav(userProvider.id);
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              content: Text(
+                                                  'Menu favorit dihilangkan dari menu favorit')));
+                                    }
+                                  },
+                                  icon: Icon(
+                                    product.userProductFav
+                                            .contains(userProvider.id)
+                                        ? Icons.favorite
+                                        : Icons.favorite_outline_outlined,
+                                    color: Colors.white,
+                                    size: 33,
+                                  ),
+                                ),
+                              ),
                       ],
                     ),
                     const SizedBox(
@@ -148,11 +162,40 @@ class DetailMenuPage extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    Text(
-                      "${product.sold} terjual",
-                      style: const TextStyle(
-                        fontSize: 12,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "${product.qty} tersedia",
+                          style: const TextStyle(
+                            fontSize: 12,
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              "${product.sold} terjual",
+                              style: const TextStyle(
+                                fontSize: 12,
+                              ),
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.06,
+                            ),
+                            const Text(
+                              "rating 4.5",
+                              style: TextStyle(
+                                fontSize: 12,
+                              ),
+                            ),
+                            const Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                     const SizedBox(
                       height: 20,
@@ -182,15 +225,20 @@ class DetailMenuPage extends StatelessWidget {
                       children: [
                         InkWell(
                           onTap: () {
-                            final docUser = FirebaseFirestore.instance.collection('user').doc(userProvider.id);
-                            docUser.update({
-                              'cart': carts
-                            });
+                            cartProvider.addToCart(
+                                context: context,
+                                userId: userProvider.id,
+                                productId: product.id);
 
-                            final docProduct = FirebaseFirestore.instance.collection('product').doc(product.id);
-                            docProduct.update({
-                              'qty': product.qty - 1
-                            });
+                            // final docUser = FirebaseFirestore.instance
+                            //     .collection('user')
+                            //     .doc(userProvider.id);
+                            // docUser.update({'cart': carts});
+
+                            // final docProduct = FirebaseFirestore.instance
+                            //     .collection('product')
+                            //     .doc(product.id);
+                            // docProduct.update({'qty': product.qty - 1});
                           },
                           child: Container(
                             width: 265,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/app/providers/auth_provider.dart';
-import 'package:project/app/providers/cart_provider.dart';
-import 'package:project/app/providers/order_provider.dart';
+import 'package:project/app/providers/cartt_provider.dart';
+import 'package:project/app/providers/orderr_provider.dart';
 import 'package:project/app/providers/promo_provider.dart';
 import 'package:project/app/providers/user_provider.dart';
 import 'package:project/app/views/main/pembayaran/bukti_pembayaran.dart';
@@ -53,21 +53,21 @@ class MyApp extends StatelessWidget {
           create: (context) => UserProvider(),
         ),
         ChangeNotifierProvider(
-            create: (context) => CartProvider()
+          create: (context) => CartProvider(),
         ),
         ChangeNotifierProvider(
-            create: (context) => OrderProvider()
+          create: (context) => OrderProvider(),
         ),
         ChangeNotifierProvider(
-            create: (context) => PromoProvider()
-        )
+          create: (context) => PromoProvider(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ThemeData().colorScheme.copyWith(
-            secondary: Colors.black,
-          ),
+                secondary: Colors.black,
+              ),
         ),
         initialRoute: '/startup',
         routes: {

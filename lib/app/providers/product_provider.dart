@@ -10,35 +10,46 @@ class ProductProvider with ChangeNotifier {
     final data = await FirebaseFirestore.instance.collection("product").get();
 
     _allProducts = <ProductModel>[
-      for (QueryDocumentSnapshot<Object?> item in data.docs) ProductModel.fromJson(item.data() as Map<String,dynamic>)
+      for (QueryDocumentSnapshot<Object?> item in data.docs)
+        ProductModel.fromJson(item.data() as Map<String, dynamic>)
     ];
   }
 
   Future<void> setAllProductFav(userId) async {
-    final data = await FirebaseFirestore.instance.collection("product").where("userProductFav", arrayContains: userId).get();
+    final data = await FirebaseFirestore.instance
+        .collection("product")
+        .where("userProductFav", arrayContains: userId)
+        .get();
 
     _allProducts = <ProductModel>[
-      for (QueryDocumentSnapshot<Object?> item in data.docs) ProductModel.fromJson(item.data() as Map<String,dynamic>)
+      for (QueryDocumentSnapshot<Object?> item in data.docs)
+        ProductModel.fromJson(item.data() as Map<String, dynamic>)
     ];
   }
 
   List<ProductModel> get getAllProduct => _allProducts;
 
   Future<void> toggleFav(String uidProduct, bool isFav) async {
-    await FirebaseFirestore.instance.collection("product").doc(uidProduct).update({"isFav": !isFav});
+    await FirebaseFirestore.instance
+        .collection("product")
+        .doc(uidProduct)
+        .update({"isFav": !isFav});
     notifyListeners();
   }
 
   Future<void> addProduct({
-      BuildContext? context,
-      required String name,
-      required int price,
-      required int qty,
-      required String imageUrl,
-      required String desc,
-    }) async {
-    QuerySnapshot<Object?> product = await FirebaseFirestore.instance.collection("product").where("name", isEqualTo: name).get();
-    
+    BuildContext? context,
+    required String name,
+    required int price,
+    required int qty,
+    required String imageUrl,
+    required String desc,
+  }) async {
+    QuerySnapshot<Object?> product = await FirebaseFirestore.instance
+        .collection("product")
+        .where("name", isEqualTo: name)
+        .get();
+
     final newProduct = FirebaseFirestore.instance.collection("product").doc();
     if (product.docs.isEmpty) {
       await newProduct.set(
@@ -55,7 +66,7 @@ class ProductProvider with ChangeNotifier {
       );
 
       ScaffoldMessenger.of(context!).showSnackBar(
-        const SnackBar(content: Text('Product berhasil ditambahkan')));
+          const SnackBar(content: Text('Product berhasil ditambahkan')));
 
       Navigator.pushReplacementNamed(context, '/main').then(
         (_) => Navigator.pop(context),
@@ -64,18 +75,36 @@ class ProductProvider with ChangeNotifier {
   }
 
   void addToFav(productId, userId) {
-    final productRef = FirebaseFirestore.instance.collection("product").doc(productId);
+    final productRef =
+        FirebaseFirestore.instance.collection("product").doc(productId);
     final userRef = FirebaseFirestore.instance.collection("user").doc(userId);
 
-    productRef.update({"userProductFav": FieldValue.arrayUnion([userId])});
-    userRef.update({"productUserFav": FieldValue.arrayUnion([productId])});
+    productRef.update({
+      "userProductFav": FieldValue.arrayUnion([userId])
+    });
+    userRef.update({
+      "productUserFav": FieldValue.arrayUnion([productId])
+    });
   }
 
   void remoteToFav(productId, userId) {
-    final productRef = FirebaseFirestore.instance.collection("product").doc(productId);
+    final productRef =
+        FirebaseFirestore.instance.collection("product").doc(productId);
     final userRef = FirebaseFirestore.instance.collection("user").doc(userId);
 
-    productRef.update({"userProductFav": FieldValue.arrayRemove([userId])});
-    userRef.update({"productUserFav": FieldValue.arrayRemove([productId])});
+    productRef.update({
+      "userProductFav": FieldValue.arrayRemove([userId])
+    });
+    userRef.update({
+      "productUserFav": FieldValue.arrayRemove([productId])
+    });
+  }
+
+  Future<ProductModel> getProductById(String prodId) async {
+    final data = await FirebaseFirestore.instance
+        .collection("product")
+        .doc(prodId)
+        .get();
+    return ProductModel.fromJson(data.data() as Map<String, dynamic>);
   }
 }
