@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-class CardRiwayatPemesanan extends StatelessWidget {
+class CardDetailRiwayatPemesanan extends StatelessWidget {
   final String image;
   final int quantity;
   final String food;
-  final String price;
+  final int price;
   final String date;
-  const CardRiwayatPemesanan(
+  const CardDetailRiwayatPemesanan(
       {Key? key,
       required this.image,
       required this.quantity,
@@ -17,6 +18,8 @@ class CardRiwayatPemesanan extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final myCurr = NumberFormat("#,##0", "en_US");
+
     return Card(
       child: SizedBox(
         height: MediaQuery.of(context).size.height * 0.125,
@@ -35,7 +38,7 @@ class CardRiwayatPemesanan extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   child: Image(
                     fit: BoxFit.fill,
-                    image: AssetImage(image),
+                    image: NetworkImage(image),
                   ),
                 ),
               ),
@@ -51,7 +54,7 @@ class CardRiwayatPemesanan extends StatelessWidget {
                     height: 30,
                     child: Text(
                       food + " x " + quantity.toString(),
-                      style : const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                   ),
                   SizedBox(
@@ -67,14 +70,12 @@ class CardRiwayatPemesanan extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
-                                price,
-                                style: const TextStyle(
-                                  fontSize: 22, fontWeight: FontWeight.w500),
+                                myCurr.format(price.toInt()),
+                                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                               ),
                               Text(
                                 date,
-                                style: const TextStyle(
-                                  fontSize: 12, fontWeight: FontWeight.bold),
+                                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                               )
                             ],
                           ),
@@ -89,8 +90,7 @@ class CardRiwayatPemesanan extends StatelessWidget {
                           child: const Center(
                             child: Text(
                               "Beli lagi",
-                              style:
-                                  TextStyle(fontSize: 11, color: Colors.white),
+                              style: TextStyle(fontSize: 11, color: Colors.white),
                             ),
                           ),
                         )

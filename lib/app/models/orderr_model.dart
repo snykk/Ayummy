@@ -1,10 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
 class OrderModel with ChangeNotifier {
   final String id;
   final String userId;
   final String paymentMethod;
-  final List<Map<String, dynamic>> orderDetails;
+  final List<dynamic> orderDetails;
   final int totalPrice;
   final DateTime createAt;
 
@@ -21,9 +22,9 @@ class OrderModel with ChangeNotifier {
         id: json["id"],
         userId: json["userId"],
         paymentMethod: json["paymentMethod"],
-        orderDetails: json["orderDetails"] as List<Map<String, dynamic>>,
+        orderDetails: json["orderDetails"] as List<dynamic>,
         totalPrice: json["totalPrice"],
-        createAt: json["createAt"],
+        createAt: (json["createAt"] as Timestamp).toDate(),
       );
 
   Map<String, dynamic> toJson() => {

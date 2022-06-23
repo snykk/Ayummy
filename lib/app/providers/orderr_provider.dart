@@ -5,9 +5,11 @@ import 'package:project/app/models/orderr_model.dart';
 class OrderProvider with ChangeNotifier {
   List<OrderModel> _orderData = [];
 
-  Future<void> setOrderData() async {
-    final data = await FirebaseFirestore.instance.collection("order").get();
-
+  Future<void> setOrderData(userId) async {
+    final data = await FirebaseFirestore.instance
+        .collection("order")
+        .where("userId", isEqualTo: userId)
+        .get();
     _orderData = <OrderModel>[
       for (QueryDocumentSnapshot<Object?> item in data.docs)
         OrderModel.fromJson(item.data() as Map<String, dynamic>)

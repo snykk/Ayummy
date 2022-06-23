@@ -26,10 +26,8 @@ class _CartPageState extends State<CartPage> {
   Widget build(BuildContext context) {
     final cartProvider = Provider.of<CartProvider>(context, listen: false);
     log("restart");
-    final userProvider =
-        Provider.of<UserProvider>(context, listen: false).getUser;
-    final productProvider =
-        Provider.of<ProductProvider>(context, listen: false);
+    final userProvider = Provider.of<UserProvider>(context, listen: false).getUser;
+    final productProvider = Provider.of<ProductProvider>(context, listen: false);
 
     return SizedBox(
       width: double.infinity,
@@ -59,16 +57,13 @@ class _CartPageState extends State<CartPage> {
                         children: [
                           for (CartModel cartItem in cartProvider.getCartData)
                             FutureBuilder<ProductModel>(
-                              future: productProvider
-                                  .getProductById(cartItem.productId),
+                              future: productProvider.getProductById(cartItem.productId),
                               builder: (_, snapProduct) {
-                                if (snapProduct.connectionState ==
-                                    ConnectionState.waiting) {
+                                if (snapProduct.connectionState == ConnectionState.waiting) {
                                   return Center(
                                     child: Container(),
                                   );
-                                } else if (snapProduct.connectionState ==
-                                    ConnectionState.done) {
+                                } else if (snapProduct.connectionState == ConnectionState.done) {
                                   final productData = snapProduct.data!;
 
                                   return ChangeNotifierProvider.value(
@@ -178,10 +173,8 @@ class CartCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final cartProvider = Provider.of<CartProvider>(context, listen: false);
     final cartItem = Provider.of<CartModel>(context, listen: false);
-    print("total harga sekaran ${cartProvider.totalHarga}");
     return Container(
-      padding:
-          EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.002),
+      padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.002),
       child: Card(
         child: SizedBox(
           height: 100,
@@ -211,8 +204,7 @@ class CartCard extends StatelessWidget {
                   child: Center(
                     child: Text(
                       name,
-                      style: const TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
@@ -225,8 +217,8 @@ class CartCard extends StatelessWidget {
                       InkWell(
                         onTap: () {
                           if (cartItem.qty > 1) {
-                            cartProvider.decItemCart(cartItem.id, cartItem.qty,
-                                cartItem.productId, price);
+                            cartProvider.decItemCart(
+                                cartItem.id, cartItem.qty, cartItem.productId, price);
                             cartItem.changeQty = -1;
                           } else {
                             cartProvider.removeItemFromCart(cartItem.id, price);
@@ -263,8 +255,7 @@ class CartCard extends StatelessWidget {
                           height: 25,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
-                              border: Border.all(
-                                  color: const Color(0xff2f4858), width: 2.0)),
+                              border: Border.all(color: const Color(0xff2f4858), width: 2.0)),
                           child: const Icon(
                             Icons.remove,
                             size: 20,
@@ -290,8 +281,7 @@ class CartCard extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          cartProvider.incItemCart(
-                              cartItem.id, cartItem.qty, price);
+                          cartProvider.incItemCart(cartItem.id, cartItem.qty, price);
                           cartItem.changeQty = 1;
                           // final docCart = FirebaseFirestore
                           //     .instance
@@ -309,8 +299,7 @@ class CartCard extends StatelessWidget {
                           height: 25,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
-                              border: Border.all(
-                                  color: const Color(0xff2f4858), width: 2.0)),
+                              border: Border.all(color: const Color(0xff2f4858), width: 2.0)),
                           child: const Icon(
                             Icons.add,
                             size: 20,
