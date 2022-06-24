@@ -96,10 +96,8 @@ class CartProvider with ChangeNotifier {
   Future<void> setTotalHarga() async {
     totalHarga = 0;
     for (CartModel cartItem in _cartData) {
-      final productRef = await FirebaseFirestore.instance
-          .collection("product")
-          .doc(cartItem.productId)
-          .get();
+      final productRef =
+          await FirebaseFirestore.instance.collection("product").doc(cartItem.productId).get();
       totalHarga += cartItem.qty * productRef["price"] as int;
     }
   }

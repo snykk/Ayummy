@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import "package:flutter/material.dart";
 import 'package:intl/intl.dart';
 import 'package:project/app/providers/product_provider.dart';
@@ -14,10 +13,8 @@ class DetailMenuPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userProvider =
-        Provider.of<UserProvider>(context, listen: false).getUser;
-    final productProvider =
-        Provider.of<ProductProvider>(context, listen: false);
+    final userProvider = Provider.of<UserProvider>(context, listen: false).getUser;
+    final productProvider = Provider.of<ProductProvider>(context, listen: false);
     final product = Provider.of<ProductModel>(context, listen: false);
     final myCurr = NumberFormat("#,##0", "en_US");
     final cartProvider = Provider.of<CartProvider>(context, listen: false);
@@ -81,32 +78,25 @@ class DetailMenuPage extends StatelessWidget {
                                 ),
                               )
                             : Consumer<ProductModel>(
-                                builder: (context, product, child) =>
-                                    IconButton(
+                                builder: (context, product, child) => IconButton(
                                   onPressed: () async {
-                                    var isContain = product.userProductFav
-                                        .contains(userProvider.id);
+                                    var isContain =
+                                        product.userProductFav.contains(userProvider.id);
                                     if (!isContain) {
-                                      productProvider.addToFav(
-                                          product.id, userProvider.id);
+                                      productProvider.addToFav(product.id, userProvider.id);
                                       product.addToFav(userProvider.id);
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(const SnackBar(
-                                              content: Text(
-                                                  'Product berhasil berhasil ditambahkan')));
+                                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                          content: Text('Product berhasil berhasil ditambahkan')));
                                     } else {
-                                      productProvider.remoteToFav(
-                                          product.id, userProvider.id);
+                                      productProvider.remoteToFav(product.id, userProvider.id);
                                       product.removeToFav(userProvider.id);
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(const SnackBar(
-                                              content: Text(
-                                                  'Menu favorit dihilangkan dari menu favorit')));
+                                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                          content:
+                                              Text('Menu favorit dihilangkan dari menu favorit')));
                                     }
                                   },
                                   icon: Icon(
-                                    product.userProductFav
-                                            .contains(userProvider.id)
+                                    product.userProductFav.contains(userProvider.id)
                                         ? Icons.favorite
                                         : Icons.favorite_outline_outlined,
                                     color: Colors.white,
@@ -133,8 +123,7 @@ class DetailMenuPage extends StatelessWidget {
                       shadowColor: Colors.black,
                       shape: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
-                        borderSide:
-                            const BorderSide(color: Colors.white, width: 1),
+                        borderSide: const BorderSide(color: Colors.white, width: 1),
                       ),
                     ),
                     const SizedBox(
@@ -148,14 +137,12 @@ class DetailMenuPage extends StatelessWidget {
                           width: 150,
                           child: Text(
                             product.name,
-                            style: const TextStyle(
-                                fontSize: 25, fontWeight: FontWeight.w500),
+                            style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
                           ),
                         ),
                         Text(
                           myCurr.format(product.price),
-                          style: const TextStyle(
-                              fontSize: 30, fontWeight: FontWeight.bold),
+                          style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -202,8 +189,7 @@ class DetailMenuPage extends StatelessWidget {
                     ),
                     const Text(
                       "Deksripsi",
-                      style:
-                          TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
                       height: 10,
@@ -226,9 +212,7 @@ class DetailMenuPage extends StatelessWidget {
                         InkWell(
                           onTap: () {
                             cartProvider.addToCart(
-                                context: context,
-                                userId: userProvider.id,
-                                productId: product.id);
+                                context: context, userId: userProvider.id, productId: product.id);
 
                             // final docUser = FirebaseFirestore.instance
                             //     .collection('user')
@@ -251,9 +235,7 @@ class DetailMenuPage extends StatelessWidget {
                               child: Text(
                                 "Pesan Sekarang",
                                 style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
+                                    fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
                               ),
                             ),
                           ),

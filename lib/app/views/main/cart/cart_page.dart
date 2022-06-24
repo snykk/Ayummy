@@ -17,11 +17,6 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     final cartProvider = Provider.of<CartProvider>(context, listen: false);
@@ -85,42 +80,6 @@ class _CartPageState extends State<CartPage> {
                   )
                 ],
               ),
-              // child: FutureBuilder(
-              //     future: cartProvider.setCartUser(userProvider.id),
-              //     builder: (context, snap) {
-              //       if (snap.connectionState == ConnectionState.waiting) {
-              //         return const Center(
-              //           child: CircularProgressIndicator(),
-              //         );
-              //       }
-
-              //       return ListView.builder(
-              //         itemCount: cartProvider.getCartData.length,
-              //         itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
-              //           value: cartProvider.getCartData[i],
-              //           child: FutureBuilder<ProductModel>(
-              //             future: productProvider.getProductById(
-              //                 cartProvider.getCartData[i].productId),
-              //             builder: (context, snapProduct) {
-              //               if (snapProduct.connectionState ==
-              //                   ConnectionState.waiting) {
-              //                 return Container();
-              //               }
-
-              //               final productData = snapProduct.data!;
-              //               return ChangeNotifierProvider<CartModel>.value(
-              //                 value: cartProvider.getCartData[i],
-              //                 child: CartCard(
-              //                   id: productData.id,
-              //                   name: productData.name,
-              //                   imageUrl: productData.imageUrl,
-              //                 ),
-              //               );
-              //             },
-              //           ),
-              //         ),
-              //       );
-              //     }),
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 20.0, top: 0),
@@ -223,32 +182,6 @@ class CartCard extends StatelessWidget {
                           } else {
                             cartProvider.removeItemFromCart(cartItem.id, price);
                           }
-                          // final cartRef = FirebaseFirestore.instance
-                          //     .collection('cart')
-                          //     .doc(cartItem.id);
-                          // if (cartItem.qty == 1) {
-                          //   cartRef.delete();
-                          // } else {
-                          //   cartRef.update({
-                          //     "qty": cartItem.qty - 1,
-                          //   });
-                          // }
-                          // final docCart = FirebaseFirestore
-                          //     .instance
-                          //     .collection('cart')
-                          //     .doc(cartProvider
-                          //         .getCartData[i].id);
-                          // if (cartProvider
-                          //         .getCartData[i].qty ==
-                          //     1) {
-                          //   docCart.delete();
-                          // } else {
-                          //   docCart.update({
-                          //     'qty': cartProvider
-                          //             .getCartData[i].qty -
-                          //         1
-                          //   });
-                          // }
                         },
                         child: Container(
                           width: 25,
@@ -283,16 +216,6 @@ class CartCard extends StatelessWidget {
                         onTap: () {
                           cartProvider.incItemCart(cartItem.id, cartItem.qty, price);
                           cartItem.changeQty = 1;
-                          // final docCart = FirebaseFirestore
-                          //     .instance
-                          //     .collection('cart')
-                          //     .doc(cartProvider
-                          //         .getCartData[i].id);
-                          // docCart.update({
-                          //   'qty': cartProvider
-                          //           .getCartData[i].qty +
-                          //       1
-                          // });
                         },
                         child: Container(
                           width: 25,

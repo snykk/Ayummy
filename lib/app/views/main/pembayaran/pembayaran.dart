@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -23,12 +21,10 @@ class Pembayaran extends StatefulWidget {
 }
 
 class _PembayaranState extends State<Pembayaran> {
-  // SingingCharacter? _character = SingingCharacter.langsung;
   Future<void> _dialogConfirmation(context, data) async {
     final orderProvider = Provider.of<OrderProvider>(context, listen: false);
     final cartProvider = Provider.of<CartProvider>(context, listen: false);
-    final productProvider =
-        Provider.of<ProductProvider>(context, listen: false);
+    final productProvider = Provider.of<ProductProvider>(context, listen: false);
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     return showDialog<void>(
       context: context,
@@ -80,13 +76,10 @@ class _PembayaranState extends State<Pembayaran> {
                     .then(
                   (_) async {
                     for (Map<String, dynamic> item in data) {
-                      await FirebaseFirestore.instance
-                          .collection("cart")
-                          .doc(item["id"])
-                          .delete();
+                      await FirebaseFirestore.instance.collection("cart").doc(item["id"]).delete();
 
-                      ProductModel productData = await productProvider
-                          .getProductById(item["productId"]);
+                      ProductModel productData =
+                          await productProvider.getProductById(item["productId"]);
                       await FirebaseFirestore.instance
                           .collection("product")
                           .doc(item["productId"])
@@ -98,9 +91,6 @@ class _PembayaranState extends State<Pembayaran> {
                     cartProvider.paymentMethod = "COD";
                   },
                 );
-
-                // orderProvider.addOrder(paymentMethod: paymentMethod, details: details, totalPrice: totalPrice)
-                // Navigator.of(context).pop();
               },
             ),
           ],
@@ -111,50 +101,9 @@ class _PembayaranState extends State<Pembayaran> {
 
   @override
   Widget build(BuildContext context) {
-    // final userProvider =
-    //     Provider.of<UserProvider>(context, listen: false).getUser;
-    // // final orderProvider = Provider.of<OrderProvider>(context, listen: false);
-    // Provider.of<CartProvider>(context, listen: false)
-    //     .setAllCart()
-    //     .then((_) => setState(() {}));
-    // final allCart =
-    //     Provider.of<CartProvider>(context, listen: false).getAllCart;
-
-    // List<dynamic> payment = (_character.toString()).split('.');
-
-    // int sum = 0;
-
-    // for (var i = 0; i < userProvider.cart.length; i++) {
-    //   sum += allCart[i].productPrice! * allCart[i].qty;
-    // }
-
-    // List carts = [];
-
-    // for (var i = 0; i < allCart.length; i++) {
-    //   carts.add(
-    //     {
-    //       "id": allCart[i].id,
-    //       "productName": allCart[i].productName,
-    //       "qty": allCart[i].qty,
-    //       "producPrice": allCart[i].productPrice,
-    //     },
-    //   );
-    // }
-
-    // List<dynamic> orders = [];
-    // // orders.add("abc");
-    // orders.add({
-    //   "create_at": DateTime.now(),
-    //   "isPayed": false,
-    //   "paymentMethod": payment,
-    //   "details": carts,
-    //   "totalPrice": sum,
-    // });
-
     final cartProvider = Provider.of<CartProvider>(context, listen: false);
     final userProvider = Provider.of<UserProvider>(context, listen: false);
-    final productProvider =
-        Provider.of<ProductProvider>(context, listen: false);
+    final productProvider = Provider.of<ProductProvider>(context, listen: false);
     final myCurr = NumberFormat("#,##0", "en_US");
 
     final cartCheckoutList = <Map<String, dynamic>>[];
@@ -194,18 +143,15 @@ class _PembayaranState extends State<Pembayaran> {
                         children: [
                           for (CartModel cartItem in cartProvider.getCartData)
                             FutureBuilder<ProductModel>(
-                              future: productProvider
-                                  .getProductById(cartItem.productId),
+                              future: productProvider.getProductById(cartItem.productId),
                               builder: (_, snapProduct) {
-                                if (snapProduct.connectionState ==
-                                    ConnectionState.waiting) {
+                                if (snapProduct.connectionState == ConnectionState.waiting) {
                                   return Center(
                                     child: Container(),
                                   );
                                 }
                                 final productData = snapProduct.data!;
-                                final totalPerItem =
-                                    cartItem.qty * productData.price;
+                                final totalPerItem = cartItem.qty * productData.price;
 
                                 cartCheckoutList.add(cartItem.toJson());
 
@@ -267,46 +213,6 @@ class _PembayaranState extends State<Pembayaran> {
                   ),
                 ],
               ),
-              // child: FutureBuilder(
-              //   future: cartProvider.setCartUser(userProvider.getUser.id),
-              //   builder: (context, snap) {
-              //     if (snap.connectionState == ConnectionState.waiting) {
-              //       return const Center(
-              //         child: CircularProgressIndicator(),
-              //       );
-              //     }
-
-              //     final cartCheckout = cartProvider.getCartData;
-              //     return ListView.builder(
-              //       shrinkWrap: true,
-              //       itemCount: cartCheckout.length,
-              //       itemBuilder: (ctx, i) => Column(
-              //         children: [
-              //           Row(
-              //             children: [
-              //               Text(
-              //                   (i + 1).toString() +
-              //                       '. ' +
-              //                       "ya" +
-              //                       ' x' +
-              //                       2.toString(),
-              //                   style: const TextStyle(fontSize: 16)),
-              //               const Spacer(),
-              //               Text(
-              //                 (2 * 2).toString(),
-              //                 style: const TextStyle(
-              //                   fontSize: 16,
-              //                   color: Color(0xFFFF8A00),
-              //                 ),
-              //               )
-              //             ],
-              //           ),
-              //           const SizedBox(height: 8),
-              //         ],
-              //       ),
-              //     );
-              //   },
-              // ),
             ),
             const SizedBox(
               height: 25,
@@ -378,20 +284,6 @@ class _PembayaranState extends State<Pembayaran> {
             InkWell(
               onTap: () {
                 _dialogConfirmation(context, cartCheckoutList);
-                // for (CartModel item in cartCheckoutList) {
-                //   print(item.productId);
-                // }
-                // final docUser = FirebaseFirestore.instance
-                //     .collection('user')
-                //     .doc(userProvider.id);
-                // docUser.update({"order": orders});
-                // orderProvider.addOrder(
-                //   context: context,
-                //   id: "123",
-                //   paymentMethod: payment[1],
-                //   details: carts,
-                //   totalPrice: sum,
-                // );
               },
               child: Ink(
                 width: double.infinity,

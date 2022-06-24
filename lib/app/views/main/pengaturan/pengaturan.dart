@@ -8,25 +8,46 @@ class Pengaturan extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppbar(text:"Pengaturan", child: true,),
+      appBar: const CustomAppbar(
+        text: "Pengaturan",
+        child: true,
+      ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(top: 40,right: 45,left: 45),
-          child: Column(
-            children: const [
-              OptionCard(text: Text("Notifikasi")),
-              SizedBox(height: 10,),
-              OptionCard(text: Text("Bahasa")),
-              SizedBox(height: 10,),
-              OptionCard(text: Text("Akun")),
-              SizedBox(height: 10,),
-              OptionCard(text: Text("Undah Teman")),
-              SizedBox(height: 10,),
-              OptionCard(text: Text("Versi Aplikasi")),
-              SizedBox(height: 10,),
-            ],
-          )
-        ),
+            padding: const EdgeInsets.only(top: 40, right: 45, left: 45),
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 10,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, "/bantuan");
+                  },
+                  child: const OptionCard(text: Text("Bantuan")),
+                ),
+                const OptionCard(text: Text("Notifikasi")),
+                const SizedBox(
+                  height: 10,
+                ),
+                const OptionCard(text: Text("Bahasa")),
+                const SizedBox(
+                  height: 10,
+                ),
+                const OptionCard(text: Text("Akun")),
+                const SizedBox(
+                  height: 10,
+                ),
+                const OptionCard(text: Text("Undah Teman")),
+                const SizedBox(
+                  height: 10,
+                ),
+                const OptionCard(text: Text("Versi Aplikasi")),
+                const SizedBox(
+                  height: 10,
+                ),
+              ],
+            )),
       ),
     );
   }

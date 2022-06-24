@@ -218,15 +218,6 @@ class ProfilePage extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, "/bantuan");
-                },
-                child: const OptionCard(text: Text("Bantuan")),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              GestureDetector(
-                onTap: () {
                   Navigator.pushNamed(context, "/pengaturan");
                 },
                 child: const OptionCard(text: Text("Pengaturan")),

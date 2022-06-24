@@ -43,7 +43,7 @@ class RatingProvider with ChangeNotifier {
       );
 
       ScaffoldMessenger.of(context!).showSnackBar(
-        const SnackBar(content: Text('Rating added successfully')),
+        const SnackBar(content: Text('Berhasil menambahkan rating')),
       );
 
       Navigator.pop(context);
@@ -62,7 +62,7 @@ class RatingProvider with ChangeNotifier {
     );
 
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Rating updated successfully')),
+      const SnackBar(content: Text('Berhasil mengubah rating')),
     );
 
     Navigator.pop(context);
