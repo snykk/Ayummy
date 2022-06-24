@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 
-class CardBelumDiulas extends StatelessWidget {
+class CardTelahDiulas extends StatelessWidget {
   final String id;
+  final String ratingId;
   final String image;
   final String food;
-  const CardBelumDiulas({
+  final double rating;
+  const CardTelahDiulas({
     Key? key,
     required this.id,
+    required this.ratingId,
     required this.image,
     required this.food,
+    required this.rating,
   }) : super(key: key);
 
   @override
@@ -57,24 +61,44 @@ class CardBelumDiulas extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.fromLTRB(0, 10, 50, 0),
-                width: 87,
-                height: 29,
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                      backgroundColor: const Color.fromRGBO(255, 147, 18, 1),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4.0),
-                      )),
-                  onPressed: () {
-                    Navigator.pushNamed(context, "/rating", arguments: id);
-                  },
-                  child: const Text(
-                    "Beri Rating",
-                    style: TextStyle(fontSize: 11, color: Colors.white),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(0, 10, 50, 0),
+                    width: 87,
+                    height: 29,
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                          backgroundColor: const Color.fromRGBO(255, 147, 18, 1),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                          )),
+                      onPressed: () {
+                        Navigator.pushNamed(context, "/edit_rating",
+                            arguments: {'id': id, 'rating': rating, 'ratingId': ratingId});
+                      },
+                      child: const Text(
+                        "Edit Ulasan",
+                        style: TextStyle(fontSize: 11, color: Colors.white),
+                      ),
+                    ),
                   ),
-                ),
+                  Row(
+                    children: [
+                      Text(
+                        "rating $rating",
+                        style: const TextStyle(
+                          fontSize: 12,
+                        ),
+                      ),
+                      const Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ],
           ),

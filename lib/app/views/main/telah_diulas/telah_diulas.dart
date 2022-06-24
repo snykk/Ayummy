@@ -1,56 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:project/app/providers/orderr_provider.dart';
+import 'package:project/app/models/rating_model.dart';
 import 'package:project/app/providers/product_provider.dart';
 import 'package:project/app/providers/user_provider.dart';
-import 'package:project/app/views/main/not_reviewed/widgets/card_belum_diulas.dart';
+import 'package:project/app/views/main/telah_diulas/widgets/card_telah_diulas.dart';
 import 'package:project/app/views/main/widgets/custom_appbar.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/product_model.dart';
+import '../../../providers/rating_provider.dart';
 
-class BelumDiulas extends StatelessWidget {
-  const BelumDiulas({Key? key}) : super(key: key);
+class TelahDiulas extends StatelessWidget {
+  const TelahDiulas({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final orderProvider = Provider.of<OrderProvider>(context, listen: false);
+    final ratingProvider = Provider.of<RatingProvider>(context, listen: false);
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     final productProvider = Provider.of<ProductProvider>(context, listen: false);
 
     return Scaffold(
       appBar: const CustomAppbar(
-        text: "Belum diulas",
+        text: "Telah diulas",
         child: true,
       ),
       body: FutureBuilder(
-        future: orderProvider.setOrderedProduct(userProvider.getUser.id),
+        future: ratingProvider.setRatingData(userProvider.getUser.id),
         builder: (context, snap) {
           if (snap.connectionState == ConnectionState.waiting) {
             return Container();
           }
 
-          print(orderProvider.getAllOrderedProduct);
           return ListView(
             children: [
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.04,
               ),
-              for (String productId in orderProvider.getAllOrderedProduct)
-                FutureBuilder<dynamic>(
-                  future:
-                      productProvider.getNotReviewdProductById(productId, userProvider.getUser.id),
+              for (RatingModel item in ratingProvider.getRatingData)
+                FutureBuilder<ProductModel>(
+                  future: productProvider.getProductById(item.productId),
                   builder: (context, snap) {
                     if (snap.connectionState == ConnectionState.waiting) {
                       return Container();
                     }
 
-                    if (snap.data == null) {
-                      return Container();
-                    }
-
                     ProductModel productData = snap.data!;
-                    return CardBelumDiulas(
+                    return CardTelahDiulas(
                       id: productData.id,
+                      ratingId: item.id,
+                      rating: item.rating,
                       image: productData.imageUrl,
                       food: productData.name,
                     );

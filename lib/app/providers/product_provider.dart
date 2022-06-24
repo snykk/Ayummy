@@ -45,10 +45,8 @@ class ProductProvider with ChangeNotifier {
     required String imageUrl,
     required String desc,
   }) async {
-    QuerySnapshot<Object?> product = await FirebaseFirestore.instance
-        .collection("product")
-        .where("name", isEqualTo: name)
-        .get();
+    QuerySnapshot<Object?> product =
+        await FirebaseFirestore.instance.collection("product").where("name", isEqualTo: name).get();
 
     final newProduct = FirebaseFirestore.instance.collection("product").doc();
     if (product.docs.isEmpty) {
@@ -62,11 +60,12 @@ class ProductProvider with ChangeNotifier {
           description: desc,
           imageUrl: imageUrl,
           userProductFav: [],
+          userAlreadyReview: [],
         ).toJson(),
       );
 
-      ScaffoldMessenger.of(context!).showSnackBar(
-          const SnackBar(content: Text('Product berhasil ditambahkan')));
+      ScaffoldMessenger.of(context!)
+          .showSnackBar(const SnackBar(content: Text('Product berhasil ditambahkan')));
 
       Navigator.pushReplacementNamed(context, '/main').then(
         (_) => Navigator.pop(context),
@@ -75,8 +74,7 @@ class ProductProvider with ChangeNotifier {
   }
 
   void addToFav(productId, userId) {
-    final productRef =
-        FirebaseFirestore.instance.collection("product").doc(productId);
+    final productRef = FirebaseFirestore.instance.collection("product").doc(productId);
     final userRef = FirebaseFirestore.instance.collection("user").doc(userId);
 
     productRef.update({
@@ -87,24 +85,45 @@ class ProductProvider with ChangeNotifier {
     });
   }
 
-  void remoteToFav(productId, userId) {
-    final productRef =
-        FirebaseFirestore.instance.collection("product").doc(productId);
+  Future<void> remoteToFav(productId, userId) async {
+    final productRef = FirebaseFirestore.instance.collection("product").doc(productId);
     final userRef = FirebaseFirestore.instance.collection("user").doc(userId);
 
-    productRef.update({
+    await productRef.update({
       "userProductFav": FieldValue.arrayRemove([userId])
     });
-    userRef.update({
+    await userRef.update({
       "productUserFav": FieldValue.arrayRemove([productId])
     });
   }
 
   Future<ProductModel> getProductById(String prodId) async {
-    final data = await FirebaseFirestore.instance
-        .collection("product")
-        .doc(prodId)
-        .get();
+    final data = await FirebaseFirestore.instance.collection("product").doc(prodId).get();
     return ProductModel.fromJson(data.data() as Map<String, dynamic>);
+  }
+
+  Future<dynamic> getNotReviewdProductById(prodId, userId) async {
+    final data = await FirebaseFirestore.instance.collection("product").doc(prodId).get();
+
+    Map<String, dynamic> pe = data.data() as Map<String, dynamic>;
+    List<dynamic> ya = pe["userAlreadyReview"];
+
+    if (ya.contains(userId)) {
+      return;
+    }
+
+    return ProductModel.fromJson(data.data() as Map<String, dynamic>);
+  }
+
+  Future<void> productReviewed(productId, userId) async {
+    final productRef = FirebaseFirestore.instance.collection("product").doc(productId);
+    var snapshot = await productRef.get();
+    List productData = snapshot.data()!["userAlreadyReview"];
+
+    if (!productData.contains(userId)) {
+      productRef.update({
+        "userAlreadyReview": FieldValue.arrayUnion([userId])
+      });
+    }
   }
 }

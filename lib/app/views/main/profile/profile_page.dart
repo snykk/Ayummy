@@ -14,7 +14,7 @@ class ProfilePage extends StatelessWidget {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     return showDialog<void>(
       context: context,
-      barrierDismissible: false, 
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Konfirmasi Sistem'),
@@ -28,8 +28,12 @@ class ProfilePage extends StatelessWidget {
           actions: <Widget>[
             OutlinedButton(
               style: ButtonStyle(
-                overlayColor: MaterialStateProperty.all(const Color(0x15ff8a00),),
-                foregroundColor: MaterialStateProperty.all(const Color(0xffff8a00),), 
+                overlayColor: MaterialStateProperty.all(
+                  const Color(0x15ff8a00),
+                ),
+                foregroundColor: MaterialStateProperty.all(
+                  const Color(0xffff8a00),
+                ),
               ),
               child: const Text('Batalkan'),
               onPressed: () {
@@ -38,8 +42,12 @@ class ProfilePage extends StatelessWidget {
             ),
             ElevatedButton(
               style: ButtonStyle(
-                overlayColor: MaterialStateProperty.all(const Color(0x15ff8a00),),
-                backgroundColor: MaterialStateProperty.all(const Color(0xffff8a00),), 
+                overlayColor: MaterialStateProperty.all(
+                  const Color(0x15ff8a00),
+                ),
+                backgroundColor: MaterialStateProperty.all(
+                  const Color(0xffff8a00),
+                ),
               ),
               child: const Text('Akhiri'),
               onPressed: () async {
@@ -58,14 +66,16 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context).getUser;
-    
+
     return SingleChildScrollView(
       child: Center(
         child: SizedBox(
           width: MediaQuery.of(context).size.width * 0.8,
           child: Column(
             children: [
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -93,8 +103,7 @@ class ProfilePage extends StatelessWidget {
               Container(
                 width: double.infinity,
                 height: 140,
-                padding:
-                    const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   color: const Color(0xffff8a00),
@@ -117,8 +126,7 @@ class ProfilePage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(10),
                               child: Image(
                                 fit: BoxFit.fill,
-                                image: NetworkImage(
-                                    userProvider.imageUrl),
+                                image: NetworkImage(userProvider.imageUrl),
                               ),
                             ),
                           ),
@@ -134,18 +142,15 @@ class ProfilePage extends StatelessWidget {
                               children: [
                                 Text(
                                   userProvider.name,
-                                  style: const TextStyle(
-                                      fontSize: 20, color: Colors.white),
+                                  style: const TextStyle(fontSize: 20, color: Colors.white),
                                 ),
                                 Text(
-                                 userProvider.email,
-                                  style: const TextStyle(
-                                      fontSize: 12, color: Colors.white),
+                                  userProvider.email,
+                                  style: const TextStyle(fontSize: 12, color: Colors.white),
                                 ),
                                 Text(
                                   userProvider.phone,
-                                  style: const TextStyle(
-                                      fontSize: 12, color: Colors.white),
+                                  style: const TextStyle(fontSize: 12, color: Colors.white),
                                 )
                               ],
                             ),
@@ -161,7 +166,7 @@ class ProfilePage extends StatelessWidget {
                     Text(
                       (userProvider.address == "") ? "Alamat belum diisi" : userProvider.address,
                       style: const TextStyle(
-                        fontSize: 12, 
+                        fontSize: 12,
                         color: Colors.white,
                       ),
                     )
@@ -171,20 +176,33 @@ class ProfilePage extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              (userProvider.roleId == '1') ? Container() : GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, "/riwayat_pemesanan");
-                },
-                child: const OptionCard(text: Text("Riwayat Pemesanan")),
-              ),
+              (userProvider.roleId == '1')
+                  ? Container()
+                  : GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, "/riwayat_pemesanan");
+                      },
+                      child: const OptionCard(text: Text("Riwayat Pemesanan")),
+                    ),
               const SizedBox(
                 height: 10,
               ),
-              (userProvider.roleId == '1') ? Container() : GestureDetector(
+              (userProvider.roleId == '1')
+                  ? Container()
+                  : GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, "/belum_diulas");
+                      },
+                      child: const OptionCard(text: Text("Belum diulas")),
+                    ),
+              const SizedBox(
+                height: 10,
+              ),
+              GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, "/belum_diulas");
+                  Navigator.pushNamed(context, "/telah_diulas");
                 },
-                child: const OptionCard(text: Text("Belum diulas")),
+                child: const OptionCard(text: Text("Telah diulas")),
               ),
               const SizedBox(
                 height: 10,
@@ -220,7 +238,7 @@ class ProfilePage extends StatelessWidget {
                 alignment: Alignment.bottomRight,
                 child: FloatingActionButton(
                   onPressed: () async {
-                   _dialogConfirmation(context);
+                    _dialogConfirmation(context);
                   },
                   mini: true,
                   child: const Icon(Icons.logout),
@@ -234,7 +252,3 @@ class ProfilePage extends StatelessWidget {
     );
   }
 }
-
-
-
-      

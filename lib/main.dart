@@ -3,14 +3,17 @@ import 'package:project/app/providers/auth_provider.dart';
 import 'package:project/app/providers/cartt_provider.dart';
 import 'package:project/app/providers/orderr_provider.dart';
 import 'package:project/app/providers/promo_provider.dart';
+import 'package:project/app/providers/rating_provider.dart';
 import 'package:project/app/providers/user_provider.dart';
 import 'package:project/app/views/main/pembayaran/bukti_pembayaran.dart';
 import 'package:project/app/views/main/tambah_produk/tambah_produk.dart';
+import 'package:project/app/views/main/telah_diulas/widgets/edit_ulasan.dart';
 import 'package:provider/provider.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'app/views/main/location/get_location.dart';
 import 'app/views/main/riwayat_pemesanan/riwayat_pemesanan.dart';
+import 'app/views/main/telah_diulas/telah_diulas.dart';
 import 'firebase_options.dart';
 
 import 'package:project/app/views/auth/auth_page.dart';
@@ -62,6 +65,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => PromoProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => RatingProvider(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -81,6 +87,7 @@ class MyApp extends StatelessWidget {
           '/detail_riwayat_pemesanan': (context) => const DetailRiwayatPemesanan(),
           '/riwayat_pemesanan': (context) => const RiwayatPemesanan(),
           '/belum_diulas': (context) => const BelumDiulas(),
+          '/telah_diulas': (context) => const TelahDiulas(),
           '/ubah_profile': (context) => const UbahProfile(),
           '/get_location': (context) => const GetLocation(),
           '/rating': (context) => const Rating(),
@@ -89,6 +96,7 @@ class MyApp extends StatelessWidget {
           '/pembayaran_berhasil': (context) => const PembayaranBerhasil(),
           '/bukti_pembayaran': (context) => const BuktiPembayaran(),
           '/tambah_produk': (context) => const TambahProduk(),
+          '/edit_rating': (context) => const EditRating(),
         },
       ),
     );

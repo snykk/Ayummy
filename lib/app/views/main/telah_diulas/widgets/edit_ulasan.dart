@@ -6,19 +6,19 @@ import 'package:project/app/providers/product_provider.dart';
 import 'package:project/app/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../../../providers/rating_provider.dart';
+import '../../../../providers/rating_provider.dart';
 
-class Rating extends StatefulWidget {
-  const Rating({Key? key}) : super(key: key);
+class EditRating extends StatefulWidget {
+  const EditRating({Key? key}) : super(key: key);
 
   @override
-  State<Rating> createState() => _RatingState();
+  State<EditRating> createState() => _RatingState();
 }
 
-class _RatingState extends State<Rating> {
+class _RatingState extends State<EditRating> {
   double _rating = 0;
 
-  Future<void> _dialogConfirmation(context, productId, double rating) async {
+  Future<void> _dialogConfirmation(context, productId, double rating, String ratingId) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     final productProvider = Provider.of<ProductProvider>(context, listen: false);
     final ratingProvider = Provider.of<RatingProvider>(context, listen: false);
@@ -32,7 +32,7 @@ class _RatingState extends State<Rating> {
           content: SingleChildScrollView(
             child: Column(
               children: const <Widget>[
-                Text('Apakah anda yakin ingin mengulas produk?'),
+                Text('Apakah anda yakin ingin mengubah ulasan?'),
               ],
             ),
           ),
@@ -63,12 +63,7 @@ class _RatingState extends State<Rating> {
               child: const Text('Ulas'),
               onPressed: () async {
                 productProvider.productReviewed(productId, userProvider.getUser.id);
-                ratingProvider.addRating(
-                  context: context,
-                  productId: productId,
-                  userId: userProvider.getUser.id,
-                  rating: rating,
-                );
+                ratingProvider.updateRating(context, ratingId, rating);
               },
             ),
           ],
@@ -79,7 +74,11 @@ class _RatingState extends State<Rating> {
 
   @override
   Widget build(BuildContext context) {
-    final productId = ModalRoute.of(context)!.settings.arguments as String;
+    Map<String, dynamic> args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+
+    if (_rating == 0) {
+      _rating = args["rating"];
+    }
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -110,6 +109,7 @@ class _RatingState extends State<Rating> {
                 ),
                 RatingBar.builder(
                   direction: Axis.horizontal,
+                  initialRating: args["rating"],
                   allowHalfRating: true,
                   itemCount: 5,
                   itemPadding: const EdgeInsets.symmetric(horizontal: 3.0),
@@ -128,7 +128,7 @@ class _RatingState extends State<Rating> {
                 ),
                 (_rating != 0)
                     ? Text(
-                        "Rating $_rating",
+                        "rating $_rating",
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           fontSize: 18,
@@ -152,8 +152,9 @@ class _RatingState extends State<Rating> {
               onPressed: () {
                 _dialogConfirmation(
                   context,
-                  productId,
+                  args["id"],
                   _rating,
+                  args["ratingId"],
                 );
               },
               child: const Text(
