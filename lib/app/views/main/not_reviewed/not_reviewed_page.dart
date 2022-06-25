@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project/app/providers/orderr_provider.dart';
+import 'package:project/app/providers/order_provider.dart';
 import 'package:project/app/providers/product_provider.dart';
 import 'package:project/app/providers/user_provider.dart';
 import 'package:project/app/views/main/not_reviewed/widgets/card_belum_diulas.dart';
@@ -29,7 +29,6 @@ class BelumDiulas extends StatelessWidget {
             return Container();
           }
 
-          print(orderProvider.getAllOrderedProduct);
           return ListView(
             children: [
               SizedBox(

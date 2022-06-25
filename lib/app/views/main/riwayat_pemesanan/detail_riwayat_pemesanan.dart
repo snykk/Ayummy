@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:project/app/models/orderr_model.dart';
+import 'package:project/app/models/order_model.dart';
 import 'package:project/app/providers/product_provider.dart';
 import 'package:project/app/views/main/riwayat_pemesanan/widgets/card_detail_riwayat_pemesanan.dart';
 import 'package:project/app/views/main/widgets/custom_appbar.dart';

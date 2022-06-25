@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import '../models/cartt_model.dart';
+import '../models/cart_model.dart';
 
 class CartProvider with ChangeNotifier {
   List<CartModel> _cartData = [];

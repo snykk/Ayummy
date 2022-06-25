@@ -4,7 +4,7 @@ import 'package:project/app/views/main/riwayat_pemesanan/detail_riwayat_pemesana
 import 'package:project/app/views/main/widgets/custom_appbar.dart';
 import 'package:provider/provider.dart';
 
-import '../../../providers/orderr_provider.dart';
+import '../../../providers/order_provider.dart';
 import '../../../providers/user_provider.dart';
 
 class RiwayatPemesanan extends StatelessWidget {

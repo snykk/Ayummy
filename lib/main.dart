@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/app/providers/auth_provider.dart';
-import 'package:project/app/providers/cartt_provider.dart';
-import 'package:project/app/providers/orderr_provider.dart';
+import 'package:project/app/providers/cart_provider.dart';
+import 'package:project/app/providers/order_provider.dart';
 import 'package:project/app/providers/promo_provider.dart';
 import 'package:project/app/providers/rating_provider.dart';
 import 'package:project/app/providers/user_provider.dart';

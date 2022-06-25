@@ -5,10 +5,10 @@ import 'package:project/app/providers/user_provider.dart';
 import 'package:project/app/views/main/widgets/custom_appbar.dart';
 import 'package:provider/provider.dart';
 
-import '../../../models/cartt_model.dart';
+import '../../../models/cart_model.dart';
 import '../../../models/product_model.dart';
-import '../../../providers/cartt_provider.dart';
-import '../../../providers/orderr_provider.dart';
+import '../../../providers/cart_provider.dart';
+import '../../../providers/order_provider.dart';
 import '../../../providers/product_provider.dart';
 
 enum SingingCharacter { langsung, gopay, dana }

@@ -1,11 +1,11 @@
 import 'dart:developer';
 
 import "package:flutter/material.dart";
-import 'package:project/app/providers/cartt_provider.dart';
+import 'package:project/app/providers/cart_provider.dart';
 import 'package:project/app/providers/product_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../../../models/cartt_model.dart';
+import '../../../models/cart_model.dart';
 import '../../../models/product_model.dart';
 import '../../../providers/user_provider.dart';
 

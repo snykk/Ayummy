@@ -6,7 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../models/product_model.dart';
 import '../../../providers/user_provider.dart';
-import '../../../providers/cartt_provider.dart';
+import '../../../providers/cart_provider.dart';
 
 class DetailMenuPage extends StatelessWidget {
   const DetailMenuPage({Key? key}) : super(key: key);
