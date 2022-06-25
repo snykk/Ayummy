@@ -73,19 +73,19 @@ class ProductProvider with ChangeNotifier {
     }
   }
 
-  void addToFav(productId, userId) {
+  Future<void> addToFav(productId, userId) async {
     final productRef = FirebaseFirestore.instance.collection("product").doc(productId);
     final userRef = FirebaseFirestore.instance.collection("user").doc(userId);
 
-    productRef.update({
+    await productRef.update({
       "userProductFav": FieldValue.arrayUnion([userId])
     });
-    userRef.update({
+    await userRef.update({
       "productUserFav": FieldValue.arrayUnion([productId])
     });
   }
 
-  Future<void> remoteToFav(productId, userId) async {
+  Future<void> removefromFav(productId, userId) async {
     final productRef = FirebaseFirestore.instance.collection("product").doc(productId);
     final userRef = FirebaseFirestore.instance.collection("user").doc(userId);
 

@@ -5,11 +5,16 @@ import 'package:project/app/models/rating_model.dart';
 class RatingProvider with ChangeNotifier {
   List<RatingModel> _ratingData = [];
 
-  Future<void> setRatingData(userId) async {
-    final data = await FirebaseFirestore.instance
-        .collection("rating")
-        .where("userId", isEqualTo: userId)
-        .get();
+  Future<void> setRatingData(userId, roleId) async {
+    late QuerySnapshot<Map<String, dynamic>> data;
+    if (roleId == "1") {
+      data = await FirebaseFirestore.instance.collection("rating").get();
+    } else {
+      data = await FirebaseFirestore.instance
+          .collection("rating")
+          .where("userId", isEqualTo: userId)
+          .get();
+    }
 
     _ratingData = <RatingModel>[
       for (QueryDocumentSnapshot<Object?> item in data.docs)

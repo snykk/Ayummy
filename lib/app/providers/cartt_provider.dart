@@ -76,21 +76,23 @@ class CartProvider with ChangeNotifier {
     return {};
   }
 
-  incItemCart(cartId, cartQty, productPrice) {
-    FirebaseFirestore.instance.collection("cart").doc(cartId).update(
+  Future<void> incItemCart(cartId, cartQty, productPrice) async {
+    await FirebaseFirestore.instance.collection("cart").doc(cartId).update(
       {"qty": cartQty + 1},
     );
   }
 
-  decItemCart(cartId, cartQty, productId, productPrice) {
-    FirebaseFirestore.instance.collection("cart").doc(cartId).update(
+  Future<void> decItemCart(cartId, cartQty, productId, productPrice) async {
+    await FirebaseFirestore.instance.collection("cart").doc(cartId).update(
       {"qty": cartQty - 1},
     );
   }
 
-  removeItemFromCart(cartId, productPrice) {
-    FirebaseFirestore.instance.collection("cart").doc(cartId).delete();
+  Future<void> removeItemFromCart(cartId, productPrice) async {
+    await FirebaseFirestore.instance.collection("cart").doc(cartId).delete();
     _cartData.removeWhere((item) => item.id == cartId);
+
+    notifyListeners();
   }
 
   Future<void> setTotalHarga() async {

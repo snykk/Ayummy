@@ -63,11 +63,133 @@ class _CartPageState extends State<CartPage> {
 
                                   return ChangeNotifierProvider.value(
                                     value: cartItem,
-                                    child: CartCard(
-                                      id: productData.id,
-                                      imageUrl: productData.imageUrl,
-                                      name: productData.name,
-                                      price: productData.price,
+                                    child: Container(
+                                      padding: EdgeInsets.only(
+                                          bottom: MediaQuery.of(context).size.height * 0.002),
+                                      child: Card(
+                                        child: SizedBox(
+                                          height: 100,
+                                          // width: double.infinity,
+                                          child: Center(
+                                            child: Row(
+                                              children: [
+                                                Container(
+                                                  width: 85,
+                                                  height: double.infinity,
+                                                  margin: const EdgeInsets.all(10),
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.green,
+                                                    borderRadius: BorderRadius.circular(10),
+                                                  ),
+                                                  child: ClipRRect(
+                                                    borderRadius: BorderRadius.circular(10),
+                                                    child: Image(
+                                                      fit: BoxFit.fill,
+                                                      image: NetworkImage(productData.imageUrl),
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 120,
+                                                  height: double.infinity,
+                                                  child: Center(
+                                                    child: Text(
+                                                      productData.name,
+                                                      style: const TextStyle(
+                                                          fontSize: 18,
+                                                          fontWeight: FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 90,
+                                                  height: double.infinity,
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.spaceEvenly,
+                                                    children: [
+                                                      InkWell(
+                                                        onTap: () async {
+                                                          if (cartItem.qty > 1) {
+                                                            await cartProvider.decItemCart(
+                                                                cartItem.id,
+                                                                cartItem.qty,
+                                                                cartItem.productId,
+                                                                productData.price);
+                                                            cartItem.changeQty = -1;
+                                                          } else {
+                                                            await cartProvider
+                                                                .removeItemFromCart(
+                                                                    cartItem.id, productData.price)
+                                                                .then((_) {
+                                                              setState(() {});
+                                                            });
+                                                          }
+                                                        },
+                                                        child: Container(
+                                                          width: 25,
+                                                          height: 25,
+                                                          decoration: BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius.circular(5),
+                                                              border: Border.all(
+                                                                  color: const Color(0xff2f4858),
+                                                                  width: 2.0)),
+                                                          child: const Icon(
+                                                            Icons.remove,
+                                                            size: 20,
+                                                            color: Color(0xff2f4858),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Consumer<CartModel>(
+                                                        builder: (_, __, ___) => SizedBox(
+                                                          width: 25,
+                                                          height: 25,
+                                                          child: Center(
+                                                            child: Text(
+                                                              cartItem.qty.toString(),
+                                                              style: const TextStyle(
+                                                                fontSize: 16,
+                                                                fontWeight: FontWeight.bold,
+                                                                color: Color(0xff2f4858),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      InkWell(
+                                                        onTap: () async {
+                                                          await cartProvider.incItemCart(
+                                                              cartItem.id,
+                                                              cartItem.qty,
+                                                              productData.price);
+                                                          cartItem.changeQty = 1;
+                                                        },
+                                                        child: Container(
+                                                          width: 25,
+                                                          height: 25,
+                                                          decoration: BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius.circular(5),
+                                                              border: Border.all(
+                                                                  color: const Color(0xff2f4858),
+                                                                  width: 2.0)),
+                                                          child: const Icon(
+                                                            Icons.add,
+                                                            size: 20,
+                                                            color: Color(0xff2f4858),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   );
                                 }
@@ -87,7 +209,15 @@ class _CartPageState extends State<CartPage> {
                 onTap: () async {
                   await cartProvider.setTotalHarga();
 
-                  Navigator.pushNamed(context, '/pembayaran');
+                  if (cartProvider.totalHarga != 0) {
+                    Navigator.pushNamed(context, '/pembayaran');
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Keranjang kosong, tidak dapat melakukan checkout'),
+                      ),
+                    );
+                  }
                 },
                 child: Ink(
                   width: double.infinity,
@@ -109,133 +239,6 @@ class _CartPageState extends State<CartPage> {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class CartCard extends StatelessWidget {
-  final String id;
-  final String name;
-  final String imageUrl;
-  final int price;
-  const CartCard({
-    Key? key,
-    required this.id,
-    required this.name,
-    required this.imageUrl,
-    required this.price,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final cartProvider = Provider.of<CartProvider>(context, listen: false);
-    final cartItem = Provider.of<CartModel>(context, listen: false);
-    return Container(
-      padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.002),
-      child: Card(
-        child: SizedBox(
-          height: 100,
-          // width: double.infinity,
-          child: Center(
-            child: Row(
-              children: [
-                Container(
-                  width: 85,
-                  height: double.infinity,
-                  margin: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Colors.green,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image(
-                      fit: BoxFit.fill,
-                      image: NetworkImage(imageUrl),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 120,
-                  height: double.infinity,
-                  child: Center(
-                    child: Text(
-                      name,
-                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 90,
-                  height: double.infinity,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          if (cartItem.qty > 1) {
-                            cartProvider.decItemCart(
-                                cartItem.id, cartItem.qty, cartItem.productId, price);
-                            cartItem.changeQty = -1;
-                          } else {
-                            cartProvider.removeItemFromCart(cartItem.id, price);
-                          }
-                        },
-                        child: Container(
-                          width: 25,
-                          height: 25,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              border: Border.all(color: const Color(0xff2f4858), width: 2.0)),
-                          child: const Icon(
-                            Icons.remove,
-                            size: 20,
-                            color: Color(0xff2f4858),
-                          ),
-                        ),
-                      ),
-                      Consumer<CartModel>(
-                        builder: (_, __, ___) => SizedBox(
-                          width: 25,
-                          height: 25,
-                          child: Center(
-                            child: Text(
-                              cartItem.qty.toString(),
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xff2f4858),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          cartProvider.incItemCart(cartItem.id, cartItem.qty, price);
-                          cartItem.changeQty = 1;
-                        },
-                        child: Container(
-                          width: 25,
-                          height: 25,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              border: Border.all(color: const Color(0xff2f4858), width: 2.0)),
-                          child: const Icon(
-                            Icons.add,
-                            size: 20,
-                            color: Color(0xff2f4858),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
         ),
       ),
     );

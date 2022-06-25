@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project/app/providers/user_provider.dart';
+import 'package:provider/provider.dart';
 
 class CardTelahDiulas extends StatelessWidget {
   final String id;
@@ -17,6 +19,7 @@ class CardTelahDiulas extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
     return Container(
       margin: const EdgeInsets.fromLTRB(47, 0, 47, 20),
       width: 320,
@@ -64,39 +67,51 @@ class CardTelahDiulas extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  (userProvider.getUser.roleId == "2")
+                      ? Container(
+                          margin: const EdgeInsets.fromLTRB(0, 10, 50, 0),
+                          width: 87,
+                          height: 29,
+                          child: TextButton(
+                            style: TextButton.styleFrom(
+                                backgroundColor: const Color.fromRGBO(255, 147, 18, 1),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(4.0),
+                                )),
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                context,
+                                "/edit_rating",
+                                arguments: {
+                                  'id': id,
+                                  'rating': rating,
+                                  'ratingId': ratingId,
+                                },
+                              );
+                            },
+                            child: const Text(
+                              "Edit Ulasan",
+                              style: TextStyle(fontSize: 11, color: Colors.white),
+                            ),
+                          ),
+                        )
+                      : Container(),
                   Container(
-                    margin: const EdgeInsets.fromLTRB(0, 10, 50, 0),
-                    width: 87,
-                    height: 29,
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                          backgroundColor: const Color.fromRGBO(255, 147, 18, 1),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4.0),
-                          )),
-                      onPressed: () {
-                        Navigator.pushNamed(context, "/edit_rating",
-                            arguments: {'id': id, 'rating': rating, 'ratingId': ratingId});
-                      },
-                      child: const Text(
-                        "Edit Ulasan",
-                        style: TextStyle(fontSize: 11, color: Colors.white),
-                      ),
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "rating $rating",
-                        style: const TextStyle(
-                          fontSize: 12,
+                    margin: const EdgeInsets.only(top: 10),
+                    child: Row(
+                      children: [
+                        Text(
+                          "rating $rating",
+                          style: const TextStyle(
+                            fontSize: 12,
+                          ),
                         ),
-                      ),
-                      const Icon(
-                        Icons.star,
-                        color: Colors.amber,
-                      ),
-                    ],
+                        const Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

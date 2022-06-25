@@ -24,7 +24,7 @@ class TelahDiulas extends StatelessWidget {
         child: true,
       ),
       body: FutureBuilder(
-        future: ratingProvider.setRatingData(userProvider.getUser.id),
+        future: ratingProvider.setRatingData(userProvider.getUser.id, userProvider.getUser.roleId),
         builder: (context, snap) {
           if (snap.connectionState == ConnectionState.waiting) {
             return Container();

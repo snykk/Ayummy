@@ -19,15 +19,6 @@ class DetailMenuPage extends StatelessWidget {
     final myCurr = NumberFormat("#,##0", "en_US");
     final cartProvider = Provider.of<CartProvider>(context, listen: false);
 
-    // List<dynamic> carts = userProvider.cart;
-    // // carts = [];
-    // carts.add({
-    //   "productId": product.id,
-    //   "productName": product.name,
-    //   "productPrice": product.price,
-    //   "qty": 1,
-    // });
-
     return Scaffold(
       body: Stack(
         fit: StackFit.loose,
@@ -83,16 +74,19 @@ class DetailMenuPage extends StatelessWidget {
                                     var isContain =
                                         product.userProductFav.contains(userProvider.id);
                                     if (!isContain) {
-                                      productProvider.addToFav(product.id, userProvider.id);
+                                      await productProvider.addToFav(product.id, userProvider.id);
                                       product.addToFav(userProvider.id);
                                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                                           content: Text('Product berhasil berhasil ditambahkan')));
                                     } else {
-                                      productProvider.remoteToFav(product.id, userProvider.id);
+                                      await productProvider.removefromFav(
+                                          product.id, userProvider.id);
                                       product.removeToFav(userProvider.id);
-                                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                                          content:
-                                              Text('Menu favorit dihilangkan dari menu favorit')));
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                            content:
+                                                Text('Menu favorit dihilangkan dari menu favorit')),
+                                      );
                                     }
                                   },
                                   icon: Icon(
@@ -212,17 +206,10 @@ class DetailMenuPage extends StatelessWidget {
                         InkWell(
                           onTap: () {
                             cartProvider.addToCart(
-                                context: context, userId: userProvider.id, productId: product.id);
-
-                            // final docUser = FirebaseFirestore.instance
-                            //     .collection('user')
-                            //     .doc(userProvider.id);
-                            // docUser.update({'cart': carts});
-
-                            // final docProduct = FirebaseFirestore.instance
-                            //     .collection('product')
-                            //     .doc(product.id);
-                            // docProduct.update({'qty': product.qty - 1});
+                              context: context,
+                              userId: userProvider.id,
+                              productId: product.id,
+                            );
                           },
                           child: Container(
                             width: 265,

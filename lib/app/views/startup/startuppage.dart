@@ -27,7 +27,6 @@ Future<String> initRoute() async {
 }
 
 class _StartUp extends State<StartUp> {
-
   @override
   void initState() {
     super.initState();
@@ -40,7 +39,7 @@ class _StartUp extends State<StartUp> {
     var duration = const Duration(seconds: 3);
 
     if (iniRoute != "") {
-      Provider.of<UserProvider>(context, listen: false).getUserByDocId().then((_) => setState(() {}));
+      await Provider.of<UserProvider>(context, listen: false).getUserByDocId();
       return Timer(duration, () {
         Navigator.pushReplacementNamed(context, iniRoute);
       });
