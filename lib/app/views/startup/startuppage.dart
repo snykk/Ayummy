@@ -1,29 +1,26 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../providers/user_provider.dart';
 
-class StartUp extends StatefulWidget {
-  const StartUp({Key? key}) : super(key: key);
-
-  @override
-  _StartUp createState() => _StartUp();
-}
-
 Future<String> initRoute() async {
   final pref = await SharedPreferences.getInstance();
 
-  log(pref.getBool('oldUser').toString());
-  log("ini string id user: ${pref.getString("id")}");
   if (pref.getString("id") != null && pref.getBool("oldUser") == true) {
     return "/main";
   } else if (pref.getString("id") != null && pref.getBool("oldUser") == null) {
     return "/onboarding";
   }
   return "";
+}
+
+class StartUp extends StatefulWidget {
+  const StartUp({Key? key}) : super(key: key);
+
+  @override
+  _StartUp createState() => _StartUp();
 }
 
 class _StartUp extends State<StartUp> {
