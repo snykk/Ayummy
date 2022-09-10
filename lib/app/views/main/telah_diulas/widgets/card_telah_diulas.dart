@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:project/app/constants/palettes.dart';
 import 'package:project/app/providers/user_provider.dart';
 import 'package:provider/provider.dart';
+
+import '../../../../routes/route.dart';
 
 class CardTelahDiulas extends StatelessWidget {
   final String id;
@@ -74,14 +77,14 @@ class CardTelahDiulas extends StatelessWidget {
                           height: 29,
                           child: TextButton(
                             style: TextButton.styleFrom(
-                                backgroundColor: const Color.fromRGBO(255, 147, 18, 1),
+                                backgroundColor: MyPalettes.appOrange2,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(4.0),
                                 )),
                             onPressed: () {
                               Navigator.pushNamed(
                                 context,
-                                "/edit_rating",
+                                Routes.edit_rating,
                                 arguments: {
                                   'id': id,
                                   'rating': rating,

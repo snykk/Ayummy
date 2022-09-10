@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:project/app/constants/collection.dart';
 
 import '../models/cart_model.dart';
 
@@ -9,10 +10,7 @@ class CartProvider with ChangeNotifier {
   String paymentMethod = "COD";
 
   Future<void> setCartUser(String userId) async {
-    final cartRef = await FirebaseFirestore.instance
-        .collection("cart")
-        .where("userId", isEqualTo: userId)
-        .get();
+    final cartRef = await MyCollection.cart.where("userId", isEqualTo: userId).get();
 
     _cartData = <CartModel>[
       for (QueryDocumentSnapshot<Object?> item in cartRef.docs)
@@ -31,13 +29,13 @@ class CartProvider with ChangeNotifier {
   }) async {
     isCartReady(productId: productId, userId: userId).then((data) async {
       if (data.isNotEmpty) {
-        FirebaseFirestore.instance.collection("cart").doc(data["id"]).update(
+        MyCollection.cart.doc(data["id"]).update(
           {
             "qty": 1 + data["qty"] as int,
           },
         );
       } else {
-        final cart = FirebaseFirestore.instance.collection("cart").doc();
+        final cart = MyCollection.cart.doc();
         await cart.set(
           CartModel(
             id: cart.id,
@@ -60,8 +58,7 @@ class CartProvider with ChangeNotifier {
     required String productId,
     required String userId,
   }) async {
-    final data = await FirebaseFirestore.instance
-        .collection("cart")
+    final data = await MyCollection.cart
         .where("productId", isEqualTo: productId)
         .where("userId", isEqualTo: userId)
         .get();
@@ -77,19 +74,19 @@ class CartProvider with ChangeNotifier {
   }
 
   Future<void> incItemCart(cartId, cartQty, productPrice) async {
-    await FirebaseFirestore.instance.collection("cart").doc(cartId).update(
+    await MyCollection.cart.doc(cartId).update(
       {"qty": cartQty + 1},
     );
   }
 
   Future<void> decItemCart(cartId, cartQty, productId, productPrice) async {
-    await FirebaseFirestore.instance.collection("cart").doc(cartId).update(
+    await MyCollection.cart.doc(cartId).update(
       {"qty": cartQty - 1},
     );
   }
 
   Future<void> removeItemFromCart(cartId, productPrice) async {
-    await FirebaseFirestore.instance.collection("cart").doc(cartId).delete();
+    await MyCollection.cart.doc(cartId).delete();
     _cartData.removeWhere((item) => item.id == cartId);
 
     notifyListeners();
@@ -98,8 +95,7 @@ class CartProvider with ChangeNotifier {
   Future<void> setTotalHarga() async {
     totalHarga = 0;
     for (CartModel cartItem in _cartData) {
-      final productRef =
-          await FirebaseFirestore.instance.collection("product").doc(cartItem.productId).get();
+      final productRef = await MyCollection.product.doc(cartItem.productId).get();
       totalHarga += cartItem.qty * productRef["price"] as int;
     }
   }

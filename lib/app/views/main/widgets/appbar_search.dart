@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/app/constants/palettes.dart';
 import 'package:provider/provider.dart';
 import '../../../providers/user_provider.dart';
 
@@ -32,7 +33,7 @@ class AppBarSearch extends StatelessWidget implements PreferredSizeWidget {
               child: Container(
                 width: double.infinity,
                 height: 190,
-                color: const Color(0xffff8a00),
+                color: MyPalettes.appOrange,
                 child: Padding(
                   padding: const EdgeInsets.only(
                     top: 50,
@@ -49,20 +50,10 @@ class AppBarSearch extends StatelessWidget implements PreferredSizeWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                (currentIndex == 1 ? "Favoritmu," : "Selamat Datang, "),
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.white
-                                )
-                              ),
-                              Text(
-                                userData.name,
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.white
-                                )
-                              ),
+                              Text((currentIndex == 1 ? "Favoritmu," : "Selamat Datang, "),
+                                  style: const TextStyle(fontSize: 20, color: Colors.white)),
+                              Text(userData.name,
+                                  style: const TextStyle(fontSize: 20, color: Colors.white)),
                             ],
                           ),
                           const Icon(
@@ -81,8 +72,7 @@ class AppBarSearch extends StatelessWidget implements PreferredSizeWidget {
                         autocorrect: false,
                         style: const TextStyle(color: Colors.white),
                         decoration: InputDecoration(
-                          contentPadding:
-                              const EdgeInsets.symmetric(vertical: 0),
+                          contentPadding: const EdgeInsets.symmetric(vertical: 0),
                           prefixIcon: const Icon(
                             Icons.search_outlined,
                             color: Colors.white,
@@ -121,61 +111,51 @@ class AppBarSearch extends StatelessWidget implements PreferredSizeWidget {
                 width: double.infinity,
                 height: 85,
                 color: Colors.white,
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        height: 30,
-                        width: 110,
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 248, 151, 24),
-                          border: Border.all(
-                              color: const Color.fromARGB(255, 248, 151, 24),
-                              width: 2),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            "Semua Menu",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
+                child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                  Container(
+                    height: 30,
+                    width: 110,
+                    decoration: BoxDecoration(
+                      color: MyPalettes.appOrange2,
+                      border: Border.all(color: MyPalettes.appOrange2, width: 2),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        "Semua Menu",
+                        style: TextStyle(color: Colors.white),
                       ),
-                      Container(
-                        height: 30,
-                        width: 110,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              color: const Color.fromARGB(255, 248, 151, 24),
-                              width: 2),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            "Makanan",
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 248, 151, 24)),
-                          ),
-                        ),
+                    ),
+                  ),
+                  Container(
+                    height: 30,
+                    width: 110,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: MyPalettes.appOrange2, width: 2),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        "Makanan",
+                        style: TextStyle(color: MyPalettes.appOrange2),
                       ),
-                      Container(
-                        height: 30,
-                        width: 110,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              color: const Color.fromARGB(255, 248, 151, 24),
-                              width: 2),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            "Minuman",
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 248, 151, 24)),
-                          ),
-                        ),
-                      )
-                    ]),
+                    ),
+                  ),
+                  Container(
+                    height: 30,
+                    width: 110,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: MyPalettes.appOrange2, width: 2),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        "Minuman",
+                        style: TextStyle(color: MyPalettes.appOrange2),
+                      ),
+                    ),
+                  )
+                ]),
               ),
             ),
           ),

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:project/app/constants/palettes.dart';
+
+import '../../../routes/route.dart';
 
 class PembayaranBerhasil extends StatelessWidget {
   const PembayaranBerhasil({Key? key}) : super(key: key);
@@ -24,14 +27,14 @@ class PembayaranBerhasil extends StatelessWidget {
           const Spacer(),
           InkWell(
             onTap: () {
-              Navigator.pushNamed(context, '/main');
+              Navigator.pushNamed(context, Routes.main);
             },
             child: Ink(
               width: double.infinity,
               height: 60,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: const Color(0xff2f4858),
+                color: MyPalettes.appDark,
               ),
               child: const Center(
                 child: Text(

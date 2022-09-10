@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/app/constants/palettes.dart';
 
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   // ignore: prefer_typing_uninitialized_variables
@@ -38,19 +39,15 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
         width: double.infinity,
         height: double.infinity,
         padding: const EdgeInsets.only(top: 30, right: 30, left: 30),
-        color: const Color(0xffff8a00),
+        color: MyPalettes.appOrange,
         child: Center(
-          child: 
-            (child) ? Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              leading,
-              title,
-              dummy
-            ],
-          ): Center(child: title)
-        ),
+            child: (child)
+                ? Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [leading, title, dummy],
+                  )
+                : Center(child: title)),
       ),
     );
   }

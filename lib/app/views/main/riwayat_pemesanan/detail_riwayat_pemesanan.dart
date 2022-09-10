@@ -6,6 +6,7 @@ import 'package:project/app/views/main/riwayat_pemesanan/widgets/card_detail_riw
 import 'package:project/app/views/main/widgets/custom_appbar.dart';
 import 'package:provider/provider.dart';
 
+import '../../../constants/ratio.dart';
 import '../../../models/product_model.dart';
 
 class DetailRiwayatPemesanan extends StatelessWidget {
@@ -24,15 +25,13 @@ class DetailRiwayatPemesanan extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
+          width: Ratio(context).widthApp,
+          height: Ratio(context).heightApp,
           padding: EdgeInsets.only(
-              top: 30,
-              right: MediaQuery.of(context).size.width * 0.1,
-              left: MediaQuery.of(context).size.width * 0.1),
+              top: 30, right: Ratio(context).widthApp * 0.1, left: Ratio(context).widthApp * 0.1),
           child: SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
+            width: Ratio(context).widthApp,
+            height: Ratio(context).heightApp,
             child: ListView(
               children: [
                 Row(

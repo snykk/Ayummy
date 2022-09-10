@@ -1,10 +1,10 @@
 import 'package:flutter/gestures.dart';
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
+import 'package:project/app/constants/palettes.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/auth_provider.dart';
-
 
 class RegisterSection extends StatefulWidget {
   const RegisterSection({
@@ -44,7 +44,7 @@ class _RegisterSectionState extends State<RegisterSection> {
     setState(() {
       _isShowVerif = !_isShowVerif;
     });
-  } 
+  }
 
   @override
   void dispose() {
@@ -59,7 +59,7 @@ class _RegisterSectionState extends State<RegisterSection> {
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthProvider>(context, listen: false);
-    
+
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -80,18 +80,18 @@ class _RegisterSectionState extends State<RegisterSection> {
                 contentPadding: const EdgeInsets.symmetric(vertical: 0),
                 prefixIcon: const Icon(
                   Icons.person_outline_rounded,
-                  color: Color(0xff626663),
+                  color: MyPalettes.appGrey,
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: const BorderSide(
-                    color: Color(0xff626663),
+                    color: MyPalettes.appGrey,
                   ),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: const BorderSide(
-                    color: Color(0xff626663),
+                    color: MyPalettes.appGrey,
                   ),
                 ),
                 hintText: "Nama Lengkap",
@@ -112,18 +112,18 @@ class _RegisterSectionState extends State<RegisterSection> {
                 contentPadding: const EdgeInsets.symmetric(vertical: 0),
                 prefixIcon: const Icon(
                   Icons.email_outlined,
-                  color: Color(0xff626663),
+                  color: MyPalettes.appGrey,
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: const BorderSide(
-                    color: Color(0xff626663),
+                    color: MyPalettes.appGrey,
                   ),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: const BorderSide(
-                    color: Color(0xff626663),
+                    color: MyPalettes.appGrey,
                   ),
                 ),
                 hintText: "Masukkan Email",
@@ -141,24 +141,24 @@ class _RegisterSectionState extends State<RegisterSection> {
               enableSuggestions: false,
               autocorrect: false,
               inputFormatters: <TextInputFormatter>[
-                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
               ],
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.symmetric(vertical: 0),
                 prefixIcon: const Icon(
                   Icons.phone_outlined,
-                  color:Color(0xff626663),
+                  color: MyPalettes.appGrey,
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: const BorderSide(
-                    color: Color(0xff626663),
+                    color: MyPalettes.appGrey,
                   ),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: const BorderSide(
-                    color: Color(0xff626663),
+                    color: MyPalettes.appGrey,
                   ),
                 ),
                 hintText: "No Handphone",
@@ -180,7 +180,7 @@ class _RegisterSectionState extends State<RegisterSection> {
                 contentPadding: const EdgeInsets.symmetric(vertical: 0),
                 prefixIcon: const Icon(
                   Icons.lock_outlined,
-                  color: Color(0xff626663),
+                  color: MyPalettes.appGrey,
                 ),
                 suffixIcon: InkWell(
                   onTap: _eyeToggle,
@@ -191,13 +191,13 @@ class _RegisterSectionState extends State<RegisterSection> {
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: const BorderSide(
-                    color: Color(0xff626663),
+                    color: MyPalettes.appGrey,
                   ),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: const BorderSide(
-                    color: Color(0xff626663),
+                    color: MyPalettes.appGrey,
                   ),
                 ),
                 hintText: "Masukkan Password",
@@ -219,7 +219,7 @@ class _RegisterSectionState extends State<RegisterSection> {
                 contentPadding: const EdgeInsets.symmetric(vertical: 0),
                 prefixIcon: const Icon(
                   Icons.lock_outlined,
-                  color: Color(0xff626663),
+                  color: MyPalettes.appGrey,
                 ),
                 suffixIcon: InkWell(
                   onTap: _eyeToggleVerif,
@@ -230,13 +230,13 @@ class _RegisterSectionState extends State<RegisterSection> {
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: const BorderSide(
-                    color: Color(0xff626663),
+                    color: MyPalettes.appGrey,
                   ),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: const BorderSide(
-                    color: Color(0xff626663),
+                    color: MyPalettes.appGrey,
                   ),
                 ),
                 hintText: "Masukkan Ulang Password",
@@ -250,15 +250,18 @@ class _RegisterSectionState extends State<RegisterSection> {
             ),
             InkWell(
               onTap: () {
-                if (_nameC.text ==  "" || _emailC.text ==  "" || _phoneC.text ==  ""
-                 || _passC.text ==  "" || _verifPassC.text ==  "") {
-                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Inputan tidak boleh kosong')));
+                if (_nameC.text == "" ||
+                    _emailC.text == "" ||
+                    _phoneC.text == "" ||
+                    _passC.text == "" ||
+                    _verifPassC.text == "") {
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(const SnackBar(content: Text('Inputan tidak boleh kosong')));
                 } else if (_passC.text != _verifPassC.text) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Password tidak sama')));
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(const SnackBar(content: Text('Password tidak sama')));
                 } else {
-                   auth.register(
+                  auth.register(
                     context: context,
                     name: _nameC.text,
                     email: _emailC.text,
@@ -272,7 +275,7 @@ class _RegisterSectionState extends State<RegisterSection> {
                 height: 45,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: const Color(0xff2f4858),
+                  color: MyPalettes.appDark,
                 ),
                 child: const Center(
                   child: Text(
@@ -289,19 +292,16 @@ class _RegisterSectionState extends State<RegisterSection> {
               height: 40,
             ),
             RichText(
-              text:  TextSpan(
+              text: TextSpan(
                 text: "Sudah punya akun? ",
                 style: const TextStyle(
                   fontSize: 12,
                   color: Colors.black,
                 ),
-                children: <TextSpan> [
+                children: <TextSpan>[
                   TextSpan(
                     text: "Masuk",
-                    style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold
-                    ),
+                    style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                     recognizer: TapGestureRecognizer()..onTap = () => print("oke"),
                   ),
                 ],

@@ -1,17 +1,19 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:project/app/constants/palettes.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../providers/user_provider.dart';
+import '../../routes/route.dart';
 
 Future<String> initRoute() async {
   final pref = await SharedPreferences.getInstance();
 
   if (pref.getString("id") != null && pref.getBool("oldUser") == true) {
-    return "/main";
+    return Routes.main;
   } else if (pref.getString("id") != null && pref.getBool("oldUser") == null) {
-    return "/onboarding";
+    return Routes.onboarding;
   }
   return "";
 }
@@ -42,7 +44,7 @@ class _StartUp extends State<StartUp> {
       });
     } else {
       return Timer(duration, () {
-        Navigator.pushReplacementNamed(context, "/auth");
+        Navigator.pushReplacementNamed(context, Routes.auth);
       });
     }
   }
@@ -54,7 +56,7 @@ class _StartUp extends State<StartUp> {
         child: Image.asset("assets/logo/logo_ayam.png"),
         width: double.infinity,
         height: double.infinity,
-        color: const Color(0xFFFF8A00),
+        color: MyPalettes.appOrange,
       ),
     );
   }

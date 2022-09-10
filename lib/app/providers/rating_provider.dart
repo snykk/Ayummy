@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:project/app/constants/collection.dart';
 import 'package:project/app/models/rating_model.dart';
 
 class RatingProvider with ChangeNotifier {
@@ -8,12 +9,9 @@ class RatingProvider with ChangeNotifier {
   Future<void> setRatingData(userId, roleId) async {
     late QuerySnapshot<Map<String, dynamic>> data;
     if (roleId == "1") {
-      data = await FirebaseFirestore.instance.collection("rating").get();
+      data = await MyCollection.rating.get();
     } else {
-      data = await FirebaseFirestore.instance
-          .collection("rating")
-          .where("userId", isEqualTo: userId)
-          .get();
+      data = await MyCollection.rating.where("userId", isEqualTo: userId).get();
     }
 
     _ratingData = <RatingModel>[
@@ -30,13 +28,12 @@ class RatingProvider with ChangeNotifier {
     required String userId,
     required double rating,
   }) async {
-    QuerySnapshot<Object?> ratingSnap = await FirebaseFirestore.instance
-        .collection("rating")
+    QuerySnapshot<Object?> ratingSnap = await MyCollection.rating
         .where("userId", isEqualTo: userId)
         .where("productId", isEqualTo: productId)
         .get();
 
-    final newRating = FirebaseFirestore.instance.collection("rating").doc();
+    final newRating = MyCollection.rating.doc();
     if (ratingSnap.docs.isEmpty) {
       await newRating.set(
         RatingModel(
@@ -62,7 +59,7 @@ class RatingProvider with ChangeNotifier {
     String ratingId,
     double ratingValue,
   ) async {
-    await FirebaseFirestore.instance.collection("rating").doc(ratingId).update(
+    await MyCollection.rating.doc(ratingId).update(
       {'rating': ratingValue},
     );
 

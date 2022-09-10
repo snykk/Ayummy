@@ -6,6 +6,7 @@ import 'package:project/app/views/main/telah_diulas/widgets/card_telah_diulas.da
 import 'package:project/app/views/main/widgets/custom_appbar.dart';
 import 'package:provider/provider.dart';
 
+import '../../../constants/ratio.dart';
 import '../../../models/product_model.dart';
 import '../../../providers/rating_provider.dart';
 
@@ -33,7 +34,7 @@ class TelahDiulas extends StatelessWidget {
           return ListView(
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.04,
+                height: Ratio(context).heightApp * 0.04,
               ),
               for (RatingModel item in ratingProvider.getRatingData)
                 FutureBuilder<ProductModel>(

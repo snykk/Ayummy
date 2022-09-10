@@ -1,9 +1,11 @@
 import "package:flutter/material.dart";
 import 'package:intl/intl.dart';
+import 'package:project/app/constants/palettes.dart';
 import 'package:project/app/providers/product_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../../constants/ratio.dart';
 import '../../../models/product_model.dart';
 import '../../../providers/user_provider.dart';
 import '../../../providers/cart_provider.dart';
@@ -37,8 +39,8 @@ class DetailMenuPage extends StatelessWidget {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.825,
-                height: MediaQuery.of(context).size.height * 0.95,
+                width: Ratio(context).widthApp * 0.825,
+                height: Ratio(context).heightApp * 0.95,
                 // color: const Color.fromRGBO(0, 0, 0, 0.4),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,8 +110,8 @@ class DetailMenuPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(40),
                         child: Image.network(
                           product.imageUrl,
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          height: MediaQuery.of(context).size.height * 0.26,
+                          width: Ratio(context).widthApp * 0.8,
+                          height: Ratio(context).heightApp * 0.26,
                           fit: BoxFit.fill,
                         ),
                       ),
@@ -162,7 +164,7 @@ class DetailMenuPage extends StatelessWidget {
                               ),
                             ),
                             SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.06,
+                              width: Ratio(context).widthApp * 0.06,
                             ),
                             const Text(
                               "rating 4.5",
@@ -216,7 +218,7 @@ class DetailMenuPage extends StatelessWidget {
                             height: 55,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: const Color(0xff2f4858),
+                              color: MyPalettes.appDark,
                             ),
                             child: const Center(
                               child: Text(
@@ -236,7 +238,7 @@ class DetailMenuPage extends StatelessWidget {
                             height: 55,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: const Color(0xff2f4858),
+                              color: MyPalettes.appDark,
                             ),
                             child: const Icon(
                               Icons.message_outlined,

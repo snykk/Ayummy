@@ -49,7 +49,6 @@ class _FavoritePageState extends State<FavoritePage> {
                     ).then((_) {
                       setState(() {});
                     });
-                    // Navigator.pushNamed(context, '/detail', arguments: product.id);
                   },
                   child: Card(
                     child: Container(

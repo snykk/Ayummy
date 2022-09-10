@@ -1,13 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:project/app/constants/collection.dart';
 
 import '../models/promo_model.dart';
+import '../routes/route.dart';
 
 class PromoProvider with ChangeNotifier {
   List<PromoModel> _allPromos = [];
 
   Future<void> setAllPromo() async {
-    final data = await FirebaseFirestore.instance.collection("promo").get();
+    final data = await MyCollection.promo.get();
 
     _allPromos = <PromoModel>[
       for (QueryDocumentSnapshot<Object?> item in data.docs)
@@ -24,10 +26,9 @@ class PromoProvider with ChangeNotifier {
     required String detail,
     required List<dynamic> userAlreadyTake,
   }) async {
-    QuerySnapshot<Object?> product =
-        await FirebaseFirestore.instance.collection("promo").where("name", isEqualTo: name).get();
+    QuerySnapshot<Object?> product = await MyCollection.promo.where("name", isEqualTo: name).get();
 
-    final newProduct = FirebaseFirestore.instance.collection("product").doc();
+    final newProduct = MyCollection.product.doc();
     if (product.docs.isEmpty) {
       await newProduct.set(
         PromoModel(
@@ -42,7 +43,7 @@ class PromoProvider with ChangeNotifier {
       ScaffoldMessenger.of(context!)
           .showSnackBar(const SnackBar(content: Text('Product berhasil ditambahkan')));
 
-      Navigator.pushReplacementNamed(context, '/main').then(
+      Navigator.pushReplacementNamed(context, Routes.main).then(
         (_) => Navigator.pop(context),
       );
     }

@@ -1,11 +1,14 @@
 import "package:flutter/material.dart";
+import 'package:project/app/constants/palettes.dart';
 import 'package:project/app/providers/auth_provider.dart';
 import 'package:project/app/services/auth_services.dart';
 import 'package:project/app/views/main/profile/widgets/option_card.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../constants/ratio.dart';
 import '../../../providers/user_provider.dart';
+import '../../../routes/route.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -32,7 +35,7 @@ class ProfilePage extends StatelessWidget {
                   const Color(0x15ff8a00),
                 ),
                 foregroundColor: MaterialStateProperty.all(
-                  const Color(0xffff8a00),
+                  MyPalettes.appOrange,
                 ),
               ),
               child: const Text('Batalkan'),
@@ -46,7 +49,7 @@ class ProfilePage extends StatelessWidget {
                   const Color(0x15ff8a00),
                 ),
                 backgroundColor: MaterialStateProperty.all(
-                  const Color(0xffff8a00),
+                  MyPalettes.appOrange,
                 ),
               ),
               child: const Text('Akhiri'),
@@ -70,7 +73,7 @@ class ProfilePage extends StatelessWidget {
     return SingleChildScrollView(
       child: Center(
         child: SizedBox(
-          width: MediaQuery.of(context).size.width * 0.8,
+          width: Ratio(context).widthApp * 0.8,
           child: Column(
             children: [
               const SizedBox(
@@ -85,13 +88,13 @@ class ProfilePage extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, "/ubah_profile");
+                      Navigator.pushNamed(context, Routes.ubah_profile);
                     },
                     child: const Text(
                       "ubah",
                       style: TextStyle(
                         fontSize: 16,
-                        color: Color(0xffff8a00),
+                        color: MyPalettes.appOrange,
                       ),
                     ),
                   )
@@ -106,7 +109,7 @@ class ProfilePage extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
-                  color: const Color(0xffff8a00),
+                  color: MyPalettes.appOrange,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -180,7 +183,7 @@ class ProfilePage extends StatelessWidget {
                   ? Container()
                   : GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, "/riwayat_pemesanan");
+                        Navigator.pushNamed(context, Routes.riwayat_pemesanan);
                       },
                       child: const OptionCard(text: Text("Riwayat Pemesanan")),
                     ),
@@ -191,7 +194,7 @@ class ProfilePage extends StatelessWidget {
                   ? Container()
                   : GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, "/belum_diulas");
+                        Navigator.pushNamed(context, Routes.belum_diulas);
                       },
                       child: const OptionCard(text: Text("Belum diulas")),
                     ),
@@ -200,7 +203,7 @@ class ProfilePage extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, "/telah_diulas");
+                  Navigator.pushNamed(context, Routes.telah_diulas);
                 },
                 child: const OptionCard(text: Text("Telah diulas")),
               ),
@@ -209,7 +212,7 @@ class ProfilePage extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, "/promo");
+                  Navigator.pushNamed(context, Routes.promo);
                 },
                 child: const OptionCard(text: Text("Promo")),
               ),
@@ -218,7 +221,7 @@ class ProfilePage extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, "/pengaturan");
+                  Navigator.pushNamed(context, Routes.pengaturan);
                 },
                 child: const OptionCard(text: Text("Pengaturan")),
               ),
@@ -233,7 +236,7 @@ class ProfilePage extends StatelessWidget {
                   },
                   mini: true,
                   child: const Icon(Icons.logout),
-                  backgroundColor: const Color(0xffff8a00),
+                  backgroundColor: MyPalettes.appOrange,
                 ),
               )
             ],

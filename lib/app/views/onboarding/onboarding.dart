@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:project/app/constants/palettes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../routes/route.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({Key? key}) : super(key: key);
@@ -61,7 +64,7 @@ class _OnboardingState extends State<Onboarding> {
                 Container(
                   width: double.infinity,
                   height: double.infinity,
-                  color: const Color(0xffff8a00),
+                  color: MyPalettes.appOrange,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
@@ -70,7 +73,7 @@ class _OnboardingState extends State<Onboarding> {
                     left: 40,
                   ),
                   child: Image.asset(
-                    "./assets/onboarding/onboarding${i+1}.png",
+                    "./assets/onboarding/onboarding${i + 1}.png",
                     width: 325,
                   ),
                 ),
@@ -88,8 +91,7 @@ class _OnboardingState extends State<Onboarding> {
                         ),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.only(
-                            top: 50, right: 50, bottom: 40, left: 50),
+                        padding: const EdgeInsets.only(top: 50, right: 50, bottom: 40, left: 50),
                         child: Column(
                           children: [
                             Text(
@@ -113,8 +115,8 @@ class _OnboardingState extends State<Onboarding> {
                             SizedBox(
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: List.generate(3,
-                                    (index) => buildIndicator(index, context)),
+                                children:
+                                    List.generate(3, (index) => buildIndicator(index, context)),
                               ),
                             ),
                             const SizedBox(
@@ -124,32 +126,27 @@ class _OnboardingState extends State<Onboarding> {
                               width: 250,
                               height: 50,
                               decoration: BoxDecoration(
-                                  color: const Color(0xff2f4858),
+                                  color: MyPalettes.appDark,
                                   borderRadius: BorderRadius.circular(8)),
                               child: TextButton(
                                 onPressed: () async {
                                   final pref = await SharedPreferences.getInstance();
-                                  if (currentIndex == 2)  {
+                                  if (currentIndex == 2) {
                                     pref.setBool("oldUser", true);
-                                    Navigator.pushReplacementNamed(context, '/main');
+                                    Navigator.pushReplacementNamed(context, Routes.main);
                                   }
                                   _controller.nextPage(
-                                      duration:
-                                          const Duration(milliseconds: 500),
+                                      duration: const Duration(milliseconds: 500),
                                       curve: Curves.bounceIn);
                                 },
                                 child: Text(
-                                  currentIndex == 2
-                                      ? "Pesan Sekarang"
-                                      : "Selanjutnya",
-                                  style: const TextStyle(
-                                      fontSize: 18, color: Colors.white),
+                                  currentIndex == 2 ? "Pesan Sekarang" : "Selanjutnya",
+                                  style: const TextStyle(fontSize: 18, color: Colors.white),
                                 ),
                               ),
                             )
                           ],
                         ),
-                        
                       ),
                     ),
                   ),
@@ -169,7 +166,7 @@ class _OnboardingState extends State<Onboarding> {
       margin: const EdgeInsets.only(right: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: currentIndex == index ? const Color(0xffff8a00) : Colors.grey,
+        color: currentIndex == index ? MyPalettes.appOrange : Colors.grey,
       ),
     );
   }

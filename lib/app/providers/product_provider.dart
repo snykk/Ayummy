@@ -1,13 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import '../constants/collection.dart';
 import '../models/product_model.dart';
+import '../routes/route.dart';
 
 class ProductProvider with ChangeNotifier {
   List<ProductModel> _allProducts = [];
 
   Future<void> setAllProduct() async {
-    final data = await FirebaseFirestore.instance.collection("product").get();
+    final data = await MyCollection.product.get();
 
     _allProducts = <ProductModel>[
       for (QueryDocumentSnapshot<Object?> item in data.docs)
@@ -16,10 +18,7 @@ class ProductProvider with ChangeNotifier {
   }
 
   Future<void> setAllProductFav(userId) async {
-    final data = await FirebaseFirestore.instance
-        .collection("product")
-        .where("userProductFav", arrayContains: userId)
-        .get();
+    final data = await MyCollection.product.where("userProductFav", arrayContains: userId).get();
 
     _allProducts = <ProductModel>[
       for (QueryDocumentSnapshot<Object?> item in data.docs)
@@ -30,10 +29,7 @@ class ProductProvider with ChangeNotifier {
   List<ProductModel> get getAllProduct => _allProducts;
 
   Future<void> toggleFav(String uidProduct, bool isFav) async {
-    await FirebaseFirestore.instance
-        .collection("product")
-        .doc(uidProduct)
-        .update({"isFav": !isFav});
+    await MyCollection.product.doc(uidProduct).update({"isFav": !isFav});
     notifyListeners();
   }
 
@@ -46,9 +42,9 @@ class ProductProvider with ChangeNotifier {
     required String desc,
   }) async {
     QuerySnapshot<Object?> product =
-        await FirebaseFirestore.instance.collection("product").where("name", isEqualTo: name).get();
+        await MyCollection.product.where("name", isEqualTo: name).get();
 
-    final newProduct = FirebaseFirestore.instance.collection("product").doc();
+    final newProduct = MyCollection.product.doc();
     if (product.docs.isEmpty) {
       await newProduct.set(
         ProductModel(
@@ -67,15 +63,15 @@ class ProductProvider with ChangeNotifier {
       ScaffoldMessenger.of(context!)
           .showSnackBar(const SnackBar(content: Text('Product berhasil ditambahkan')));
 
-      Navigator.pushReplacementNamed(context, '/main').then(
+      Navigator.pushReplacementNamed(context, Routes.main).then(
         (_) => Navigator.pop(context),
       );
     }
   }
 
   Future<void> addToFav(productId, userId) async {
-    final productRef = FirebaseFirestore.instance.collection("product").doc(productId);
-    final userRef = FirebaseFirestore.instance.collection("user").doc(userId);
+    final productRef = MyCollection.product.doc(productId);
+    final userRef = MyCollection.user.doc(userId);
 
     await productRef.update({
       "userProductFav": FieldValue.arrayUnion([userId])
@@ -86,8 +82,8 @@ class ProductProvider with ChangeNotifier {
   }
 
   Future<void> removefromFav(productId, userId) async {
-    final productRef = FirebaseFirestore.instance.collection("product").doc(productId);
-    final userRef = FirebaseFirestore.instance.collection("user").doc(userId);
+    final productRef = MyCollection.product.doc(productId);
+    final userRef = MyCollection.user.doc(userId);
 
     await productRef.update({
       "userProductFav": FieldValue.arrayRemove([userId])
@@ -98,12 +94,12 @@ class ProductProvider with ChangeNotifier {
   }
 
   Future<ProductModel> getProductById(String prodId) async {
-    final data = await FirebaseFirestore.instance.collection("product").doc(prodId).get();
+    final data = await MyCollection.product.doc(prodId).get();
     return ProductModel.fromJson(data.data() as Map<String, dynamic>);
   }
 
   Future<dynamic> getNotReviewdProductById(prodId, userId) async {
-    final data = await FirebaseFirestore.instance.collection("product").doc(prodId).get();
+    final data = await MyCollection.product.doc(prodId).get();
 
     Map<String, dynamic> pe = data.data() as Map<String, dynamic>;
     List<dynamic> ya = pe["userAlreadyReview"];
@@ -116,7 +112,7 @@ class ProductProvider with ChangeNotifier {
   }
 
   Future<void> productReviewed(productId, userId) async {
-    final productRef = FirebaseFirestore.instance.collection("product").doc(productId);
+    final productRef = MyCollection.product.doc(productId);
     var snapshot = await productRef.get();
     List productData = snapshot.data()!["userAlreadyReview"];
 

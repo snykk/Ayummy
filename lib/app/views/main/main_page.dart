@@ -1,6 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:project/app/constants/palettes.dart';
 import 'package:project/app/providers/user_provider.dart';
 import 'package:project/app/views/main/widgets/custom_appbar.dart';
 import 'package:project/app/views/main/widgets/appbar_search.dart';
@@ -66,8 +65,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    final userProvider =
-        Provider.of<UserProvider>(context, listen: false).getUser;
+    final userProvider = Provider.of<UserProvider>(context, listen: false).getUser;
     return Scaffold(
       appBar: (userProvider.roleId == '1')
           ? _appbarOptionsAdmin[_currentIndex]
@@ -114,15 +112,14 @@ class _MainPageState extends State<MainPage> {
               padding: const EdgeInsets.only(bottom: 5),
               child: Icon(
                 custom,
-                color: const Color(0xffff8a00),
+                color: MyPalettes.appOrange,
               ),
             ),
             Container(
               width: 25,
               height: 3,
               decoration: BoxDecoration(
-                  color: const Color(0xffff8a00),
-                  borderRadius: BorderRadius.circular(5)),
+                  color: MyPalettes.appOrange, borderRadius: BorderRadius.circular(5)),
             ),
           ],
         ),

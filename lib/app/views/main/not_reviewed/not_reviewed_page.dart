@@ -6,6 +6,7 @@ import 'package:project/app/views/main/not_reviewed/widgets/card_belum_diulas.da
 import 'package:project/app/views/main/widgets/custom_appbar.dart';
 import 'package:provider/provider.dart';
 
+import '../../../constants/ratio.dart';
 import '../../../models/product_model.dart';
 
 class BelumDiulas extends StatelessWidget {
@@ -32,7 +33,7 @@ class BelumDiulas extends StatelessWidget {
           return ListView(
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.04,
+                height: Ratio(context).heightApp * 0.04,
               ),
               for (String productId in orderProvider.getAllOrderedProduct)
                 FutureBuilder<dynamic>(

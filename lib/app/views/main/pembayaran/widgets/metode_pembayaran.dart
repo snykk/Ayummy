@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/app/constants/palettes.dart';
 
 enum SingingCharacter { langsung, gopay, dana }
 
@@ -19,7 +20,7 @@ class _MetodePembayaranState extends State<MetodePembayaran> {
         ListTile(
           title: const Text('Bayar Ditempat'),
           leading: Radio<SingingCharacter>(
-            activeColor: const Color(0xFFFF8A00),
+            activeColor: MyPalettes.appOrange,
             value: SingingCharacter.langsung,
             groupValue: _character,
             onChanged: (SingingCharacter? value) {
@@ -32,7 +33,7 @@ class _MetodePembayaranState extends State<MetodePembayaran> {
         ListTile(
           title: const Text('Gopay'),
           leading: Radio<SingingCharacter>(
-            activeColor: const Color(0xFFFF8A00),
+            activeColor: MyPalettes.appOrange,
             value: SingingCharacter.gopay,
             groupValue: _character,
             onChanged: (SingingCharacter? value) {
@@ -45,7 +46,7 @@ class _MetodePembayaranState extends State<MetodePembayaran> {
         ListTile(
           title: const Text('Dana'),
           leading: Radio<SingingCharacter>(
-            activeColor: const Color(0xFFFF8A00),
+            activeColor: MyPalettes.appOrange,
             value: SingingCharacter.dana,
             groupValue: _character,
             onChanged: (SingingCharacter? value) {

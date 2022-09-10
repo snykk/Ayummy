@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:project/app/constants/palettes.dart';
 
 import './widgets/chat_message_model.dart';
 
@@ -16,8 +17,7 @@ class _ChatPageState extends State<ChatPage> {
 
   Future getImage() async {
     final ImagePicker _picker = ImagePicker();
-    final XFile? imagePicked =
-        await _picker.pickImage(source: ImageSource.camera);
+    final XFile? imagePicked = await _picker.pickImage(source: ImageSource.camera);
     image = File(imagePicked!.path);
   }
 
@@ -33,7 +33,7 @@ class _ChatPageState extends State<ChatPage> {
         toolbarHeight: 100,
         elevation: 0,
         automaticallyImplyLeading: false,
-        backgroundColor: const Color(0xFFFF8A00),
+        backgroundColor: MyPalettes.appOrange,
         flexibleSpace: SafeArea(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -54,9 +54,7 @@ class _ChatPageState extends State<ChatPage> {
                       Text(
                         "A’yummy",
                         style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white),
+                            fontSize: 22, fontWeight: FontWeight.w600, color: Colors.white),
                       ),
                     ],
                   ),
@@ -75,51 +73,54 @@ class _ChatPageState extends State<ChatPage> {
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
               return Container(
-                padding: const EdgeInsets.only(
-                    left: 14, right: 14, top: 10, bottom: 10),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 10, bottom: 10),
                 child: Align(
-                  alignment: (messages[index].messageType == "receiver"
-                      ? Alignment.topLeft
-                      : Alignment.topRight),
-                  child: (messages[index].messageType == "receiver"
-                      ? Row(
-                        children: [
-                          const CircleAvatar(
-                            backgroundImage: AssetImage("assets/logo/logo_ayam.png"),
-                            maxRadius: 20,
-                          ),
-                          Container(width: 10,),
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(15),
-                                    topRight: Radius.circular(15),
-                                    bottomRight: Radius.circular(15)),
-                              color: Colors.grey.shade200,
+                    alignment: (messages[index].messageType == "receiver"
+                        ? Alignment.topLeft
+                        : Alignment.topRight),
+                    child: (messages[index].messageType == "receiver"
+                        ? Row(
+                            children: [
+                              const CircleAvatar(
+                                backgroundImage: AssetImage("assets/logo/logo_ayam.png"),
+                                maxRadius: 20,
+                              ),
+                              Container(
+                                width: 10,
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(15),
+                                      topRight: Radius.circular(15),
+                                      bottomRight: Radius.circular(15)),
+                                  color: Colors.grey.shade200,
+                                ),
+                                padding: const EdgeInsets.all(16),
+                                child: Text(
+                                  messages[index].messageContent,
+                                  style: const TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        : Container(
+                            decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(15),
+                                  topRight: Radius.circular(15),
+                                  bottomLeft: Radius.circular(15)),
+                              color: MyPalettes.appOrange,
                             ),
                             padding: const EdgeInsets.all(16),
                             child: Text(
                               messages[index].messageContent,
-                              style: const TextStyle(fontSize: 15, color: Colors.black,),
+                              style: const TextStyle(fontSize: 15, color: Colors.white),
                             ),
-                          ),
-                        ],
-                      )
-                      : Container(
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(15),
-                                topRight: Radius.circular(15),
-                                bottomLeft: Radius.circular(15)),
-                          color:  Color(0xFFFF8A00),
-                        ),
-                        padding: const EdgeInsets.all(16),
-                        child: Text(
-                          messages[index].messageContent,
-                          style: const TextStyle(fontSize: 15, color: Colors.white),
-                        ),
-                      ))
-                ),
+                          ))),
               );
             },
           ),
@@ -152,7 +153,7 @@ class _ChatPageState extends State<ChatPage> {
                       width: 30,
                       child: Icon(
                         Icons.image,
-                        color: Color(0xFFFF8A00),
+                        color: MyPalettes.appOrange,
                         size: 20,
                       ),
                     ),
@@ -167,7 +168,7 @@ class _ChatPageState extends State<ChatPage> {
                       color: Colors.white,
                       size: 24,
                     ),
-                    backgroundColor: const Color(0xFFFF8A00),
+                    backgroundColor: MyPalettes.appOrange,
                     elevation: 0,
                   ),
                 ],
@@ -183,9 +184,7 @@ class _ChatPageState extends State<ChatPage> {
 List<ChatMessage> messages = [
   ChatMessage(messageContent: "Halo, mas", messageType: "receiver"),
   ChatMessage(messageContent: "Ayam gepreknya ada?", messageType: "receiver"),
-  ChatMessage(
-      messageContent: "Ada mas, mau pesan berapa?",
-      messageType: "sender"),
+  ChatMessage(messageContent: "Ada mas, mau pesan berapa?", messageType: "sender"),
   ChatMessage(messageContent: "Saya mau pesan 3", messageType: "receiver"),
   ChatMessage(
       messageContent: "Baik silahkan lanjukan pesanan lewat aplikasi", messageType: "sender"),

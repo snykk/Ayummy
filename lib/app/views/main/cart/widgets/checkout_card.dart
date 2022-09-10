@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:project/app/constants/palettes.dart';
 
 class CheckoutCard extends StatelessWidget {
   final String image;
   final String food;
   final int quantity;
   const CheckoutCard({
-    Key? key, required this.image, required this.food, required this.quantity,
+    Key? key,
+    required this.image,
+    required this.food,
+    required this.quantity,
   }) : super(key: key);
 
   @override
@@ -54,12 +58,11 @@ class CheckoutCard extends StatelessWidget {
                       height: 25,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
-                          border: Border.all(
-                              color: const Color(0xff2f4858), width: 2.0)),
+                          border: Border.all(color: MyPalettes.appDark, width: 2.0)),
                       child: const Icon(
                         Icons.remove,
                         size: 20,
-                        color: Color(0xff2f4858),
+                        color: MyPalettes.appDark,
                       ),
                     ),
                     SizedBox(
@@ -71,7 +74,7 @@ class CheckoutCard extends StatelessWidget {
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xff2f4858),
+                            color: MyPalettes.appDark,
                           ),
                         ),
                       ),
@@ -81,12 +84,11 @@ class CheckoutCard extends StatelessWidget {
                       height: 25,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
-                          border: Border.all(
-                              color: const Color(0xff2f4858), width: 2.0)),
+                          border: Border.all(color: MyPalettes.appDark, width: 2.0)),
                       child: const Icon(
                         Icons.add,
                         size: 20,
-                        color: Color(0xff2f4858),
+                        color: MyPalettes.appDark,
                       ),
                     ),
                   ],

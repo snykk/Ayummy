@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/app/constants/palettes.dart';
 import 'widgets/login_section.dart';
 import 'widgets/register_section.dart';
 
@@ -27,7 +28,7 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
             ),
             width: double.infinity,
             height: double.infinity,
-            color: const Color(0xffff8a00),
+            color: MyPalettes.appOrange,
             child: Column(
               children: const [
                 Image(
@@ -51,7 +52,7 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
             preferredSize: const Size.fromHeight(190),
             child: TabBar(
               labelColor: Colors.white,
-              indicatorColor: const Color(0xff2f4858),
+              indicatorColor: MyPalettes.appDark,
               indicatorWeight: 4,
               tabs: myTabs,
             ),

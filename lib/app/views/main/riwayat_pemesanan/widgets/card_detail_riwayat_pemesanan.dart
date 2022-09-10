@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:project/app/constants/palettes.dart';
+
+import '../../../../constants/ratio.dart';
 
 class CardDetailRiwayatPemesanan extends StatelessWidget {
   final String image;
@@ -22,8 +25,8 @@ class CardDetailRiwayatPemesanan extends StatelessWidget {
 
     return Card(
       child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.125,
-        width: MediaQuery.of(context).size.width * 0.8,
+        height: Ratio(context).heightApp * 0.125,
+        width: Ratio(context).widthApp * 0.8,
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Row(
@@ -85,7 +88,7 @@ class CardDetailRiwayatPemesanan extends StatelessWidget {
                           height: 25,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
-                            color: const Color(0xffff8a00),
+                            color: MyPalettes.appOrange,
                           ),
                           child: const Center(
                             child: Text(

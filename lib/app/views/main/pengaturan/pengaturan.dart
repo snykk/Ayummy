@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:project/app/views/main/widgets/custom_appbar.dart';
 import 'package:project/app/views/main/profile/widgets/option_card.dart';
 
+import '../../../routes/route.dart';
+
 class Pengaturan extends StatelessWidget {
   const Pengaturan({Key? key}) : super(key: key);
 
@@ -22,7 +24,7 @@ class Pengaturan extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, "/bantuan");
+                    Navigator.pushNamed(context, Routes.bantuan);
                   },
                   child: const OptionCard(text: Text("Bantuan")),
                 ),

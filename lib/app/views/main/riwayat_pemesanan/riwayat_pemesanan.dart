@@ -4,6 +4,7 @@ import 'package:project/app/views/main/riwayat_pemesanan/detail_riwayat_pemesana
 import 'package:project/app/views/main/widgets/custom_appbar.dart';
 import 'package:provider/provider.dart';
 
+import '../../../constants/ratio.dart';
 import '../../../providers/order_provider.dart';
 import '../../../providers/user_provider.dart';
 
@@ -22,15 +23,13 @@ class RiwayatPemesanan extends StatelessWidget {
         child: true,
       ),
       body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
+        width: Ratio(context).widthApp,
+        height: Ratio(context).heightApp,
         padding: EdgeInsets.only(
-            top: 30,
-            right: MediaQuery.of(context).size.width * 0.1,
-            left: MediaQuery.of(context).size.width * 0.1),
+            top: 30, right: Ratio(context).widthApp * 0.1, left: Ratio(context).widthApp * 0.1),
         child: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
+          width: Ratio(context).widthApp,
+          height: Ratio(context).heightApp,
           child: FutureBuilder(
             future: orderProvider.setOrderData(userProvider.getUser.id),
             builder: (context, snap) {
@@ -45,7 +44,7 @@ class RiwayatPemesanan extends StatelessWidget {
                 itemCount: orderProvider.getAllOrder.length,
                 itemBuilder: (context, i) {
                   return Card(
-                    margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.width * 0.05),
+                    margin: EdgeInsets.only(bottom: Ratio(context).widthApp * 0.05),
                     child: ListTile(
                       title: Text(DateFormat('dd MMM yyyy').format(item[i].createAt)),
                       subtitle: Text('Metode pembayaran menggunakan ${item[i].paymentMethod}'),

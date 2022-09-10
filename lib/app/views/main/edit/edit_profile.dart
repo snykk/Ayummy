@@ -1,10 +1,12 @@
-
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:project/app/constants/palettes.dart';
 import 'package:project/app/views/main/widgets/custom_appbar.dart';
 import 'package:provider/provider.dart';
 
+import '../../../constants/ratio.dart';
 import '../../../providers/user_provider.dart';
+import '../../../routes/route.dart';
 
 class UbahProfile extends StatefulWidget {
   const UbahProfile({Key? key}) : super(key: key);
@@ -45,32 +47,30 @@ class _UbahProfileState extends State<UbahProfile> {
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context, listen: false);
     final userData = user.getUser;
-    
+
     if (_nameC.text.isEmpty) {
-    _nameC.text = userData.name;
+      _nameC.text = userData.name;
     }
     if (_addressC.text.isEmpty) {
-    _addressC.text = userData.address;
+      _addressC.text = userData.address;
     }
     if (_phoneC.text.isEmpty) {
-    _phoneC.text = userData.phone;
+      _phoneC.text = userData.phone;
     }
 
     _emailC.text = userData.email;
-    
+
     return Scaffold(
       appBar: const CustomAppbar(text: "Ubah Data", child: true),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.fromLTRB(
-            MediaQuery.of(context).size.width *0.075,
-            MediaQuery.of(context).size.width *0.08,
-            MediaQuery.of(context).size.width *0.075,
-            MediaQuery.of(context).size.width *0.075,
+            Ratio(context).widthApp * 0.075,
+            Ratio(context).widthApp * 0.08,
+            Ratio(context).widthApp * 0.075,
+            Ratio(context).widthApp * 0.075,
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
             const Text(
               "Nama",
               style: TextStyle(
@@ -91,18 +91,18 @@ class _UbahProfileState extends State<UbahProfile> {
                 contentPadding: const EdgeInsets.only(left: 15),
                 suffixIcon: const Icon(
                   Icons.edit,
-                  color: Color(0xff626663),
+                  color: MyPalettes.appGrey,
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: const BorderSide(
-                    color: Color(0xff626663),
+                    color: MyPalettes.appGrey,
                   ),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: const BorderSide(
-                    color: Color(0xff626663),
+                    color: MyPalettes.appGrey,
                   ),
                 ),
                 hintText: "Nama Lengkap",
@@ -131,18 +131,18 @@ class _UbahProfileState extends State<UbahProfile> {
                 contentPadding: const EdgeInsets.only(left: 15),
                 suffixIcon: const Icon(
                   Icons.edit,
-                  color: Color(0xff626663),
+                  color: MyPalettes.appGrey,
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: const BorderSide(
-                    color: Color(0xff626663),
+                    color: MyPalettes.appGrey,
                   ),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: const BorderSide(
-                    color: Color(0xff626663),
+                    color: MyPalettes.appGrey,
                   ),
                 ),
                 hintText: "Email",
@@ -170,18 +170,18 @@ class _UbahProfileState extends State<UbahProfile> {
                 contentPadding: const EdgeInsets.only(left: 15),
                 suffixIcon: const Icon(
                   Icons.edit,
-                  color: Color(0xff626663),
+                  color: MyPalettes.appGrey,
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: const BorderSide(
-                    color: Color(0xff626663),
+                    color: MyPalettes.appGrey,
                   ),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: const BorderSide(
-                    color: Color(0xff626663),
+                    color: MyPalettes.appGrey,
                   ),
                 ),
                 hintText: "No. Hp",
@@ -213,18 +213,18 @@ class _UbahProfileState extends State<UbahProfile> {
                 contentPadding: const EdgeInsets.only(left: 15),
                 suffixIcon: const Icon(
                   Icons.edit,
-                  color: Color(0xff626663),
+                  color: MyPalettes.appGrey,
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: const BorderSide(
-                    color: Color(0xff626663),
+                    color: MyPalettes.appGrey,
                   ),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: const BorderSide(
-                    color: Color(0xff626663),
+                    color: MyPalettes.appGrey,
                   ),
                 ),
                 hintText: "Masukkan alamat anda",
@@ -233,7 +233,9 @@ class _UbahProfileState extends State<UbahProfile> {
                 ),
               ),
             ),
-            const SizedBox(height: 30,),
+            const SizedBox(
+              height: 30,
+            ),
             Container(
               width: 350,
               height: 150,
@@ -244,8 +246,7 @@ class _UbahProfileState extends State<UbahProfile> {
                       borderRadius: BorderRadius.circular(8.0),
                     )),
                 onPressed: () {
-                  // Navigator.pushNamed(context, "/pilih_lokasi");
-                  Navigator.pushNamed(context, "/get_location").then((value) {
+                  Navigator.pushNamed(context, Routes.get_location).then((value) {
                     Position userPosition = value as Position;
                     if (userPosition.latitude != 0.0 && userPosition.longitude != 0.0) {
                       setState(() {
@@ -259,60 +260,60 @@ class _UbahProfileState extends State<UbahProfile> {
                 child: Container(),
               ),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.0),
-                image: const DecorationImage(
-                    image: AssetImage('assets/map/Peta_2.png'),
-                    fit: BoxFit.fill),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.black87,
-                    spreadRadius: 0.5,
-                  ),
-                ]),
+                  borderRadius: BorderRadius.circular(8.0),
+                  image: const DecorationImage(
+                      image: AssetImage('assets/map/Peta_2.png'), fit: BoxFit.fill),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black87,
+                      spreadRadius: 0.5,
+                    ),
+                  ]),
             ),
-            (isGetUserLoc) ?
-            const Center(
-              child: Text(
-                "lokasi user berhasil didapat",
-                style: TextStyle(fontSize: 16, color: Colors.green),
-              ),
-            )
-            : Container(),
-            const SizedBox(height: 15,),
+            (isGetUserLoc)
+                ? const Center(
+                    child: Text(
+                      "lokasi user berhasil didapat",
+                      style: TextStyle(fontSize: 16, color: Colors.green),
+                    ),
+                  )
+                : Container(),
+            const SizedBox(
+              height: 15,
+            ),
             Align(
               alignment: Alignment.center,
               child: ElevatedButton(
                 onPressed: () {
-                  if (_nameC.text == userData.name && _phoneC.text == userData.phone && _addressC.text == userData.address && !isGetUserLoc) {
+                  if (_nameC.text == userData.name &&
+                      _phoneC.text == userData.phone &&
+                      _addressC.text == userData.address &&
+                      !isGetUserLoc) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Aksi dibatalkan, tidak ada perubahan')));
+                        const SnackBar(content: Text('Aksi dibatalkan, tidak ada perubahan')));
                   } else {
                     Map<String, dynamic> data = {
-                      "name":_nameC.text,
-                      "phone":_phoneC.text,
-                      "address":_addressC.text,
-                      "latitude":userLatitude,
-                      "longitude":userLongitude,
-                      "update_at":DateTime.now()
+                      "name": _nameC.text,
+                      "phone": _phoneC.text,
+                      "address": _addressC.text,
+                      "latitude": userLatitude,
+                      "longitude": userLongitude,
+                      "update_at": DateTime.now()
                     };
                     // ubahProfile(userData.id, data);
-                    user.updateUser(context: context, uid: userData.id, data: data)
-                    .then((_) => Navigator.of(context).pop());
+                    user
+                        .updateUser(context: context, uid: userData.id, data: data)
+                        .then((_) => Navigator.of(context).pop());
                   }
                 },
-                child: const Text(
-                  "Simpan"
-                ),
+                child: const Text("Simpan"),
                 style: ElevatedButton.styleFrom(
-                  primary: const Color.fromRGBO(47, 72, 88, 1),
+                  primary: MyPalettes.appDark,
                   padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.width * 0.275,
-                    vertical: MediaQuery.of(context).size.height * 0.02,
+                    horizontal: Ratio(context).widthApp * 0.275,
+                    vertical: Ratio(context).heightApp * 0.02,
                   ),
-                  textStyle: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w400
-                  ),
+                  textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
                 ),
               ),
             ),

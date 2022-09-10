@@ -1,9 +1,12 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
+import 'package:project/app/constants/palettes.dart';
 import 'package:project/app/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../../constants/ratio.dart';
 import '../../../providers/product_provider.dart';
+import '../../../routes/route.dart';
 import '../detail_menu/detail_menu_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -61,7 +64,6 @@ class _HomePageState extends State<HomePage> {
                       ).then((_) {
                         setState(() {});
                       });
-                      // Navigator.pushNamed(context, '/detail', arguments: product.id);
                     },
                     child: Card(
                       child: Container(
@@ -119,19 +121,20 @@ class _HomePageState extends State<HomePage> {
             }),
         (userProvider.roleId == "1")
             ? Positioned.fill(
-                left: MediaQuery.of(context).size.width * 0.75,
-                top: MediaQuery.of(context).size.height * 0.5,
-                right: MediaQuery.of(context).size.width * 0.10,
-                bottom: MediaQuery.of(context).size.height * 0.01,
+                left: Ratio(context).widthApp * 0.75,
+                top: Ratio(context).heightApp * 0.5,
+                right: Ratio(context).widthApp * 0.10,
+                bottom: Ratio(context).heightApp * 0.01,
                 child: FloatingActionButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, "/tambah_produk").then((value) => setState(() {}));
+                    Navigator.pushNamed(context, Routes.tambah_produk)
+                        .then((value) => setState(() {}));
                   },
                   child: const Icon(
                     Icons.add,
                   ),
                   mini: true,
-                  backgroundColor: const Color(0xffff8a00),
+                  backgroundColor: MyPalettes.appOrange,
                 ),
               )
             : Container()

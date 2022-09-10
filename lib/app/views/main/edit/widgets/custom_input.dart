@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:project/app/constants/palettes.dart';
+
+import '../../../../constants/ratio.dart';
 
 class CustomInput extends StatelessWidget {
   final String title;
@@ -7,19 +10,19 @@ class CustomInput extends StatelessWidget {
   final String placeholder;
   final List<TextInputFormatter>? inputFormatters;
   final int? maxLines;
-  const CustomInput({
-    Key? key,
-    required this.title,
-    required this.keyboardType,
-    required this.placeholder,
-    this.inputFormatters,
-    this.maxLines
-  }) : super(key: key);
+  const CustomInput(
+      {Key? key,
+      required this.title,
+      required this.keyboardType,
+      required this.placeholder,
+      this.inputFormatters,
+      this.maxLines})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.85,
+      width: Ratio(context).widthApp * 0.85,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,18 +47,18 @@ class CustomInput extends StatelessWidget {
               contentPadding: const EdgeInsets.only(left: 15),
               suffixIcon: const Icon(
                 Icons.edit,
-                color: Color(0xff626663),
+                color: MyPalettes.appGrey,
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.0),
                 borderSide: const BorderSide(
-                  color: Color(0xff626663),
+                  color: MyPalettes.appGrey,
                 ),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.0),
                 borderSide: const BorderSide(
-                  color: Color(0xff626663),
+                  color: MyPalettes.appGrey,
                 ),
               ),
               hintText: placeholder,

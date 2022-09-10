@@ -1,9 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:project/app/constants/palettes.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/auth_provider.dart';
-
 
 // ignore: must_be_immutable
 class LoginSection extends StatefulWidget {
@@ -43,7 +43,7 @@ class _LoginSectionState extends State<LoginSection> {
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthProvider>(context, listen: false);
-    
+
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -64,18 +64,18 @@ class _LoginSectionState extends State<LoginSection> {
                 contentPadding: const EdgeInsets.symmetric(vertical: 0),
                 prefixIcon: const Icon(
                   Icons.email_outlined,
-                  color: Color(0xff626663),
+                  color: MyPalettes.appGrey,
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: const BorderSide(
-                    color: Color(0xff626663),
+                    color: MyPalettes.appGrey,
                   ),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: const BorderSide(
-                    color: Color(0xff626663),
+                    color: MyPalettes.appGrey,
                   ),
                 ),
                 hintText: "Email Address",
@@ -97,7 +97,7 @@ class _LoginSectionState extends State<LoginSection> {
                 contentPadding: const EdgeInsets.symmetric(vertical: 0),
                 prefixIcon: const Icon(
                   Icons.lock_outlined,
-                  color: Color(0xff626663),
+                  color: MyPalettes.appGrey,
                 ),
                 suffixIcon: InkWell(
                   onTap: _eyeToggle,
@@ -108,13 +108,13 @@ class _LoginSectionState extends State<LoginSection> {
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: const BorderSide(
-                    color: Color(0xff626663),
+                    color: MyPalettes.appGrey,
                   ),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: const BorderSide(
-                    color: Color(0xff626663),
+                    color: MyPalettes.appGrey,
                   ),
                 ),
                 hintText: "Masukkan Password",
@@ -147,16 +147,16 @@ class _LoginSectionState extends State<LoginSection> {
                     password: _passC.text,
                   );
                 } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Inputan tidak boleh kosong')));
-                } 
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(const SnackBar(content: Text('Inputan tidak boleh kosong')));
+                }
               },
               child: Ink(
                 width: double.infinity,
                 height: 45,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: const Color(0xff2f4858),
+                  color: MyPalettes.appDark,
                 ),
                 child: const Center(
                   child: Text(
@@ -191,7 +191,7 @@ class _LoginSectionState extends State<LoginSection> {
                 height: 45,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: const Color(0xff1877f2),
+                  color: MyPalettes.appBlue,
                 ),
                 child: const Center(
                   child: Text(
@@ -232,30 +232,25 @@ class _LoginSectionState extends State<LoginSection> {
               ),
               elevation: 6,
               shadowColor: Colors.black,
-              shape:  OutlineInputBorder(
+              shape: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),
-                  borderSide:const BorderSide(color: Colors.white,width: 1)
-              ),
+                  borderSide: const BorderSide(color: Colors.white, width: 1)),
             ),
             const SizedBox(
               height: 40,
             ),
             RichText(
-              text:  TextSpan(
+              text: TextSpan(
                 text: "Belum punya akun? ",
                 style: const TextStyle(
                   fontSize: 12,
                   color: Colors.black,
                 ),
-                children: <TextSpan> [
+                children: <TextSpan>[
                   TextSpan(
-                    text: "Daftar",
-                    style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold
-                    ),
-                    recognizer: TapGestureRecognizer()..onTap = ()=> print("oke")
-                  ),
+                      text: "Daftar",
+                      style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                      recognizer: TapGestureRecognizer()..onTap = () => print("oke")),
                 ],
               ),
             ),
@@ -265,4 +260,3 @@ class _LoginSectionState extends State<LoginSection> {
     );
   }
 }
-

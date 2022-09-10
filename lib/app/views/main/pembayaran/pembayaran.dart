@@ -1,10 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:project/app/constants/collection.dart';
+import 'package:project/app/constants/palettes.dart';
 import 'package:project/app/providers/user_provider.dart';
 import 'package:project/app/views/main/widgets/custom_appbar.dart';
 import 'package:provider/provider.dart';
 
+import '../../../constants/ratio.dart';
 import '../../../models/cart_model.dart';
 import '../../../models/product_model.dart';
 import '../../../providers/cart_provider.dart';
@@ -46,7 +48,7 @@ class _PembayaranState extends State<Pembayaran> {
                   const Color(0x15ff8a00),
                 ),
                 foregroundColor: MaterialStateProperty.all(
-                  const Color(0xffff8a00),
+                  MyPalettes.appOrange,
                 ),
               ),
               child: const Text('Batalkan'),
@@ -60,7 +62,7 @@ class _PembayaranState extends State<Pembayaran> {
                   const Color(0x15ff8a00),
                 ),
                 backgroundColor: MaterialStateProperty.all(
-                  const Color(0xffff8a00),
+                  MyPalettes.appOrange,
                 ),
               ),
               child: const Text('Akhiri'),
@@ -76,14 +78,11 @@ class _PembayaranState extends State<Pembayaran> {
                     .then(
                   (_) async {
                     for (Map<String, dynamic> item in data) {
-                      await FirebaseFirestore.instance.collection("cart").doc(item["id"]).delete();
+                      await MyCollection.cart.doc(item["id"]).delete();
 
                       ProductModel productData =
                           await productProvider.getProductById(item["productId"]);
-                      await FirebaseFirestore.instance
-                          .collection("product")
-                          .doc(item["productId"])
-                          .update({
+                      await MyCollection.product.doc(item["productId"]).update({
                         "qty": productData.qty - item["qty"],
                         "sold": productData.sold + item["qty"],
                       });
@@ -171,7 +170,7 @@ class _PembayaranState extends State<Pembayaran> {
                                         myCurr.format(totalPerItem),
                                         style: const TextStyle(
                                           fontSize: 16,
-                                          color: Color(0xFFFF8A00),
+                                          color: MyPalettes.appOrange,
                                         ),
                                       ),
                                     ],
@@ -185,7 +184,7 @@ class _PembayaranState extends State<Pembayaran> {
                   ),
                   Container(
                     margin: EdgeInsets.symmetric(
-                      vertical: MediaQuery.of(context).size.height * 0.009,
+                      vertical: Ratio(context).heightApp * 0.009,
                     ),
                     width: double.infinity,
                     height: 2,
@@ -204,7 +203,7 @@ class _PembayaranState extends State<Pembayaran> {
                       Text(
                         "Rp. ${myCurr.format(cartProvider.totalHarga)}",
                         style: const TextStyle(
-                          color: Color(0xffff8a00),
+                          color: MyPalettes.appOrange,
                           fontWeight: FontWeight.w400,
                           fontSize: 18,
                         ),
@@ -246,7 +245,7 @@ class _PembayaranState extends State<Pembayaran> {
                     ListTile(
                       title: const Text('COD'),
                       leading: Radio<String>(
-                        activeColor: const Color(0xFFFF8A00),
+                        activeColor: MyPalettes.appOrange,
                         value: "COD",
                         groupValue: cartProvider.paymentMethod,
                         onChanged: (value) {
@@ -257,7 +256,7 @@ class _PembayaranState extends State<Pembayaran> {
                     ListTile(
                       title: const Text('Gopay'),
                       leading: Radio<String>(
-                        activeColor: const Color(0xFFFF8A00),
+                        activeColor: MyPalettes.appOrange,
                         value: "Gopay",
                         groupValue: cartProvider.paymentMethod,
                         onChanged: (value) {
@@ -268,7 +267,7 @@ class _PembayaranState extends State<Pembayaran> {
                     ListTile(
                       title: const Text('Dana'),
                       leading: Radio<String>(
-                        activeColor: const Color(0xFFFF8A00),
+                        activeColor: MyPalettes.appOrange,
                         value: "Dana",
                         groupValue: cartProvider.paymentMethod,
                         onChanged: (value) {

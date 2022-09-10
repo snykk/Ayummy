@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../providers/user_provider.dart';
+import '../routes/route.dart';
 import '../services/auth_services.dart';
 
 class AuthProvider with ChangeNotifier {
@@ -14,47 +15,44 @@ class AuthProvider with ChangeNotifier {
   void register(
       {BuildContext? context, String? name, String? email, String? phone, String? password}) async {
     final _user = Provider.of<UserProvider>(context!, listen: false);
-    AuthService().signUp(context: context, email: email!,password: password!).then(
+    AuthService().signUp(context: context, email: email!, password: password!).then(
       (user) async {
-          _user.addUser(
+        _user.addUser(
           name: name,
           email: email,
           phone: phone,
           password: password,
           img: _defaultImage,
         );
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Akun berhasil didaftarkan')));
-        Navigator.pushReplacementNamed(context, '/auth').then(
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text('Akun berhasil didaftarkan')));
+        Navigator.pushReplacementNamed(context, Routes.auth).then(
           (_) => Navigator.pop(context),
         );
       },
     );
   }
 
-  void login(
-      {BuildContext? context,
-      String? email,
-      String? password}) {
+  void login({BuildContext? context, String? email, String? password}) {
     final _user = Provider.of<UserProvider>(context!, listen: false);
     log("pe");
     AuthService authService = AuthService();
     authService.signIn(context: context, email: email, password: password).then(
       (user) async {
         if (user.runtimeType == bool && user == false) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Email belum diverifikasi')));
+          ScaffoldMessenger.of(context)
+              .showSnackBar(const SnackBar(content: Text('Email belum diverifikasi')));
           return;
         }
         await _user.getUserByEmail(email: email);
         log("okee");
         final pref = await SharedPreferences.getInstance();
         if (pref.getBool("oldUser") == true) {
-          Navigator.pushReplacementNamed(context, '/main').then(
+          Navigator.pushReplacementNamed(context, Routes.main).then(
             (_) => Navigator.pop(context),
           );
         } else {
-          Navigator.pushReplacementNamed(context, '/onboarding').then(
+          Navigator.pushReplacementNamed(context, Routes.onboarding).then(
             (_) => Navigator.pop(context),
           );
         }
@@ -67,7 +65,7 @@ class AuthProvider with ChangeNotifier {
       (value) {
         Navigator.pushNamedAndRemoveUntil(
           context,
-          '/auth',
+          Routes.auth,
           (route) => false,
         ).then(
           (_) => Navigator.pop(context),

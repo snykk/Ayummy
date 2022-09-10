@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:project/app/constants/palettes.dart';
 import 'package:project/app/providers/product_provider.dart';
 import 'package:project/app/providers/user_provider.dart';
 import 'package:provider/provider.dart';
@@ -43,7 +44,7 @@ class _RatingState extends State<Rating> {
                   const Color(0x15ff8a00),
                 ),
                 foregroundColor: MaterialStateProperty.all(
-                  const Color(0xffff8a00),
+                  MyPalettes.appOrange,
                 ),
               ),
               child: const Text('Batalkan'),
@@ -57,7 +58,7 @@ class _RatingState extends State<Rating> {
                   const Color(0x15ff8a00),
                 ),
                 backgroundColor: MaterialStateProperty.all(
-                  const Color(0xffff8a00),
+                  MyPalettes.appOrange,
                 ),
               ),
               child: const Text('Ulas'),
@@ -145,7 +146,7 @@ class _RatingState extends State<Rating> {
             height: 64,
             child: TextButton(
               style: TextButton.styleFrom(
-                  backgroundColor: const Color.fromRGBO(47, 72, 88, 1),
+                  backgroundColor: MyPalettes.appDark,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   )),
